@@ -1,0 +1,36 @@
+.main-image{min-height: 280px;display: flex;align-items: center;}
+.main-image .pimagePath2{margin: 0 auto;}
+#membershipModal{z-index: 99999;}
+.product_availability h4{color: #fff;font-size: 14px;}
+.loginReqBlock{margin-top: 10px;}
+.loginReqBlock a{color: #f5750b;text-decoration: underline;}
+.txt_prcice{font-size: 20px;font-weight: 600;}
+.txt_prcice span{font-size: 20px !important; }
+
+.section_firstsec{padding: 60px 0;}
+.section_firstsec_header{margin-bottom: 20px;}
+.section_firstsec_header h4{color: #27377a;font-size: 34px;font-weight: 700;margin: 0px;}
+.thumble_image{padding-right: 30px;}
+.thumblimg_text{display: inline-block;width: 100%;margin-top: 45px;}
+.thumble_image_details h4{margin:0px;font-weight: 700;color: #27377a;font-size: 20px;margin-bottom: 15px;}
+.thumble_image_details p{line-height: 1.5em;color: #373737;font-size: 17px;}
+.thumble_image_details p a{color: #2ea3f2;text-decoration: none;font-weight: 700;}
+.subscrip_list{padding-left: 20px;}
+.subscrip_list li{margin-bottom: 0px;line-height: 1.5em;color: #373737;font-size: 17px;padding-bottom: 5px;}
+@media(max-width:1199px){
+    .thumble_image{padding-right: 0px;}
+    .section_firstsec_header h4{font-size: 28px;}
+    .section_firstsec_header{padding: 0px 15px;}
+}
+@media(max-width:991px){
+    .thumble_image img{margin: 0 auto 35px;}
+    .thumblimg_text {margin-top: 25px;}
+}
+@media(max-width:480px){
+    .section_firstsec_header h4{font-size: 20px;line-height: 26px;}
+    .thumble_image_details p{font-size: 15px;}
+    .subscrip_list li{font-size: 15px;}
+    .thumble_image_details h4{font-size: 18px;}
+    .section_firstsec_header{margin-bottom: 0px;}
+    .section_firstsec{padding: 40px 0px;}
+}

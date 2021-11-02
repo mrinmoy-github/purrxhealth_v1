@@ -1,0 +1,4 @@
+.ngx-gallery-image-wrapper > div{background-size: contain !important;}
+.couponBtn{
+  background-image: none;
+}

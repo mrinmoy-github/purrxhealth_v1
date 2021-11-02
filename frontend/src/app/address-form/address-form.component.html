@@ -1,0 +1,144 @@
+<form name="billinginfoForm" id="billinginfoForm" #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+
+  <h1 class="page_headers">{{ capitalizeFirstLetter(action) }} {{ capitalizeFirstLetter(type) }} Information </h1>
+
+  <div class="group-message"></div>
+  <div class="accountRegForm pad10 boxShadow" style="margin-top: 15px;">
+    <div class="header">
+      <h3>{{ capitalizeFirstLetter(type) }} Information</h3>
+    </div>
+    <div class="loginField">
+      <label for="billingFirstName">First Name
+        <span class="required">*</span>
+      </label>
+      <input name="billingFirstName" type="text" id="billingFirstName" maxlength="100" size="15" tabindex="4" class="txtBoxStyle"
+        [(ngModel)]="model.first_name" #billingFirstName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingFirstName.invalid }"
+        required>
+      <div *ngIf="billingFirstName.invalid && (billingFirstName.dirty || billingFirstName.touched)" class="alert alert-danger">
+        <div *ngIf="billingFirstName.errors.required">
+          First Name is required.
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="loginField">
+      <label for="billingLastName">Last Name
+        <span class="required">*</span>
+      </label>
+      <input name="billingLastName" type="text" id="billingLastName" maxlength="100" size="15" tabindex="5" class="txtBoxStyle"
+        [(ngModel)]="model.last_name" #billingLastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingLastName.invalid }"
+        required>
+      <div *ngIf="billingLastName.invalid && (billingLastName.dirty || billingLastName.touched)" class="alert alert-danger">
+        <div *ngIf="billingLastName.errors.required">
+          Last Name is required.
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <!-- <div class="loginField" *ngIf="type == 'shipping'"> -->
+    <div class="loginField">
+        <label for="shipping_phone">Phone
+          <span class="required">*</span>
+        </label>
+        <input name="shipping_phone" type="tel" id="shipping_phone" maxlength="10" size="25" tabindex="8" class="txtBoxStyle"
+          [(ngModel)]="model.phone" #phone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }"
+          required>
+        <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
+          <div *ngIf="phone.errors.required">
+            Phone is required.
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+
+    <div class="loginField">
+      <label for="billingAddress1">Address
+        <span class="required">*</span>
+      </label>
+      <input name="billingAddress1" type="text" id="billingAddress1" maxlength="255" size="25" tabindex="9" class="txtBoxStyle"
+        [(ngModel)]="model.address" #billingAddress1="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingAddress1.invalid }"
+        required>
+      <div *ngIf="billingAddress1.invalid && (billingAddress1.dirty || billingAddress1.touched)" class="alert alert-danger">
+        <div *ngIf="billingAddress1.errors.required">
+          Address is required.
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="loginField">
+      <label for="billingCity">City
+        <span class="required">*</span>
+      </label>
+      <input name="billingCity" type="text" id="billingCity" size="25" maxlength="100" tabindex="10" class="txtBoxStyle"
+        [(ngModel)]="model.city" #billingCity="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingCity.invalid }"
+        required>
+      <div *ngIf="billingCity.invalid && (billingCity.dirty || billingCity.touched)" class="alert alert-danger">
+        <div *ngIf="billingCity.errors.required">
+          City is required.
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="loginField">
+      <label for="billingCountry">Country
+        <span class="required">*</span>
+      </label>
+      <select name="billingCountry" [(ngModel)]="model.country" (change)="getStateList(model.country)"
+        #billingCountry="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingCountry.invalid }" required tabindex="11"
+        class="txtBoxStyle">
+        <option value="">Select Country</option>
+        <option *ngFor="let country of countryList" value="{{country.country_iso_code_2}}">{{country.country_name}}</option>
+      </select>
+      <div *ngIf="billingCountry.invalid && (billingCountry.dirty || billingCountry.touched)" class="alert alert-danger">
+        <div *ngIf="billingCountry.errors.required">
+          Country is required.
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="loginField">
+      <label for="billingState">State / Province
+        <span class="required">*</span>
+      </label>
+      <span name="spanState" id="spanState">
+        <select name="billingState" maxlength="100" [(ngModel)]="model.state" #billingState="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingState.invalid }"
+          required tabindex="12" class="txtBoxStyle">
+          <option value="">Select State / Province</option>
+          <option *ngFor="let state of stateList" value="{{state.state_code}}">{{state.state_name}}</option>
+        </select>
+      </span>
+      <div *ngIf="billingState.invalid && (billingState.dirty || billingState.touched)" class="alert alert-danger">
+        <div *ngIf="billingState.errors.required">
+            State / Province is required.
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="loginField">
+      <label for="billingZip">ZIP / Postal Code
+        <span class="required">*</span>
+      </label>
+      <input name="billingZip" type="text" size="10" maxlength="5" tabindex="13" class="txtBoxStyle" [(ngModel)]="model.zip"
+        #billingZip="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingZip.invalid }" required>
+      <div *ngIf="billingZip.invalid && (billingZip.dirty || billingZip.touched)" class="alert alert-danger">
+        <div *ngIf="billingZip.errors.required">
+            ZIP / Postal Code is required.
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <div class="submit-button">
+    <br />
+    <button type="submit" id="submitted" name="submitted" class="btn" [disabled]="!f.form.valid">
+      <i class="icon-ok"></i> {{ action === "add" ? 'Submit' :'Update' }}
+    </button>
+  </div>
+  <div class="clear"></div>
+  <div class="clear"></div>
+  <!--START: CATEGORY_FOOTER-->
+  <div class="category-footer" id="registrationFooter">
+    <br>
+  </div>
+  <!--END: CATEGORY_FOOTER-->
+</form>

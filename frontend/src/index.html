@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>PurRX</title>
+    <base href="/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <META NAME="DESCRIPTION" CONTENT="Lorem Ipsum">
+    <meta name="robots" content="index,follow">
+
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="assets/css/animate.css" type="text/css" media="screen" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css" media="screen" /> -->
+    <link rel="stylesheet" href="assets/css/quicksearch.css" type="text/css" media="screen" />
+    <!-- jQuery MagnificPopup CSS -->
+    <!-- <link rel="stylesheet" href="assets/css/magnific-popup.css" type="text/css" media="screen" /> -->
+    <!-- jQuery OwlCarousel CSS-->
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css" type="text/css" media="screen" />
+    <!-- jquery.mCustomScrollbar.min-->
+    <link rel="stylesheet" href="assets/css/jquery.mCustomScrollbar.min.css" type="text/css" media="screen" />
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="assets/css/default_modified.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="assets/css/responsive.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="assets/css/quick_view.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/magiczoomplus.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link href="node_modules/ng2-toastr/bundles/ng2-toastr.min.css" rel="stylesheet" />
+    <script src="node_modules/ng2-toastr/bundles/ng2-toastr.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="assets/images/fav.png" type="image/png" />      
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/responsive1.css" />
+    <link rel="stylesheet" href="assets/css/common-HbwN1gQC0j9Rz9IS230056339626.css" />
+    <link rel="stylesheet" href="assets/css/custom1.css" />
+    <link rel="stylesheet" href="assets/css/magnific-popup-HbwN1gQC0j9Rz9ISbd74ed5ffe48.css" media="all" onload="this.media='all'" />
+    <link media="all" rel="stylesheet" type="text/css" href="assets/css/screen.css" />
+</head>
+
+<body class="body">
+    <div id="st-container" class="st-container">
+        <!-- content push wrapper -->
+        <div class="st-pusher">
+            <app-root></app-root>
+        </div>
+        <!-- /.st-pusher -->
+    </div>
+    <!-- /#st-container -->
+
+
+</body>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(document).ready(function ($) {
+        var heightHeader = $('header#header').outerHeight();
+        $(window).scroll(function () {
+            var scrollTop = $(this).scrollTop();
+            if (scrollTop > heightHeader) {
+                $('.body').addClass('is-fixed');
+                $('.body.is-fixed #mainContainer').css('margin-top', heightHeader);
+                $('#menu-container').css('margin-top', '0px');
+                //$('#menu-container').removeClass('col-sm-6');
+                //$('#menu-container').addClass('col-sm-12');
+            } else {
+                $('.body').removeClass('is-fixed');
+                $('.body #mainContainer').css('margin-top', '0px');
+                $('#menu-container').css('margin-top', '25px');
+                //$('#menu-container').addClass('col-sm-6');
+                //$('#menu-container').removeClass('col-sm-12');
+            }
+        });
+    });
+
+    $(document).ready(function ($) {
+        if ($('#mainContainer > .container > .row > .breadcrumbs').length > 0) {
+            $('#mainContainer').prepend('<div id="breadcrumbs-wrapper"><div class="container"></div></div>');
+            $('#mainContainer > .container > .row > .breadcrumbs').prependTo('#breadcrumbs-wrapper > .container');
+        }
+    });
+
+    $(document).ready(function ($) {
+        $('.productBlockContainer').children('div:not(".product-container")').remove();
+        $('.productBlockContainer:not("first-child")').children().appendTo('.productBlockContainer:first-child');
+        $('.productBlockContainer').each(function (index, el) {
+            if ($(this).children().length == 0) {
+                $(this).remove();
+            }
+        });
+    });
+</script>
+<script type="text/javascript" src="assets/js/modernizr.min.js"></script>
+<script type="text/javascript" src="assets/js/utilities.js"></script>
+<!-- FontAwesome CDN -->
+<script src="https://use.fontawesome.com/2ee6cc55ec.js"></script>
+<link type="text/css" rel="stylesheet" href="https://fast.fonts.net/cssapi/bc20275a-4eb0-47bf-aa00-78cd1085320c.css" />
+<script type="text/javascript" src="assets/js/jquery.quicksearch.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //$('#searchlight').searchlight('/search_quick.asp');
+    });
+    jQuery(document).ready(function ($) {
+
+        // Product List
+        jQuery(document).on('click','#list-view',function () {
+            jQuery('#productCategoryBlock .module-wrapper .inner-wrapper').addClass('productList');
+            jQuery('.inner-wrapper.productList .productContainer').each(function () {
+                var $this = jQuery(this);
+            });
+
+            jQuery(this).attr('class', 'current-view');
+            jQuery('#grid-view').removeClass('current-view');
+        });
+
+        // Product Grid
+        jQuery(document).on('click','#grid-view',function () {
+            jQuery('#productCategoryBlock .module-wrapper .inner-wrapper').removeClass('productList');
+
+            jQuery(this).attr('class', 'current-view');
+            jQuery('#list-view').removeClass('current-view');
+
+        });
+
+    });
+</script>
+<!--END: quicksearch-->
+<script type="text/javascript" src="assets/js/matchMedia.js"></script>
+<script type="text/javascript" src="assets/js/classie.js"></script>
+<script type="text/javascript" src="assets/js/mobilecheck.js"></script>
+<!-- <script type="text/javascript" src="assets/js/magiczoomplus.js"></script> -->
+<script type="text/javascript" src="assets/js/owl.carousel.min.js"></script>
+<script type="text/javascript" src="assets/js/Behars.js"></script>
+<script type="text/javascript" src="assets/js/HaloMegaMenu.js"></script>
+
+<script>
+    $(document).ready(function () {
+        setInterval(function(){
+            $(document).find('.owl-carousel').each(function(){
+              console.log($(this).parent().attr('id'))
+                if($(this).parent().attr('id') == "homeCarousel"){
+                    if(!$(this).hasClass('owl-loaded')){
+                        $(this).owlCarousel({
+                            nav: true, //Show next/prev buttons.
+                            dots: true, //Show dots navigation.
+                            items: 1, //The number of items you want to see on the screen.
+                            autoplay: false, //Autoplay
+                            autoplayTimeout: 5000, //Autoplay interval timeout.
+                            autoplayHoverPause: true, //Pause on mouse hover.
+                            loop: true, //Infinity loop. Duplicate last and first items to get loop illusion.
+                            responsiveRefreshRate: 0, //Responsive refresh rate.
+                            navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>']
+                        });
+                    }
+                }
+                else if( $(this).parent().parent().attr('id') == "leftBar" && !$(this).hasClass('owl-loaded') ){
+                    $(this).owlCarousel({
+                        items:1,
+                        nav:true,
+                        dots: false,
+                        navigationText: [
+                            '<i class="fa fa-angle-left"></i><span>PREV</span>',
+                            '<span>NEXT</span><i class="fa fa-angle-right"></i>'
+                        ]
+                    });
+                    $(this).find(".owl-prev").html('<i class="fa fa-angle-left"></i><span>PREV</span>');
+                    $(this).find(".owl-next").html('<span>NEXT</span><i class="fa fa-angle-right"></i>');
+
+                }
+                else if($(this).parent().attr('id') == "reviews-slide" && !$(this).hasClass('owl-loaded') ){
+                  $(this).owlCarousel({
+                      nav: false, //Show next/prev buttons.
+                      dots: false, //Show dots navigation.
+                      items: 3, //The number of items you want to see on the screen.
+                      autoplay: true, //Autoplay
+                      autoplayTimeout: 2000, //Autoplay interval timeout.
+                      autoplayHoverPause: true, //Pause on mouse hover.
+                      loop: true, //Infinity loop. Duplicate last and first items to get loop illusion.
+                      responsiveRefreshRate: 0, //Responsive refresh rate.
+                      navText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+                      responsive:{
+                            0:{
+                                items:1
+                            },
+                            600:{
+                                items:2
+                            },
+                            1000:{
+                                items:3
+                            }
+                        }
+                  });
+                }
+                else if(!$(this).hasClass('owl-loaded')){
+                    $(this).owlCarousel();
+                }
+            });
+        }, 1000);
+    });
+    $(document).on('click', '.membershipModalLink', function (e) {
+        e.preventDefault();
+        var _this = $(this);
+        var proName = _this.attr('data-proName');
+        var proId = _this.attr('data-proId');
+        var proDesc = _this.attr('data-proDesc');
+        var proprice = _this.attr('data-proprice');
+        var proImgName = _this.attr('data-proImgName');
+        var baseUrl = _this.attr('data-baseUrl');
+        var redirectUrl = _this.attr('data-url');
+
+
+        $('#membershipPackageTitle').html(proName);
+        $('#membershipPackageDesc').html(proDesc);
+        $('#membershipPackagePrice').html('$' + proprice);
+
+        $('.pimagePath').attr('href', baseUrl + 'backend/images/membershipPackage/' + proImgName);
+        $('.pimagePath2').attr('src', baseUrl + 'backend/images/membershipPackage/' + proImgName);
+        $('#membershipPackageBuyBtn').attr('href', redirectUrl);
+
+    });
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script>
+         $('.mob_icon').click(function(){
+            $('.top_nav_mo_section').slideToggle();
+         })
+      </script>
+
+      <script type="text/javascript">
+          $(window).scroll(function(){
+  var sticky = $('header'),
+      scroll = $(window).scrollTop();
+
+  if (scroll >= 100) sticky.addClass('fixed');
+  else sticky.removeClass('fixed');
+});
+      </script>
+
+      
+        <script type="text/javascript" src="assets/js/slick.min.js"></script>
+        <script>
+            $('.mobile-slider').slick({
+                arrows: false,
+                dots:true
+            });
+            $('#box-1')
+            $("#oui-form-field-id-4").click(function(){
+                $('#box-3').hide();
+                $('#box-1').css('border-color', '#ececec')
+                console.log($(this).parent().parent().parent());
+                $(this).parent().parent().parent().css('border-color','black')
+            });
+
+            $('#oui-form-field-id-2').click(function(){
+                 $('#box-3').show();
+                 $('#box-2').css('border-color', '#ececec')
+                 $(this).parent().parent().parent().css('border-color','black')
+            });
+            $('#add_to_bag').click(function(){
+                $('#cartShow').css('display', 'block')
+            });
+           
+            $('.close_btn').click(function(){
+                $('#cartShow').css('display', 'none')
+            });
+
+            var modal = document.getElementById("myModal");
+
+          
+            var btn = document.getElementById("add_to_fav");
+
+           
+            var span = document.getElementsByClassName("close_n")[0];
+
+           
+            // btn.onclick = function() {
+            // modal.style.display = "block";
+            // }
+
+           
+            span.onclick = function() {
+            // modal.style.display = "none";
+            }
+
+           
+            window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+            }
+        </script>
+        <script>
+             var img1 = $('#id_1').parent().prev().children();
+             var img2 = $('#id_2').parent().prev().children();
+             var img3 = $('#id_3').parent().prev().children();
+             var img3 = $('#id_4').parent().prev().children();
+
+             $('#id_1').click(function(){
+                
+                console.log($(this).parent().prev().children());
+                $(this).parent().prev().children().css('transform', 'translateX(0)');
+                $('#first_img').removeClass('bUeiUV').addClass('bUeiUU');
+                $('#chngeWhatItIs').html('A flower whose name translates from ancient Greek as Earth Apple, for the pleasant aroma of its flowers.')
+                $('#changeWhatItDoes').html('Widely used, the chamomile flower has long been sought for its calming properties. ')
+
+            });
+
+            $('#id_2').click(function(){
+                console.log($(this).parent().prev().children());
+                $(this).parent().prev().children().css('transform', 'translateX(-100%)');
+                $('#second_img').removeClass('fGpGSu').addClass('fGpGSv');
+                $('#chngeWhatItIs').html('A medicinal herb since at least the time of ancient Greece and Rome, Valerian root is a perennial flowering plant native to Europe and parts of Asia.');
+
+                $('#changeWhatItDoes').html('Promotes tranquility and sleep.')
+
+            });
+
+            $('#id_3').click(function(){
+                console.log($(this).parent().prev().children());
+                $(this).parent().prev().children().css('transform', 'translateX(-200%)');
+                $('#third_img').removeClass('fmKWmv').addClass('fmKWmu');
+                $('#chngeWhatItIs').html('A perennial herb in the mint family, native to southern Europe and the Mediterranean regions.');
+                $('#changeWhatItDoes').html('Studies have shown lemon balm to be helpful to the body in maintaining a positive mood and occasional mental stress.');
+            });
+             $('#id_4').click(function(){
+                console.log($(this).parent().prev().children());
+                $(this).parent().prev().children().css('transform', 'translateX(-300%)');
+                $('#fourth_img').removeClass('WBhhM').addClass('WBhhN');
+                $('#chngeWhatItIs').html('A seed from the Jujube tree, originating from China, but now cultivated throughout the world.')
+                 $('#changeWhatItDoes').html('Widely used for occasional restlessness.')
+            });
+
+
+             // For mobile 
+             let sliderNo = 1;
+             let flowerName = ['Chamomile Flower','Valerian Root','Lemon Balm','Jujube Seed'];
+             let flowerWhatItIs = [
+                'A flower whose name translates from ancient Greek as Earth Apple, for the pleasant aroma of its flowers.',
+                'A medicinal herb since at least the time of ancient Greece and Rome, Valerian root is a perennial flowering plant native to Europe and parts of Asia.',
+                'A perennial herb in the mint family, native to southern Europe and the Mediterranean regions.',
+                'A seed from the Jujube tree, originating from China, but now cultivated throughout the world.'
+             ];
+
+             let flowerWhatItDoes = [
+                'Widely used, the chamomile flower has long been sought for its calming properties. ',
+                'Promotes tranquility and sleep.',
+                'Studies have shown lemon balm to be helpful to the body in maintaining a positive mood and occasional mental stress.',
+                'Widely used for occasional restlessness.'
+             ];
+
+             $("#nxt_btn").click(function(){
+                setTimeout(()=>{$("#chngeWhatItIs").text(flowerWhatItIs[sliderNo - 1])},300);
+                setTimeout(()=>{$("#changeWhatItDoes").text(flowerWhatItDoes[sliderNo - 1])},300);
+                setTimeout(()=>{$("#flower_").text(flowerName[sliderNo - 1])},300);
+                if(sliderNo >= 1){
+                    $("#prev_btn").css("opacity","1");
+                }
+
+                if(sliderNo === 1){
+                    $(".dMqMPP").css('transform', 'translateX(-100%)');
+                    $('#first_img').removeClass('bUeiUV').addClass('bUeiUU');
+                    $('#chngeWhatItIs').html('A flower whose name translates from ancient Greek as Earth Apple, for the pleasant aroma of its flowers.')
+                    $('#changeWhatItDoes').html('Widely used, the chamomile flower has long been sought for its calming properties. ')
+                }
+                if(sliderNo === 2){
+                     $(".dMqMPP").css('transform', 'translateX(-200%)');
+                    $('#second_img').removeClass('fGpGSu').addClass('fGpGSv');
+                    $('#chngeWhatItIs').html('A medicinal herb since at least the time of ancient Greece and Rome, Valerian root is a perennial flowering plant native to Europe and parts of Asia.');
+
+                    $('#changeWhatItDoes').html('Promotes tranquility and sleep.')
+                }
+
+                if(sliderNo === 3){
+                    $(".dMqMPP").css('transform', 'translateX(-300%)');
+                    $('#third_img').removeClass('fmKWmv').addClass('fmKWmu');
+                    $('#chngeWhatItIs').html('A perennial herb in the mint family, native to southern Europe and the Mediterranean regions.');
+                    $('#changeWhatItDoes').html('Studies have shown lemon balm to be helpful to the body in maintaining a positive mood and occasional mental stress.');
+                }
+
+                if((sliderNo  + 1)=== 4){
+                    $(this).css("opacity","0.2");
+                    $(".dMqMPP").css('transform', 'translateX(-300%)');
+
+                    $('#fourth_img').removeClass('WBhhM').addClass('WBhhN');
+                    $('#chngeWhatItIs').html('A seed from the Jujube tree, originating from China, but now cultivated throughout the world.')
+                     $('#changeWhatItDoes').html('Widely used for occasional restlessness.')
+                }
+                if(sliderNo < 4){
+                    sliderNo +=1// Increasing the count by one
+                }
+
+             })
+
+
+              $("#prev_btn").click(function(){
+                if(sliderNo !== 1)
+                {
+                    setTimeout(()=>{$("#flower_").text(flowerName[sliderNo - 1])},300);
+                }
+                if(sliderNo === 4){
+                    $("#nxt_btn").css("opacity","1");
+                     $(".dMqMPP").css('transform', 'translateX(-200%)');
+                    $('#third_img').removeClass('fmKWmv').addClass('fmKWmu');
+                    $('#chngeWhatItIs').html('A perennial herb in the mint family, native to southern Europe and the Mediterranean regions.');
+                    $('#changeWhatItDoes').html('Studies have shown lemon balm to be helpful to the body in maintaining a positive mood and occasional mental stress.');
+                }
+
+                if(sliderNo === 3){
+                    $(".dMqMPP").css('transform', 'translateX(-100%)');
+                    $('#second_img').removeClass('fGpGSu').addClass('fGpGSv');
+                    $('#chngeWhatItIs').html('A medicinal herb since at least the time of ancient Greece and Rome, Valerian root is a perennial flowering plant native to Europe and parts of Asia.');
+
+                    $('#changeWhatItDoes').html('Promotes tranquility and sleep.')
+                }
+
+                if(sliderNo === 2){
+                    $(".dMqMPP").css('transform', 'translateX(-0%)');
+                    $('#first_img').removeClass('bUeiUV').addClass('bUeiUU');
+                    $('#chngeWhatItIs').html('A flower whose name translates from ancient Greek as Earth Apple, for the pleasant aroma of its flowers.')
+                    $('#changeWhatItDoes').html('Widely used, the chamomile flower has long been sought for its calming properties. ')
+                }
+
+                if((sliderNo -1 === 1)){
+                    $(this).css("opacity","0.2");
+                }
+                if(sliderNo > 1){
+                    sliderNo -= 1// Decreasing the count by one
+                }
+
+             })
+
+            $('#primary-nav-toggle').click(function(){
+                $('#mob_nav').css('display', 'block');
+                $('.mob_nav').css('display','block');
+            });
+            $('.mfp-close').click(function(){
+                 $('#mob_nav').css('display', 'none')
+                 $('.mob_nav').css('display','none');
+            });
+            $('.has-secondary').click(function(){
+                $(this).toggleClass('toggled-on');
+            });
+
+            $('.site-footer-expand-trigger').click(function(){
+                $(this).next().toggleClass('is-expanded');
+                 $(this).toggleClass('is-expanded');
+            })     
+
+        </script>
+       
+        <script>
+            // Picture element HTML5 shiv
+            document.createElement("picture");
+        </script>
+        <script type="text/javascript" src="assets/js/picturefill.min-HbwN1gQC0j9Rz9IS223945b53510.js" async=""></script>
+
+</html>

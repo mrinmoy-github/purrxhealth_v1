@@ -1,0 +1,93 @@
+div.searchlight-balloon {
+   z-index: 999;
+   top: 100% !important;
+   right: 0;
+   left: auto !important;
+   width: 100%;
+   min-width: 300px;
+   opacity: 1.00;
+
+   box-shadow: 0 1px 10px rgba(0, 0, 0, .1);
+border: 1px solid #d0d0d0;
+max-height: 389px;
+background: #fff;
+   margin-top: 1px;
+   border-radius: 3px;
+}
+
+table.searchlight-results {
+   width: 100%;
+   border-collapse: collapse;
+
+}
+
+div.searchlight-results-wrapper {
+   color: #000;
+}
+
+table.searchlight-results td {
+   display: block;
+   overflow: hidden;
+   padding: 15px;
+   text-shadow: none;
+}
+
+table.searchlight-results td {
+   width: 100%;
+}
+
+table.searchlight-results tr {
+   display: block;
+   cursor: pointer;
+   text-align: left;
+}
+
+table.searchlight-results tr + tr {
+   border-top: 1px solid #eaeaea;
+}
+table.searchlight-results tr.searchlight-not-selected ~ tr.quick-search-empty {
+   display: none;
+}
+table.searchlight-results tr.quick-search-empty .alert {
+   margin-bottom: 0;
+}
+
+table.searchlight-results tr.searchlight-selected {
+   background: #f5f5f5;
+   text-shadow: none;
+}
+
+table.searchlight-results .searchlight-result-icon {
+   float: left;
+   max-width: 70px;
+   margin-right: 10px;
+   vertical-align: text-top;
+   border: 1px solid #ddd;
+   border-radius: 4px;
+}
+
+table.searchlight-results tr.searchlight-spacer-row {
+   display: none;
+}
+
+table.searchlight-results .search-price {
+   font-weight: 700;
+   color: #000;
+}
+table.searchlight-results .star-rating {
+   text-align: left;
+}
+table.searchlight-results .star-rating .star0 {
+   margin-top: 2px;
+   margin-bottom: 2px;
+   display: inline-block;
+}
+table.searchlight-results .star-rating i {
+    margin-right: 2px;
+}
+
+@media (max-width: 767px){
+   div.searchlight-balloon {
+      width: 100%;
+   }
+}

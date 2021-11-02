@@ -1,0 +1,220 @@
+<div id="mainContainer" style="margin-top: 0px;">
+  <div class="container">
+    <div class="row">
+      <section id="registration0">
+        <form name="registrationform" id="registrationform" #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+          <input type="hidden" [(ngModel)]="model.AFID"  name="AFID" value="{{AFID}}">
+          <input type="hidden" [(ngModel)]="model.SID" name="SID" value="{{SID}}">
+          <input type="hidden" [(ngModel)]="model.AFFID" name="AFFID" value="{{AFFID}}">
+          <input type="hidden" [(ngModel)]="model.C1" name="C1" value="{{C1}}">
+          <input type="hidden" [(ngModel)]="model.C2" name="C2" value="{{C2}}">
+          <input type="hidden" [(ngModel)]="model.C3" name="C3" value="{{C3}}">
+          <input type="hidden" [(ngModel)]="model.AID" name="AID" value="{{AID}}">
+          <input type="hidden" [(ngModel)]="model.OPT" name="OPT" value="{{OPT}}">
+          <input type="hidden" [(ngModel)]="model.click_id" name="click_id" value="{{click_id}}">
+
+
+          <h1 class="page_headers">Create an Account</h1>
+          <!--START: CATEGORY_HEADER-->
+          <div class="category-header" id="registrationHeader">
+            <img src="assets/images/category-banner-joinus.jpg" alt="" border="0px">
+            <br>
+          </div>
+          <!--END: CATEGORY_HEADER-->
+          <div class="group-message"></div>
+          <div class="accountRegForm pad10 boxShadow">
+            <div class="header">
+              <h3>New Member</h3>
+              <div class="alert alert-success" *ngIf="success_msg != ''">{{success_msg}}</div>
+              <div class="alert alert-danger" *ngIf="error_msg != ''">{{error_msg}}</div>
+            </div>
+            <div class="loginField">
+              <label for="email">Email
+                <span class="required">*</span>:</label>
+              <input type="email" size="25" name="email" id="email" maxlength="100" tabindex="1" class="txtBoxStyle" [(ngModel)]="model.email"
+                #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email>
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                <div *ngIf="email.errors.required">
+                  Email is required.
+                </div>
+                <div *ngIf="email.errors.email">
+                  Email Address is invalid.
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="loginField">
+              <label for="pass">Password
+                <span class="required">*</span>:</label>
+              <input type="password" size="12" name="pass" maxlength="16" tabindex="2" class="txtBoxStyle" aria-autocomplete="list" [(ngModel)]="model.password"
+                #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required>
+              <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                <div *ngIf="password.errors.required">
+                  Password is required.
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+          </div>
+          <div class="accountRegForm pad10 boxShadow" style="margin-top: 15px;">
+            <div class="header">
+              <h3>Customer Information</h3>
+            </div>
+            <div class="loginField">
+              <label for="shipping_firstname">First Name
+                <span class="required">*</span>
+              </label>
+              <input name="shipping_firstname" type="text" id="shipping_firstname" maxlength="100" size="15" tabindex="4" class="txtBoxStyle"
+                [(ngModel)]="model.firstName" #firstName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }"
+                required>
+              <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger">
+                <div *ngIf="firstName.errors.required">
+                  First Name is required.
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="loginField">
+              <label for="shipping_lastname">Last Name
+                <span class="required">*</span>
+              </label>
+              <input name="shipping_lastname" type="text" id="shipping_lastname" maxlength="100" size="15" tabindex="5" class="txtBoxStyle"
+                [(ngModel)]="model.lastName" #lastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }"
+                required>
+              <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger">
+                <div *ngIf="lastName.errors.required">
+                  Last Name is required.
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="loginField">
+              <label for="">Company</label>
+              <input name="shipping_company" type="text" id="shipping_company" maxlength="255" size="25" tabindex="6" class="txtBoxStyle"
+                [(ngModel)]="model.company" #company="ngModel">
+              <div class="clear"></div>
+            </div>
+            <div class="loginField">
+              <label for="tax_id">Tax ID</label>
+              <input name="tax_id" type="text" id="tax_id" maxlength="20" size="25" tabindex="7" class="txtBoxStyle" [(ngModel)]="model.taxId"
+                #taxId="ngModel">
+              <div class="clear"></div>
+            </div>
+            <div class="loginField">
+              <label for="shipping_phone">Phone
+                <span class="required">*</span>
+              </label>
+              <input name="shipping_phone" type="tel" id="shipping_phone" maxlength="10" size="25" tabindex="8" class="txtBoxStyle" [(ngModel)]="model.phone"
+                #phone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }" required>
+              <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
+                <div *ngIf="phone.errors.required">
+                  Phone is required.
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="loginField">
+              <label for="shipping_address">Address
+                <span class="required">*</span>
+              </label>
+              <input name="shipping_address" type="text" id="shipping_address" maxlength="255" size="25" tabindex="9" class="txtBoxStyle"
+                [(ngModel)]="model.address" #address="ngModel" [ngClass]="{ 'is-invalid': f.submitted && address.invalid }"
+                required>
+              <div *ngIf="address.invalid && (address.dirty || address.touched)" class="alert alert-danger">
+                <div *ngIf="address.errors.required">
+                  Address is required.
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="loginField">
+              <label for="shipping_address2">Suite / Apt #</label>
+              <input name="shipping_address2" type="text" id="shipping_address2" maxlength="50" size="25" tabindex="9" class="txtBoxStyle"
+                [(ngModel)]="model.address2" #suit="ngModel">
+              <div class="clear"></div>
+            </div>
+            <div class="loginField">
+              <label for="shipping_city">City
+                <span class="required">*</span>
+              </label>
+              <input name="shipping_city" type="text" id="shipping_city" size="25" maxlength="100" tabindex="10" class="txtBoxStyle" [(ngModel)]="model.city"
+                #city="ngModel" [ngClass]="{ 'is-invalid': f.submitted && city.invalid }" required>
+              <div *ngIf="city.invalid && (city.dirty || city.touched)" class="alert alert-danger">
+                <div *ngIf="city.errors.required">
+                  City is required.
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="loginField">
+              <label for="shipping_country">Country
+                <span class="required">*</span>
+              </label>
+              <select name="shipping_country" [(ngModel)]="model.country" (change)="getStateList(model.country)" #country="ngModel" [ngClass]="{ 'is-invalid': f.submitted && country.invalid }"
+                required tabindex="11" class="txtBoxStyle">
+                <option value="">Select Country</option>
+                <option *ngFor="let country of countryList" value="{{country.country_iso_code_2}}">{{country.country_name}}</option>
+              </select>
+              <div *ngIf="country.invalid && (country.dirty || country.touched)" class="alert alert-danger">
+                <div *ngIf="country.errors.required">
+                  Country is required.
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="loginField">
+              <label for="shipping_state">Province
+                <span class="required">*</span>
+              </label>
+              <span name="spanState" id="spanState">
+                <select name="shipping_state" maxlength="100" [(ngModel)]="model.state" #state="ngModel" [ngClass]="{ 'is-invalid': f.submitted && state.invalid }"
+                  required tabindex="12" class="txtBoxStyle">
+                  <option value="">Select State</option>
+                  <option *ngFor="let state of stateList" value="{{state.state_code}}">{{state.state_name}}</option>
+                </select>
+              </span>
+              <div *ngIf="state.invalid && (state.dirty || state.touched)" class="alert alert-danger">
+                <div *ngIf="state.errors.required">
+                  State is required.
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="loginField">
+              <label for="shipping_zip">Postal Code
+                <span class="required">*</span>
+              </label>
+              <input name="shipping_zip" type="text" size="10" maxlength="20" tabindex="13" class="txtBoxStyle" [(ngModel)]="model.zip"
+                #zip="ngModel" [ngClass]="{ 'is-invalid': f.submitted && zip.invalid }" required>
+              <div *ngIf="zip.invalid && (zip.dirty || zip.touched)" class="alert alert-danger">
+                <div *ngIf="zip.errors.required">
+                  Postal Code is required.
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+            <div class="loginField">
+              <label for="comments">Comments</label>
+              <textarea name="comments" tabindex="14" [(ngModel)]="model.comments" #zip="ngModel"></textarea>
+              <div class="clear"></div>
+            </div>
+          </div>
+          <div class="submit-button">
+            <button type="submit" id="submitted" name="submitted" class="btn" [disabled]="!f.form.valid">
+              <i class="icon-ok"></i> Register
+            </button>
+          </div>
+          <div class="clear"></div>
+          <div class="clear"></div>
+          <!--START: CATEGORY_FOOTER-->
+          <div class="category-footer" id="registrationFooter">
+            <br>
+          </div>
+          <!--END: CATEGORY_FOOTER-->
+        </form>
+      </section>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>

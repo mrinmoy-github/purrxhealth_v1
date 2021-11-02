@@ -1,0 +1,255 @@
+<footer id="footer-wrapper">
+    <section id="footer-custom-block">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="custom-block-item">
+                        <img src="assets/images/online-catalogue-icon.png" alt="Membership has its Priviliges">
+                        <div class="item-desc">
+                            <h3>Membership has its Priviliges</h3>
+                            <p>{{ sitename }} is the ultimate source for the highest quality products. Sign up as a member today and receive exclusive discounts, access to monthly specials and be the first to know about our new product launches.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 hide">
+                    <div class="custom-block-item">
+                        <img src="assets/images/blog-athletes-icon.png" alt="Only the best in a {{ sitename }}">
+                        <div class="item-desc">
+                            <h3>Only the best in a {{ sitename }}</h3>
+                            <p>We will fill your box with the latest strains and finest extracts. Every item we put in your
+                                box has been tested for quality by our team.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="custom-block-item">
+                        <img src="assets/images/guides-training-icon.png" alt="Private and Discreet">
+                        <div class="item-desc">
+                            <h3>Discreet and Private</h3>
+                            <p>Medicine is a private issue and we take measures to protect your information. {{ sitename }} orders are sent
+                                in a plain box or envelope with only the shipping label displayed.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--section id="main-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <h3>Popular Items</h3>
+                    <div class="col-1">
+                        <h4>High Quality</h4>
+                        <ul>
+                            <li *ngFor="let childCat of hotCatgories">
+                                    <a routerLink="/categoryProducts/{{childCat.id}}">{{ childCat.name }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-2">
+                        <h4>Other Websites</h4>
+                        <ul>
+                            <li>
+                                <a href="http://www.mushbox.co">Mushroom Kits</a>
+                            </li>
+                            <li>
+                                <a href="http://www.spores101.co">Spore Syringes</a>
+                            </li>
+                            <li>
+                                <a href="http://www.innersight.ca">Websites & Graphics</a>
+                            </li>
+                            <li>
+                                <a href="http://www.afterhaze.com">The Afterhaze</a>
+                            </li>
+                            <li>
+                                <a href="http://www.thrivex.ca">Thrive Extracts</a>
+                            </li>
+                            <li>
+                                <a href="http://www.cbd-canada.ca">CBD Canada</a>
+                            </li>
+                        </ul>
+                        <h4>Cannabis Strains</h4>
+                        <ul>
+                            <li>
+                                <a href="/indica.html">Indica Strains</a>
+                            </li>
+                            <li>
+                                <a href="/sativa.html">Sativa Strains</a>
+                            </li>
+                            <li>
+                                <a href="/hybrids.html">Hybrid Strains</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="col-top-1">
+                        <h3>Customer Service</h3>
+                        <ul>
+                            <li>
+                                <a [routerLink]="['/cms/how_it_works']" (click)="callBackendService('how_it_works')">How {{ sitename }} works?</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/cms/common_questions']">Common questions</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/contactus']">Contact support</a>
+                            </li>
+                            <li *ngIf="!authenticated">
+                                <a [routerLink]="['/signup']">Create account</a>
+                            </li>
+                            <li *ngIf="!authenticated">
+                                <a  [routerLink]="['/login']">Member Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-top-2">
+                        <h3>Dispensary Info</h3>
+                        <ul>
+                            <li>
+                                <a [routerLink]="['/cms/common_questions']" fragment="adults" (click)="callBackendService('common_questions','adults')">Adults only 19+</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/cms/common_questions']" fragment="terms" (click)="callBackendService('common_questions','terms')">Terms of use</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/cms/common_questions']" fragment="privacy" (click)="callBackendService('common_questions','privacy')">Privacy policy</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/cms/common_questions']" fragment="shipping" (click)="callBackendService('common_questions','shipping')">Shipping info</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="['/cms/common_questions']" fragment="payment" (click)="callBackendService('common_questions','payment')">Payment & refunds</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="divider-line"></div>
+                    <div class="col-bottom-1">
+                        <h3>Find Us Online</h3>
+                        <ul *ngIf="siteSettingsData">
+                            <li>
+                                <a href="{{siteSettingsData.fb_url}}" target="_blank">{{ sitename }} on Facebook</a>
+                            </li>
+                            <li>
+                                <a href="{{siteSettingsData.twitter_url}}" target="_blank">{{ sitename }} Twitter</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-bottom-2">
+                        <h3>Mail Order Info</h3>
+                        <div class="store-address" *ngIf="siteSettingsData" [innerHTML]="siteSettingsData.corp_address">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div id="footer-testimonials">
+                        <h3>Happy Customers</h3>
+                        <div class="owl-carousel">
+                            <div class="testimonials-item">
+                                <div class="item-quote">
+                                    <p>Amazing quality I am very impressed with the variety of cannabis I received in my box.
+                                        I am a member for life...</p>
+                                    <span class="triangle"></span>
+                                </div>
+                                <h4 class="item-customer">Jay/Cowichan Valley</h4>
+                                <div class="item-quote">
+                                    <p>Super fast shipping and the box was very private. Now I don't have to be sketched out
+                                        when I am getting my medicine...</p>
+                                    <span class="triangle"></span>
+                                </div>
+                                <h4 class="item-customer">Sara/Calgary</h4>
+                            </div>
+                            <div class="testimonials-item">
+                                <div class="item-quote">
+                                    <p>You can fill my box up anytime. I was one of the first BudBox members and I will probably
+                                        be the last. I have no reason to go anywhere else...</p>
+                                    <span class="triangle"></span>
+                                </div>
+                                <h4 class="item-customer">Mike/Vancouver</h4>
+                                <div class="item-quote">
+                                    <p>Privacy and discretion is important to me and my packages come fast without any heat.
+                                        BudBox is the real deal with the best weed I have ever seen...</p>
+                                    <span class="triangle"></span>
+                                </div>
+                                <h4 class="item-customer">Josh/Toronto</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section-->
+    <div id="bottom-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="copyright">
+                        <h5>FOOD AND DRUG ADMINISTRATION (FDA) DISCLOSURE</h5>
+                        <p>This product is not for use by or sale to persons under the age of 18. This product should be used only as directed on the label. It should not be used if you are pregnant or nursing. Consult with a physician before use if you have a serious medical condition or use prescription medications. A Doctor's advice should be sought before using this and any supplemental dietary product. All trademarks and copyrights are property of their respective owners and are not affiliated with nor do they endorse this product. These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure or prevent any disease. By using this site you agree to follow the Privacy Policy and all Terms & Conditions printed on this site. Void Where Prohibited By Law.</p>
+                        &copy; Copyright {{current_year}} {{ sitename }}. All Rights Reserved.
+                    </div>
+                </div>
+                <div class="col-sm-6 text-right cards-container">
+                  <div class="row">
+                    <div class="col-md-8"> </div>
+                    <div class="col-md-4">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class=ftr-img>
+                            <div class="ftr-img1"><img src="/assets/images/100_percent_organic.png"></div>
+                            <div class="ftr-img2"><img src="/assets/images/img-logo-ssl-secure.png"></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">&nbsp;</div>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <div class="card-holder"><img src="/assets/images/new-credit-cards.png"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="footer-btn">
+                    <a [routerLink]="['faq']">FAQ</a>|
+                    <a [routerLink]="" (click)="openModal(termsAndConditions)">Terms and Conditions</a>|
+                    <a [routerLink]="" (click)="openModal(privacyPolicy)">Privacy Policy</a>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div id="bottom-page-information" class="hide">
+        <div class="container text-center">
+            <p class="text-bold">Customer Service available Mon - Fri 10am - 4:20pm PST</p>
+            <p>Contact us: live@budbox.ca or Give us a call: (833) BUD-BOX6 (283-2696)</p>
+            <button class="btn-close">
+                <i class="fa fa-close"></i>
+            </button>
+        </div>
+    </div>
+</footer>
+
+<ng-template #termsAndConditions>
+    <div class="btn-holder">
+        <button type="button" class="custom-btn" (click)="modalRef.hide()"> <i class="fa fa-times"></i></button>
+    </div>
+    <div class="modal-body modal-body-custom">
+        <app-terms-and-conditions></app-terms-and-conditions>
+    </div>
+</ng-template>
+
+<ng-template #privacyPolicy>
+    <div class="btn-holder">
+        <button type="button" class="custom-btn" (click)="modalRef.hide()"> <i class="fa fa-times"></i></button>
+    </div>
+    <div class="modal-body modal-body-custom">
+        <app-privacy-policy></app-privacy-policy>>
+    </div>
+</ng-template>
+
+<app-scroll-top></app-scroll-top>

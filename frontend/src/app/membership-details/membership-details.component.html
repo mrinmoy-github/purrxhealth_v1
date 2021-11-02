@@ -1,0 +1,165 @@
+
+<div id="mainContainer" style="margin-top: 0px;" *ngIf="membership_details">
+  <div id="breadcrumbs-wrapper">
+    <div class="container">
+      <div class="breadcrumbs">
+        <a id="catCrumbHomeLink" [routerLink]="['']">Home</a>&nbsp;&gt;&nbsp;
+        <a id="catCrumbHomeLink" [routerLink]="['/membership']">Membership</a>&nbsp;&gt;&nbsp; {{membership_details.product_name}}
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <!--START: LEFT BAR-->
+      <!--END: LEFT BAR-->
+      <!--START: FRAME_MID-->
+      <!--START: CATEGORY_FULLINE-->
+      <!--END: CATEGORY_FULLINE-->
+      <div id="mainContent" class="col-sm-12">
+        <section id="product-details" class="page-layout">
+          <!--START: CATEGORY_HEADER-->
+          <!--END: CATEGORY_HEADER-->
+          <div class="primary col-sm-6">
+            <div id="mediaContainer">
+              <div id="mediaBlock">
+                <!--START: image1-->
+                <div class="main-image">
+                    <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+                  <!-- <a id="Zoomer" href="javascript:void(0);" class="MagicZoomPlus" rel="selectors-effect-speed: 600;" title="{{membership_details.product_name}}">
+                    <img src="{{baseurl}}/backend/images/membershipPackage/{{membership_details.get_media[0].image}}" />
+                  </a> -->
+                </div>
+                <!--END: image1-->
+                <!-- <div class="addl-images">
+                  <div class="prod-thumbnails">
+                    <div class="owl-carousel">
+                      <a href="{{baseurl}}/backend/images/membershipPackage/{{membership_details.get_media[0].image}}" rel="zoom-id: Zoomer" rev="{{baseurl}}/backend/images/membershipPackage/{{membership_details.get_media[0].image}}">
+                        <img src="{{baseurl}}/backend/images/membershipPackage/{{membership_details.get_media[0].image}}" />
+                      </a>
+                      <a href="{{baseurl}}/backend/images/membershipPackage/{{membership_details.get_media[0].image}}" rel="zoom-id: Zoomer" rev="{{baseurl}}/backend/images/membershipPackage/{{membership_details.get_media[0].image}}">
+                        <img src="{{baseurl}}/backend/images/membershipPackage/{{membership_details.get_media[0].image}}" />
+                      </a>
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="secondary col-sm-6">
+            <h1 class="page_headers">{{membership_details.product_name}}</h1>
+            <div class="product-short-desc">
+              <p>&nbsp;</p>
+            </div>
+            <!--START: pricing-->
+            <div class="pricingBlock">
+              <h3 class="hidden">Price</h3>
+              <!--START: ITEMPRICE-->
+              <div class="yourprice price">
+                <label>Your Price:</label>
+                <span id="price">${{membership_details.product_price}}</span>
+              </div>
+            </div>
+            <!--END: pricing-->
+            <div class="availabilityInfo">
+              <!--START: product_availability-->
+              <div class="product_availability" [ngClass]="{'no': (_isInStock == 0) }">
+                <h4 class="hidden">Availability:</h4>
+                <div id="availability" *ngIf="_isInStock == 1">In Stock!</div>
+                <div id="availability" class="no-availability" *ngIf="_isInStock == 0">Out of Stock!</div>
+              </div>
+              <!--END: product_availability-->
+            </div>
+            <!--START: id-->
+            <!--END: id-->
+            <!--START: LOGIN_REQUIRED-->
+            <!-- <div class="loginReqBlock" *ngIf="!authenticated">You need to be a registered customer to order this product. Please
+              <a [routerLink]="['/login']">Login to your account</a> or
+              <a>click here to Register</a>.
+            </div> -->
+            <div>
+              <div class="coupon"  *ngIf="_isInStock != 1" style="font-size:14px; font-weight: bold; margin-bottom:10px;">We’re sorry, but if you enter your email address below, we will gladly let you know when we are accepting new members!</div>
+              <div class="div-hovered">
+                <button type="button" (click)="buyMembership(membership_details.id)" class="btn btn-color btnATC" *ngIf="_isInStock == 1">Buy Now</button>
+                <button type="button" class="btn btn-color btnATC" disabled *ngIf="_isInStock != 1">Buy Now</button>
+              </div>
+            </div>
+            <div class="coupon_block" *ngIf="_isInStock != 1">
+              <form id="frmForm" name="notifyForm" class="form-horizontal" #fNotify="ngForm" (ngSubmit)="onStockEntryNotifyMe(fNotify)"
+                novalidate>
+                <div class="form-group">
+                  <div class="col-sm-12 coupon" style="font-size:14px; font-weight: bold;margin-top:10px;">Please enter your email to get notification when the stock is available.</div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-9 coupon">
+                    <input type="hidden" [(ngModel)]="model.membership_package_id" name="membership_package_id" value="{{membershipId}}">
+                    <input type="email" name="notify_me" id="notify_me" placeholder="Enter Your Email" value="" size="40" maxlength="50"
+                      tabindex="1" class="form-control coupon-field" [(ngModel)]="model.notify_me" #notify_me="ngModel"
+                      [ngClass]="{ 'is-invalid': fNotify.submitted && notify_me.invalid }" required email="true">
+                    <div *ngIf="notify_me.invalid && (notify_me.dirty || notify_me.touched)" class="alert alert-danger">
+                      <div *ngIf="notify_me.errors.required">
+                        Email is required.
+                      </div>
+                      <div *ngIf="notify_me.errors.email">
+                        Please provide a valid email.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 coupon">
+                    <button class="btn btn-success couponBtn" type="submit" [disabled]="!fNotify.form.valid">Notify Me</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="detail-section">
+              <div class="beta-col">
+                <!-- <div class="createFirstReview">
+                  <button type="button" class="btn btn-md btn-default">
+                    <i class="fa fa-star"></i>Review this item</button>
+                </div> -->
+                <div class="email_friend">
+                  <button type="button" class="btn btn-md btn-default" (click)="getReferAFriendUrl()">
+                    <i class="fa fa-envelope"></i>Email a friend
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!--START: extrafields-->
+            <div class="extrafieldsBlock">
+            </div>
+            <!--END: extrafields-->
+          </div>
+          <div class="col-sm-12">
+            <!--START: tabs-->
+            <div id="rTabs" class="r-tabs">
+              <ul class="r-tabs-nav">
+                <!--START: extended_description-->
+                <li class="r-tabs-tab r-tabs-state-active">
+                  <a href="javascript:void(0)" (click)="toggleTab('description')" class="r-tabs-anchor">Description</a>
+                </li>
+                <!--END: extended_description-->
+              </ul>
+              <div *ngIf="descTabVisible && membership_details.product_description">
+                <div class="r-tabs-accordion-title r-tabs-state-active">
+                  <a href="javascript:void(0);" class="r-tabs-anchor">Description</a>
+                </div>
+                <div class="r-tabs-panel r-tabs-state-active" id="tab-1" style="display: block;">
+                  <div class="item" itemprop="description">
+                    <span [innerHtml]="membership_details.product_description | safe:'html'">
+                      <br>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix">&nbsp;</div>
+            </div>
+            <!--END: tabs-->
+          </div>
+        </section>
+      </div>
+      <!--END: FRAME_MID-->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>

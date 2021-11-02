@@ -1,0 +1,61 @@
+#simplemodal-overlay {
+	background-color: rgba(45,45,50,0.8);
+    opacity: 1 !important;
+}
+#simplemodal-container {
+	background-color: #fff;
+	border: 0;
+	margin: 0px;
+	padding: 0px;
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	border-radius: 0px;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+#simplemodal-container a.modalCloseImg {
+   position: absolute;
+   right: -14.5px;
+   top: -14.5px;
+   background: #000 url("../images/sprite-icons.png") -41px -41px no-repeat;
+   width: 29px;
+   height: 29px;
+   text-indent: -9999px;
+}
+#simplemodal-container a.modalCloseImg:hover {
+    background-color: #e95144;
+}
+#simplemodal-container .simplemodal-wrap {
+   padding: 20px;
+}
+#simplemodal-container.quickView-modal {
+  height: auto !important;
+  top: 8% !important;
+  bottom: 8% !important;
+
+}
+
+
+#simplemodal-container .simplemodal-wrap #simplemodal-data {
+   height: 100%;
+}
+@media (min-width: 992px) {
+  #simplemodal-container.quickView-modal {
+    min-height: 740px;
+  }
+}
+@media (min-width: 992px) and (max-width: 1060px){
+  #simplemodal-container.quickView-modal {
+    left: 5% !important;
+    right: 5% !important;
+    width: auto !important;
+  }
+}
+@media (max-width: 991px){
+
+  #simplemodal-overlay.quickView-overlay,
+  #simplemodal-container.quickView-modal  {
+    display: none !important;
+  }
+}

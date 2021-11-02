@@ -1,0 +1,123 @@
+public function placeOrder(Request $request)
+    {
+        //======== Fetching LL Credentials from ENV File =========//
+        $LLCRM_Instance = env('LLCRM_Instance');
+        $LLCRM_APIUsername = env('LLCRM_APIUsername');
+        $LLCRM_APIPassword = env('LLCRM_APIPassword');
+
+        $inputArr = $request->all();
+
+        $firstName = $inputArr['firstName'] ? $inputArr['firstName'] : '';
+        $lastName = $inputArr['lastName'] ? $inputArr['lastName'] : '';
+        $shippingAddress1 = $inputArr['shippingAddress1'] ? $inputArr['shippingAddress1'] : '';
+        $shippingAddress2 = $inputArr['shippingAddress2'] ? $inputArr['shippingAddress2'] : '';
+        $shippingCity = $inputArr['shippingCity'] ? $inputArr['shippingCity'] : '';
+        $shippingState = $inputArr['shippingState'] ? $inputArr['shippingState'] : '';
+        $shippingZip = $inputArr['shippingZip'] ? $inputArr['shippingZip'] : '';
+        $shippingCountry = $inputArr['shippingCountry'] ? $inputArr['shippingCountry'] : '';
+        $billingFirstName = $inputArr['billingFirstName'] ? $inputArr['billingFirstName'] : '';
+        $billingLastName = $inputArr['billingLastName'] ? $inputArr['billingLastName'] : '';
+        $billingAddress1 = $inputArr['billingAddress1'] ? $inputArr['billingAddress1'] : '';
+        $billingAddress2 = $inputArr['billingAddress2'] ? $inputArr['billingAddress2'] : '';
+        $billingCity = $inputArr['billingCity'] ? $inputArr['billingCity'] : '';
+        $billingState = $inputArr['billingState'] ? $inputArr['billingState'] : '';
+        $billingZip = $inputArr['billingZip'] ? $inputArr['billingZip'] : '';
+        $billingCountry = $inputArr['billingCountry'] ? $inputArr['billingCountry'] : '';
+        $phone = $inputArr['phone'] ? $inputArr['phone'] : '';
+        $email = $inputArr['email'] ? $inputArr['email'] : '';
+        $creditCardType = $inputArr['creditCardType'] ? $inputArr['creditCardType'] : '';
+        $creditCardNumber = $inputArr['creditCardNumber'] ? $inputArr['creditCardNumber'] : '';
+        $expirationDate = $inputArr['expirationDate'] ? $inputArr['expirationDate'] : '';
+        $CVV = $inputArr['CVV'] ? $inputArr['CVV'] : '';
+        $ipAddress = $inputArr['ipAddress'] ? $inputArr['ipAddress'] : '';
+        $AFID = $inputArr['AFID'] ? $inputArr['AFID'] : '';
+        $SID = $inputArr['SID'] ? $inputArr['SID'] : '';
+        $AFFID = $inputArr['AFFID'] ? $inputArr['AFFID'] : '';
+        $C1 = $inputArr['C1'] ? $inputArr['C1'] : '';
+        $C2 = $inputArr['C2'] ? $inputArr['C2'] : '';
+        $C3 = $inputArr['C3'] ? $inputArr['C3'] : '';
+        $AID = $inputArr['AID'] ? $inputArr['AID'] : '';
+        $OPT = $inputArr['OPT'] ? $inputArr['OPT'] : '';
+        $click_id = $inputArr['click_id'] ? $inputArr['click_id'] : '';
+        $productId = $inputArr['productId'] ? $inputArr['productId'] : '';
+        $campaignId = $inputArr['campaignId'] ? $inputArr['campaignId'] : '';
+        $shippingId = $inputArr['shippingId'] ? $inputArr['shippingId'] : '';
+        $dynamic_product_price_X = $inputArr['dynamic_product_price_X'] ? $inputArr['dynamic_product_price_X'] : '';
+        $billingSameAsShipping = $inputArr['billingSameAsShipping'] ? $inputArr['billingSameAsShipping'] : '';
+        $notes = $inputArr['notes'] ? $inputArr['notes'] : '';
+        $product_qty_X = $inputArr['product_qty_X'] ? $inputArr['product_qty_X'] : '';
+        $forceGatewayId = $inputArr['forceGatewayId'] ? $inputArr['forceGatewayId'] : '';
+        $preserve_force_gateway = $inputArr['preserve_force_gateway'] ? $inputArr['preserve_force_gateway'] : '';
+        $createdBy = $inputArr['createdBy'] ? $inputArr['createdBy'] : '';
+        $device_category = $inputArr['$device_category'] ? $inputArr['$device_category'] : '';
+
+        $orderPlaceUrl = 'https://' . $LLCRM_Instance . '.limelightcrm.com/admin/membership.php?' .
+            'username=' . $LLCRM_APIUsername .
+            '&password=' . $LLCRM_APIPassword .
+            '&method=NewOrder' .
+            '&firstName=' . $firstName .
+            '&lastName=' . $lastName .
+            '&shippingAddress1=' . $shippingAddress1 .
+            '&shippingAddress2=' . $shippingAddress2 .
+            '&shippingCity=' . $shippingCity .
+            '&shippingState=' . $shippingState .
+            '&shippingZip=' . $shippingZip .
+            '&shippingCountry=' . $shippingCountry .
+            '&billingFirstName=' . $billingFirstName .
+            '&billingLastName=' . $billingLastName .
+            '&billingAddress1=' . $billingAddress1 .
+            '$&billingAddress2=' . $billingAddress2 .
+            '&billingCity=' . $billingCity .
+            '&billingState=' . $billingState .
+            '&billingZip=' . $billingZip .
+            '&billingCountry=' . $billingCountry .
+            '&phone=' . $phone .
+            '&email=' . $email .
+            '&creditCardType=' . $creditCardType .
+            '&creditCardNumber=' . $creditCardNumber .
+            '&expirationDate=' . $expirationDate .
+            '&CVV=' . $CVV .
+            '&ipAddress=' . $ipAddress .
+            '&AFID=' . $AFID .
+            '&SID=' . $SID .
+            '&AFFID=' . $AFFID .
+            '&C1=' . $C1 .
+            '&C2=' . $C2 .
+            '&C3=' . $C3 .
+            '&AID=' . $AID .
+            '&OPT=' . $OPT .
+            '&click_id=' . $click_id .
+            '&productId=' . $productId .
+            '&campaignId=' . $campaignId .
+            '&shippingId=' . $shippingId .
+            '&dynamic_product_price_X=' . $dynamic_product_price_X .
+            '&billingSameAsShipping=' . $billingSameAsShipping .
+            '&notes=' . $notes .
+            '&product_qty_X=' . $product_qty_X .
+            '&forceGatewayId=' . $forceGatewayId .
+            '&preserve_force_gateway=' . $preserve_force_gateway .
+            '&createdBy=' . $createdBy .
+            '&device_category=' . $device_category;
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_POST, 0);
+        curl_setopt($ch, CURLOPT_HTTPGET, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_URL, $productUpdateUrl);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $curl_response = curl_exec($ch);
+        parse_str($curl_response, $response_output);
+        curl_close($ch);
+
+        if (in_array(100, explode(",", $response_output['response_code']))) {
+            $resp['msg'] = 'You have successfully purchased Membership Package and Order Placed in LimeLight Successfully.';
+            $resp['response_code'] = $response_output['response_code'];
+        } else {
+            $resp['msg'] = 'Error! Unable to place order.';
+            $resp['response_code'] = $response_output['response_code'];
+        }
+
+        echo json_encode($resp);
+        exit();
+    }

@@ -1,0 +1,10 @@
+<div id="mainContainer">
+  <div class="container">
+      <div id="mainContent">
+          <img *ngIf="cms && cms?.image_path != ''" src="{{baseurl + cms.image_path }}" class="img-responsive img-thumbnail">
+          <div [innerHTML]="cmsdata"></div>
+      </div>
+  </div>
+    <!-- /.row -->
+</div>
+  <!-- /.container -->

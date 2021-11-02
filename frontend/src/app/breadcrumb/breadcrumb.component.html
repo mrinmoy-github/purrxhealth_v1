@@ -1,0 +1,14 @@
+<div id="breadcrumbs-wrapper" *ngIf="breadcrumbs">
+  <div class="container">
+    <div class="breadcrumbs">
+      <span *ngFor="let breadcrumb of breadcrumbs; let i=index">
+          <a *ngIf="breadcrumb.url != undefined" routerLink="{{breadcrumb.url}}">{{breadcrumb.name}}
+            <i *ngIf="breadcrumb.hasNext" [innerHTML]="separator"></i>
+          </a>
+          <label *ngIf="breadcrumb.url == undefined">{{breadcrumb.name}}
+              <i *ngIf="breadcrumb.hasNext" [innerHTML]="separator"></i>
+          </label>
+      </span>
+    </div>
+  </div>
+</div>

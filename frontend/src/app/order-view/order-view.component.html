@@ -1,0 +1,193 @@
+<div id="mainContainer">
+  <div class="container">
+    <div class="row">
+      <!--START: LEFT BAR-->
+      <app-my-account-left-menu></app-my-account-left-menu>
+      <!--END: LEFT BAR-->
+      <div id="sidebar-toggle" class="hide">
+        <a href="javascript:void(0);">SHOW SIDEBAR
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
+      <!--END: LEFT BAR-->
+      <!--START: FRAME_MID-->
+      <!--START: BODY_HEADER-->
+      <div class="breadcrumbs">
+        <a id='catCrumbHomeLink' [routerLink]="['']">Home</a> > Order View > Order#{{ll_order_id}}
+      </div>
+      <!--END: BODY_HEADER-->
+      <div id="mainContent" class="col-sm-9">
+        <section id="extrapage" class="page-layout">
+          <h3 class="page_headers">Order#{{ll_order_id}}</h3>
+          <br>
+          <hr>
+          <!--START: SUB_PAGES-->
+          <!--END: SUB_PAGES-->
+          <div class="content">
+            <div class="alert alert-success" *ngIf="success_msg != ''">{{success_msg}}</div>
+            <div class="alert alert-danger" *ngIf="error_msg != ''">{{error_msg}}</div>
+            <div class="row">
+              <div class="col-sm-3 col-xs-3 width_full_6">
+                <h4>Shipping Info</h4>
+              </div>
+              <div class="col-sm-3 col-xs-3 width_full_6">
+                <h5 *ngIf="order">
+                  {{order.firstName}} {{order.lastName}} <br>
+                  {{order.shippingAddress1}} <br>
+                  {{order.shippingAddress2}} <br>
+                  {{order.shippingCountry}}, {{order.shippingState}},
+                  {{order.shippingCity}} - {{order.shippingZip}} <br>
+                </h5>
+              </div>
+              <div class="col-sm-6 col-xs-6 width_full_6 text-right ">
+                <a routerLink="/update-shipping-info/{{ll_order_id}}" class="btn btn-primary"><i class="fa fa-edit"></i>
+                  Update Shipping Info</a>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3 col-xs-3 width_full_6">
+                <h4>Billing Info</h4>
+              </div>
+              <div class="col-sm-3 col-xs-3 width_full_6">
+                <h5 *ngIf="order">
+                  {{order.billingFirstName}} {{order.billingLastName}} <br>
+                  {{order.billingAddress1}} <br>
+                  {{order.billingCountry}}, {{order.billingState}},
+                  {{order.billingCity}} - {{order.billingZip}} <br>
+                </h5>
+              </div>
+              <div class="col-sm-6 col-xs-6 width_full_6 text-right">
+                <a routerLink="/update-billing-info/{{ll_order_id}}" class="btn btn-primary"><i class="fa fa-edit"></i>
+                  Update Billing Info</a>
+              </div>
+            </div>
+            <hr>
+            <div class="row" *ngIf="trackingNo">
+                <div class="col-sm-3">
+                  <h4>Tracking Info</h4>
+                </div>
+                <div class="col-sm-3">
+                  <h5>
+                    Courier Company: {{courierInfo.name}}<br>
+                    Tracking Number: {{trackingNo}}
+                  </h5>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="{{courierInfo.url_link}}" class="btn btn-primary" target="_blank">
+                      <i class="fa fa-truck"></i> Tracking you order
+                    </a>
+                </div>
+              </div>
+              <hr *ngIf="trackingNo">
+            <!-- <div class="row">
+              <div class="col-sm-12 width_full_6">
+                <h4>Update the payment information for any upcoming orders.</h4>
+                <br>
+                <a routerLink="/update-payment-info/{{ll_order_id}}" class="btn btn-primary"><i class="fa fa-edit"></i>
+                  Update Payment Info</a>
+              </div>
+            </div>
+            <hr> -->
+            <div class="row cancelSubsConfirmationDialog" *ngIf="cancelSubsConfirmationDialog">
+              <div class="col-md-12">
+                <span>
+                  <h4>
+                    Do you really want to cancel subscription for this order? Please confirm. Upon your confirmation,
+                    all the subscriptions under this order will be cancelled.
+                  </h4>
+                </span>
+                <div>
+                  <br>
+                  <a class="btn btn-danger" (click)="cancelSubsConfirmation()"><i class="fa fa-check"></i>&nbsp;
+                    Confirm</a> &nbsp;
+                  <a class="btn btn-default" (click)="ignoreCacelSubsConfirmation()">&nbsp; Cancel</a>
+                </div>
+              </div>
+            </div>
+            <div class=" table-responsive position_relative">
+              <table id="cart" class="table table-hover table-condensed">
+                <thead>
+                  <tr>
+                    <th style="width:70%">Product</th>
+                    <th style="width:10%">Price</th>
+                    <th style="width:10%">Quantity</th>
+                    <th style="width:10%" class="text-center">Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let single of order_details">
+                    <td data-th="Product">
+                      <div class="row">
+                        <div class="col-sm-2 hidden-xs">
+                          <img *ngIf="single.get_product?.get_media?.length > 0" src="{{baseurl}}backend/images/products/{{single.get_product.get_media[0].image}}"
+                            alt="{{single.get_product.product_name}}" class="img-responsive" />
+                          <img *ngIf="single.get_membership_package?.get_media?.length > 0" src="{{baseurl}}backend/images/membershipPackage/{{single.get_membership_package.get_media[0].image}}"
+                            alt="{{single.get_membership_package.product_name}}" class="img-responsive" />
+
+                          <img *ngIf="!single.get_product?.get_media && !single.get_membership_package?.get_media" src="https://www.nato-pa.int/sites/default/files/default_images/default-image.jpg"
+                            alt="{{single.get_product.product_name}}" class="img-responsive" />
+                        </div>
+                        <div class="col-sm-10">
+                          <h4 class="nomargin">
+                            <a *ngIf="single.get_product?.product_name" routerLink="/products/{{single.get_product.id}}">{{single.get_product.product_name}}
+                              <strong class="text-success subsicrip_txt">{{ single.billing_model === "recurringSale" ?
+                                '[Subscription]' : '' }}</strong>
+                            </a>
+                            <a *ngIf="single.get_membership_package?.product_name" routerLink="/membershipDetails/{{single.get_membership_package.id}}">{{single.get_membership_package.product_name}}
+                              <strong class="text-success subsicrip_txt">[Membership]</strong>
+                            </a>
+                          </h4>
+                        </div>
+                      </div>
+                    </td>
+                    <td data-th="Price">{{single.sell_price | currency }}</td>
+                    <td data-th="Quantity">{{single.quantity}}</td>
+                    <td data-th="Subtotal" class="text-center">{{single.sub_total | currency }}</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr class="visible-xs">
+                    <td class="text-center" colspan="4">
+                      <strong>Total {{total | currency }}</strong>
+                    </td>
+                  </tr>
+                
+                  <tr>
+                    <td colspan="1"><a [routerLink]="['']" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a><br>
+                      <!-- <span class="price-note d-desktop">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, placeat veritatis. Vero numquam eos reiciendis! Maxime, incidunt ad atque nostrum in odio ipsa ratione vero autem omnis vitae nobis veniam.</span> -->
+                    </td>
+                    <td class="text-center subtotal_table" colspan="3">
+                      <ul class="list_custom price-list">                     
+                        <li class=""><span class="pull-left">Sub Total :</span> <span class="pull-right">{{ totalProductPrice | currency }}</span></li>
+                        <li class="" *ngIf="couponDiscountPrice && couponDiscountPrice > 0.00"><span class="pull-left">Discount Applied:</span> <span class="pull-right">{{ couponDiscountPrice | currency }}</span></li>
+                        <li class=""><span class="pull-left">Shipping & Handling:</span>
+                          <span class="pull-right" *ngIf="shippingAmount && shippingAmount > 0.00">+ {{ shippingAmount |
+                            currency }}</span>
+                            <span class="pull-right" *ngIf="!shippingAmount || shippingAmount <= 0.00">FREE</span></li>
+                        <li class="text-danger" *ngIf="transaction_amount && transaction_amount > 0.00"><span class="pull-left">Redeem from wallet:</span>
+                          <span class="pull-right" *ngIf="transaction_amount && transaction_amount > 0.00">- {{ transaction_amount |
+                            currency }}</span>
+                        <li><span class="pull-left">Grand Total:</span> <span class="pull-right">{{total | currency }}</span>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <!-- <tr class="d-mob">
+                    <td colspan="4">
+                      <span class="price-note">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, placeat veritatis. Vero numquam eos reiciendis! Maxime, incidunt ad atque nostrum in odio ipsa ratione vero autem omnis vitae nobis veniam.</span>
+                    </td>
+                  </tr> -->
+                </tfoot>
+              </table>
+              <div class="loader" *ngIf="showLoader">
+                <div class="loading_icon spin_rotate"><i class="fa fa-circle-o-notch"></i></div>
+              </div>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,165 @@
+<div id="mainContainer">
+  <div class="container">
+    <div class="row">
+
+      <div class="breadcrumbs"><a [routerLink]="['']">Home</a> &gt; My Cart</div>
+      <!--END: BODY_HEADER-->
+      <div id="mainContent" class="col-sm-12">
+        <section id="extrapage" class="page-layout">
+          <h1 class="page_headers">My Cart</h1>
+          <div class="alert alert-success" *ngIf="success_msg != ''"><a class="close" data-dismiss="alert">&times;</a>
+            {{success_msg}}</div>
+          <div class="alert alert-danger" *ngIf="error_msg != ''"><a class="close" data-dismiss="alert">&times;</a>
+            {{error_msg}}</div>
+          <!--START: SUB_PAGES-->
+          <!--END: SUB_PAGES-->
+
+          <div class="content position_relative table_responsive_mobile">
+            <table id="cart" class="table table-hover table-condensed table_res_mobile" *ngIf="cart_details && cart_details?.length > 0">
+              <thead>
+                <tr>
+                  <th style="width:50%">Product</th>
+                  <th style="width:8%">Price</th>
+                  <th style="width:14%">Quantity</th>
+                  <th style="width:18%" class="text-center">Subtotal</th>
+                  <th style="width:10%"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let single of cart_details" id="cart_item_{{single.id}}"class="table_centermobile">
+                  <td data-th="Product">
+                    <div class="row">
+                      <div class="col-sm-2 hidden-xs">
+                        <img *ngIf="single.get_product.get_media?.length > 0" src="{{baseurl}}backend/images/products/{{single.get_product.get_media[0].image}}"
+                          alt="{{single.get_product.product_name}}" class="img-responsive" />
+
+                        <img *ngIf="single.get_product.get_media?.length == 0" src="https://www.nato-pa.int/sites/default/files/default_images/default-image.jpg"
+                          alt="{{single.get_product.product_name}}" class="img-responsive" />
+                      </div>
+                      <div class="col-sm-10">
+                        <h4 class="nomargin">
+                          <a routerLink="/products/{{single.get_product.id}}">{{single.get_product.product_name}}
+                            <strong class="text-success subsicrip_txt">{{ single.billing_model === "recurringSale" ?
+                              '[Subscription]' : '' }}</strong>
+                          </a>
+                        </h4>
+                        <p class="hidden-xs-custom">{{single.get_product.product_short_description}}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td data-th="Price">
+                    <del *ngIf="single.discountAmt != ''" class="text-danger"><strong>{{single.prod_main_price |
+                        currency}}</strong></del>&nbsp;
+                    {{single.updatedPrice | currency}}
+                    <div *ngIf="single.coupon_id">
+                      <label class="label label-primary">Coupon : {{single.get_coupon?.code }}</label>
+                      <a (click)="removeCoupon(single.id,single.get_product.id)" title="Remove the Coupon : {{ single.get_coupon.code }} from this product"
+                        class="label label-danger responsive_ml_10"><i class="fa fa-times"></i> Remove Coupon</a>
+                    </div>
+                    <div *ngIf="hasValidCoupon && single.discountAmt == ''"><label class="label label-danger">Coupon
+                        Not Aplicable</label></div>
+                  </td>
+                  <td data-th="Quantity">
+                    <div class="mobile_quantity">
+                      <app-quantity-modifier (quantityChanged)="handleQuantityUpdate($event)" [quantity]="single.quantity"
+                        [productId]="single.get_product.id"></app-quantity-modifier>
+                    </div>
+                  </td>
+                  <td data-th="Subtotal" class="text-center">{{single.prod_subtotal_price | currency}}</td>
+                  <td class="actions" data-th="">                   
+                    <!-- <div class="clearfix">&nbsp;</div> -->
+                    <a class="btn btn-danger btn-sm delete_btn" title="Remove Item" (click)="removeFromCart(single.id)"><i class="fa fa-trash-o"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="3">
+                    <div class="saved_price" *ngIf="hasValidCoupon && total_discount_amount > 0">
+                      <h3>You saved</h3>
+                      <p class="sved_price">{{ total_discount_amount | currency }}</p>
+                    </div>
+                  </td>
+                  <td class="text-center subtotal_table" colspan="2">
+                    <ul class="list_custom">
+                      <li class=""><span class="pull-left">Sub Total :</span> <span class="pull-right">{{ cartTotal |
+                          currency }}</span></li>
+                      <li class="" *ngIf="hasValidCoupon"><span class="pull-left">Discount Applied:</span> <span class="pull-right">{{
+                          total_discount_amount | currency }}</span></li>
+                      <li class=""><span class="pull-left">Shipping & Handling:</span>
+                        <span class="pull-right" *ngIf="shippingAmount && shippingAmount > 0.00">
+                        {{ shippingAmount | currency }}</span>
+                        <span class="pull-right" *ngIf="shippingAmount == 0.00">FREE</span>
+                        
+                        <!-- <span class="pull-right" *ngIf="cartTotal < 100.00">
+                        {{ shippingAmount | currency }}</span>
+                        <span class="pull-right" *ngIf="cartTotal >= 100">FREE</span> -->
+
+                      </li>
+                      <li><span class="pull-left">Grand Total:</span> <span class="pull-right">{{total | currency }}</span></li>
+                      <!-- <li><span class="pull-left">Grand Total:</span> <span class="pull-right">{{shippingAmount + cartTotal | currency }}</span></li> -->
+                    </ul>
+                  </td>
+                </tr>
+                <!-- <tr class="visible-xs">
+                  <td class="text-center"><strong>Grand Total {{total | currency }}</strong></td>
+                </tr> -->
+                <tr>
+                  <td class="btn-inline continue_search_mobile">
+                    <a [routerLink]="['']" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a>
+                    
+                      <form id="frmForm" name="coupunForm" class="mobile_form form-horizontal pull-right" #f="ngForm"
+                      (ngSubmit)="onSubmit(f)" novalidate *ngIf="cartCount > 0 && !hasValidCoupon">
+                        <div class="form-group">
+                          <div class="input-group center_responsive">
+                            <input type="text" name="coupon_code" id="coupon_code" placeholder="Have a Coupon?" value=""
+                              size="40" maxlength="50" tabindex="1" class="form-control" [(ngModel)]="model.coupon_code"
+                              #coupon_code="ngModel" [ngClass]="{ 'is-invalid': f.submitted && coupon_code.invalid }"
+                              required>
+                            <span class="input-group-btn">
+                              <button class="btn btn-success" type="submit" [disabled]="!f.form.valid">Apply</button>
+                            </span>
+                          </div>
+                          <div *ngIf="coupon_code.invalid && (coupon_code.dirty || coupon_code.touched)" class="alert alert-danger">
+                            <div *ngIf="coupon_code?.errors?.required">
+                              <a class="close" data-dismiss="alert">&times;</a>
+                              Coupon Code is required.
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </form>
+                   
+                  </td>
+                  <td colspan="3" class="no_brdr"></td>
+                  <!-- <td class="hidden-xs text-center"><strong>Grand Total {{total | currency}}</strong></td> -->
+                  <td class="responsive_checkout"><a [routerLink]="['/checkout']" class="btn btn-success btn-block">Checkout
+                      <i class="fa fa-angle-right"></i></a></td>
+                </tr>
+              </tfoot>
+            </table>
+            <div *ngIf="!cart_details || cart_details?.length == 0" class="cart-empty">
+              <img src="https://cdn.dribbble.com/users/20130/screenshots/2933302/carrello-800600.gif" style="width: 200px !important;">
+              <br>
+              <span style="font-size:28px;">Your cart is empty!</span>
+              <br>
+              <span>Add items to it now.</span>
+              <br>
+              <br>
+              <a [routerLink]="['']" class="btn btn-warning"> Shop Now</a>
+            </div>
+            <div class="loader" *ngIf="showLoader">
+                <div class="loading_icon spin_rotate"><i class="fa fa-circle-o-notch"></i></div>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </section>
+      </div>
+      <!--END: FRAME_MID-->
+    </div>
+    <!-- /.row -->
+  </div>
+</div>
+<!-- <div class="spin-loader text-center" *ngIf="showLoader">
+  <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+</div> -->

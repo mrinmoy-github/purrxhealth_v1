@@ -1,0 +1,5 @@
+.main_addon{max-width: 150px;margin-bottom: 15px;}
+.main_addon .input-group-text{padding: 10px 15px;color: #fff;background: green;border: 0px;}
+.main_addon .input-group-text.minus{background: #ff2500;}
+.main_addon input.form-control{cursor: no-drop;font-size: 18px !important;background: #eaeaea;}
+

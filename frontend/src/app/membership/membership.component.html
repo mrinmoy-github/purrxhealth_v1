@@ -1,0 +1,330 @@
+<div id="mainContainer">
+  <div id="breadcrumbs-wrapper">
+    <div class="container">
+        <div class="breadcrumbs">
+          <a id='catCrumbHomeLink' [routerLink]="['']">Home</a> > {{ sitename }} Membership
+        </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <!--START: LEFT BAR-->
+
+      <!--END: LEFT BAR-->
+      <!--START: FRAME_MID-->
+      <div id="mainContent" class="col-sm-12">
+        <section id="category" class="page-layout">
+          <form action="view_category.asp?cat=14" method="post" name="frmsortby" id="frmsortby">
+            <!--START: CATEGORY_HEADER-->
+            <!-- <div class="category-image" id="categoryImage">
+              <img src="images/category-banner-budbox.jpg" alt="" border="0px">
+              <br>
+              <span style="font-size: 14pt;">
+                <br>
+                <h1>Mail Order Marijuana</h1>
+              </span>
+              <span class="st">
+                <span style="font-size: 10pt; color: rgb(105, 105, 105);">Get
+                  <i>mail order marijuana</i> Canada. Budbox has created an opportunity for the best mail order experience online.
+                  If you are a Canadian adult 19+ you can buy marijuana online and get great discounts with a Budbox membership!
+                  <a [routerLink]="['/categories-list']">Checkout the menu today</a>;</span>
+                <br>
+              </span>
+            </div> -->
+            <!--END: CATEGORY_HEADER-->
+            <!-- <h1 class="category-name">{{ sitename }} Membership</h1> -->
+
+            <!--START: SUB_CATEGORIES-->
+            <section class="section_firstsec">
+                <div class="container">
+                  <div class="row">
+                    <div class="section_firstsec_header text-center">
+                      <h4>GET THE BEST DEALS WITH THE PURRX VIP BUYERS CLUB</h4>
+                    </div>
+                    <div class="thumblimg_text">
+                      <div class="col-md-3">
+                        <div class="thumble_image">
+                          <img src="assets/images/money-savings.png" class="img-responsive">
+                        </div>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="thumble_image_details">
+                          <h4>HOW DOES IT WORK?</h4>
+                          <p>The VIP Buyer’s Club rewards loyal customers with huge everyday savings on all PurRX products. To sign up for PurRX VIP Buyers Club, simply place an order for one of the One Year Membership Package below. There are no additional fees and no obligations or minimums. </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="thumblimg_text">
+                      <div class="col-md-3">
+                        <div class="thumble_image">
+                          <img src="assets/images/shipping-image.png" class="img-responsive">
+                        </div>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="thumble_image_details">
+                          <h4>SUBSCRIBING IS EASY</h4>
+                          <ol class="subscrip_list">
+                            <li>Lock-in exclusive low pricing.</li>
+                            <li>Get maximum results with convenient, automatic refills shipped free every month</li>
+                            <li>Reschedule or cancel your subscription at any time.</li>
+                          </ol>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="thumblimg_text">
+                      <div class="col-md-3">
+                        <div class="thumble_image">
+                          <img src="assets/images/vip-pricing2.png" class="img-responsive">
+                        </div>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="thumble_image_details">
+                          <h4>VIP MEMBERS GET HUGE SAVINGS ON ALL PRODUCTS</h4>
+                          <p>Members never pay retail. Instead, you get special VIP PRICING which saves you up to 60% off every product on the site. Members get free shipping on every order as well as priority handling.</p>
+                          <p>You’ll also get exclusive VIP-only offers, additional savings, coupons, and first-access to new formulas.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="thumblimg_text">
+                      <div class="col-md-3">
+                        <div class="thumble_image">
+                          <img src="assets/images/phone-computer.png" class="img-responsive">
+                        </div>
+                      </div>
+                      <div class="col-md-9">
+                        <div class="thumble_image_details">
+                          <h4>SUBSCRIBE & SAVE: CONVENIENT REFILLS, CANCEL ANYTIME</h4>
+                          <p>Your subscriptions refill every month at the same low price. Shipping is always free. You can cancel or reschedule your subscription at any time with our dedicated <a href="#"> VIP Customer Support Team.</a></p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </section>
+
+            <!--END: SUB_CATEGORIES-->
+
+            <!--START: FEATURE_MENU-->
+            <!--END: FEATURE_MENU-->
+            <!--START: ITEMS-->
+            <div id="productCategoryBlock">
+              <div class="category-toolbar">
+                <div class="view-as-btn">
+                  <div class="btn-group">
+                    <a href="javascript:void(0);" id="grid-view" title="Grid View" class="current-view">
+                      <div>
+                        <div class="icon-bar"></div>
+                        <div class="icon-bar"></div>
+                        <div class="icon-bar"></div>
+                      </div>
+                      <span>GRID</span>
+                    </a>
+                    <a href="javascript:void(0);" id="list-view" title="List View">
+                      <div>
+                        <div class="icon-bar"></div>
+                        <div class="icon-bar"></div>
+                        <div class="icon-bar"></div>
+                      </div>
+                      <span>LIST</span>
+                    </a>
+                  </div>
+                </div>
+                <div class="product-count">Products (Total Items: {{totalItem}})</div>
+                <div class="sort-by">
+                  <!--START: sortbylist-->
+                  <!--END: sortbylist-->
+                </div>
+              </div>
+              <!-- //.category-toolbar -->
+              <!--START: catitemslist-->
+              <!--END: catitemslist-->
+
+              <div class="module-wrapper">
+                <div class="inner-wrapper">
+                  <!--START: CATEGORY_ITEMS-->
+                  <div class="productBlockContainer columns-3" *ngIf="package_list">
+                    <div class="product-container first-item" *ngFor="let single of package_list">
+                      <div class="prod-item">
+                        <div class="prod-image">
+                          <a href="javascript:void(0);">
+                            <img *ngIf="single.get_media[0] !== undefined && single.get_media[0]?.image && single.get_media[0]?.image != ''" src="{{baseurl}}backend/images/membershipPackage/{{single.get_media[0].image}}" alt="{{single.product_name}}" />
+                            <img *ngIf="!single.get_media" src="https://via.placeholder.com/550x300.png?text=No%20Image%20Found" alt="{{single.product_name}}" />
+                          </a>
+                          <div class="actions">
+                            <a class="btnQV hidden-xs hidden-sm hidden-md membershipModalLink" href="javascript:void(0);" data-toggle="modal" data-target="#membershipModal" [attr.data-proname]="single.product_name" [attr.data-proid]="single.id"  [attr.data-proDesc]="single.product_description"  [attr.data-proprice]="single.product_price" [attr.data-proImgName]="single.get_media[0]?.image" [attr.data-baseUrl]="baseurl" [attr.data-url] ="getUrl(single.id)">
+                              Quick View
+                            </a>
+                          </div>
+                        </div>
+                        <!--START: dropimage_widget-->
+                        <!--END: dropimage_widget-->
+                        <div class="product-desc">
+                          <div class="name">
+                            <a (click)="routeMembershipDetails(single.id)" href="javascript:void(0)"><strong>{{single.product_name}}</strong></a>
+                          </div>
+                          <div class="desc" *ngIf="single.product_description">{{single.product_description}}</div>
+                          <div class="star-rating">
+                          </div>
+                          <div class="price">
+                            <!--START: ITEMPRICE-->
+                            <span class="hidden">Your Price:&nbsp;</span>{{single.product_price | currency }}
+                            <!--END: ITEMPRICE-->
+
+                          </div>
+                          <div class="div-hovered">
+                            <button type="button" (click)="routeMembershipDetails(single.id)" class="btn btn-color btnATC">Buy</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div style="clear: both;"></div>
+                  </div>
+                  <!--END: CATEGORY_ITEMS-->
+                  <!--START: CATEGORY_FOOTER-->
+                  <!-- <div class="category-desc" id="categoryDesc">
+                    <span style="font-size: 14pt;">
+                      <span style="font-size: 18pt; font-weight: bold;">What's in your box?</span>
+                      <br>
+                      <br>
+                      <span style="font-size: 10pt; color: rgb(105, 105, 105);">
+                        <span style="font-size: 12pt;">You can choose between the different membership options above.&nbsp; Click on the product for more
+                          information.
+                          <br>
+                          <br>The ultimate mail order marijuana experience.&nbsp; What makes Budbox so different from other mail
+                          order cannabis websites is the fact that we offer special monthly membership packages.&nbsp; The
+                          Friendly Stranger is our entry level membership and this includes a variety of items from the entire
+                          website.&nbsp; The Real Deal is the next level of mail order membership and the maximum monthly
+                          membership package is called Yes More Please.
+                          <br>
+                          <br>Each mail order marijuana membership gains more value as each level increase.&nbsp; We cram you
+                          box full of the highest quality items from the entire Budbox menu.&nbsp; Create your account today
+                          and checkout the mail order marijuana menu.</span>
+                        <br>
+                      </span>
+                    </span>
+                    <br>
+                    <span style="font-size: 8pt; color: rgb(97, 168, 152);">
+                      <span style="font-size: 10pt; color: rgb(0, 0, 0);"></span>
+                    </span>
+                  </div> -->
+                </div>
+              </div>
+              <div class="paging"></div>
+            </div>
+            <div class="category-no-products text-center">
+              <div class="alert alert-warning">There are no products to list in this category.</div>
+              <a class="btn btn-alt" href="https://www.budbox.ca">Continue Shopping</a>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="membershipModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <!-- <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div> -->
+      <div class="modal-body">
+        <section id="product-details">
+          <form enctype="multipart/form-data" method="post" action="add_cart.asp" name="add" id="add" target="_top">
+            <div class="row">
+                <h1 class="page_headers text-center" id="membershipPackageTitle"></h1>
+              <div class="primary col-sm-6">
+                <div id="mediaContainer">
+                  <div id="mediaBlock">
+                    <!--START: image1-->
+                    <div class="main-image">
+                      <!-- <a href="javascript:void(0);" class="MagicZoomPlus pimagePath" id="listing_main_image_link" style="position: relative; display: inline-block; text-decoration: none; outline: 0px; overflow: hidden; margin: auto; width: auto; height: auto;">
+                        title=""> -->
+                        <img class="pimagePath2" align="middle"
+                          id="large" name="large" alt="SlyBlends Vape Tanks" style="opacity: 1;">
+                        <!-- <div class="MagicZoomBigImageCont inner-zoom" style="overflow: hidden; z-index: 100; top: -100000px; position: absolute; width: 100%; height: 100%; left: 0px; opacity: 0;">
+                          <div class="MagicZoomHeader" style="position: relative; z-index: 10; left: 0px; top: 0px; padding: 3px; display: none; visibility: hidden;"></div>
+                          <div style="overflow: hidden;">
+                            <img class="pimagePath2" style="padding: 0px; margin: 0px; border: 0px; width: auto; height: auto; position: relative; left: 0px; top: 0px; transform: translateZ(0px);">
+                          </div>
+                        </div> -->
+                        <!-- <div class="MagicZoomPup" style="z-index: 10; position: absolute; overflow: hidden; display: none; visibility: hidden; width: 684px; height: 684px; opacity: 0.65; left: 0px; top: 0px;"></div>
+                      </a> -->
+                      <!-- <div name="imagecaptiont" id="imagecaptiont" class="item"></div> -->
+                    </div>
+                    <!--END: image1-->
+                    <div id="realmediaBlock">
+                      <div>
+                        <!-- <iframe id="realmedia" src="" frameborder="0" allowfullscreen></iframe> -->
+                      </div>
+                    </div>
+                    <!-- <div class="addl-images">
+                      <div class="prod-thumbnails">
+                        <ul class="owl-carousel owl-loaded owl-drag">
+                          <div class="owl-stage-outer">
+                            <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 369px;">
+                              <div class="owl-item active" style="width: 112.8px; margin-right: 10px;">
+                                <li class="prod-thumb image1">
+                                  <a href="" rel="thumb-id:listing_main_image_link" class="MagicThumb-swap pimagePath" style="outline: none;">
+                                    <img src="" alt="" class="pimagePath2">
+                                  </a>
+                                </li>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="owl-nav disabled">
+                            <button type="button" role="presentation" class="owl-prev disabled">
+                              <i class="fa fa-angle-left"></i>
+                            </button>
+                            <button type="button" role="presentation" class="owl-next disabled">
+                              <i class="fa fa-angle-right"></i>
+                            </button>
+                          </div>
+                          <div class="owl-dots disabled"></div>
+                        </ul>
+                      </div>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="secondary col-sm-6">
+
+                <div class="product-short-desc">
+                  <p id="membershipPackageDesc"></p>
+                </div>
+                <div class="pricingBlock">
+                  <div class="price txt_prcice">
+                    Price: <span id="membershipPackagePrice"></span>
+                  </div>
+                </div>
+                <div class="availabilityInfo hidden">
+                  <div class="product_availability">
+                    <h4>Availability: <span>In Stock!</span></h4>
+                    <!-- <div id="availability" class="font2"></div> -->
+                  </div>
+                </div>
+                <a class="btn btn-color" style="margin-top: 5px;" id="membershipPackageBuyBtn" href="">View</a>
+                <!-- <div id="prodDetails">
+                  <div class="loginReqBlock" *ngIf="!authenticated">You need to be a registered customer to order this product. Please
+                    <a [routerLink]="['/login']">Login to your account</a> or
+                    <a [routerLink]="['/signup']">click here to Register</a>.
+                  </div>
+                </div> -->
+              </div>
+            </div>
+          </form>
+        </section>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

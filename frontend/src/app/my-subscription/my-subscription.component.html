@@ -1,0 +1,84 @@
+<div id="mainContainer">
+  <div class="container">
+    <div class="row">
+      <!--START: LEFT BAR-->
+      <app-my-account-left-menu></app-my-account-left-menu>
+      <!--END: LEFT BAR-->
+      <div id="sidebar-toggle" class="hide">
+        <a href="javascript:void(0);">SHOW SIDEBAR
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
+      <!--END: LEFT BAR-->
+      <!--START: FRAME_MID-->
+      <!--START: BODY_HEADER-->
+      <div class="breadcrumbs">
+        <a id='catCrumbHomeLink' [routerLink]="['']">Home</a> > My Subscriptions
+      </div>
+      <!--END: BODY_HEADER-->
+
+      <div id="mainContent" class="col-sm-9">
+        <section id="extrapage" class="page-layout">
+          <h3 class="page_headers">My Subscriptions</h3>
+          <br>
+          <!--START: SUB_PAGES-->
+          <!--END: SUB_PAGES-->
+          <div class="content position_relative table-responsive btn_spacing">
+            <table id="cart" class="table table-hover table-condensed" *ngIf="all_orders">
+              <thead>
+                <tr>
+                  <th style="width:15%">Subscription Order#</th>
+                  <th style="width:25%">Products</th>
+                  <th style="width:15%">Placed At</th>
+                  <th style="width:15%">NEXT ORDER DATE</th>
+                  <th style="width:10%">Amount</th>
+                  <th style="width:20%" class="text-center"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let order of all_orders;">
+                  <td>
+                    <h4 class="nomargin">#{{order.ll_order_id}}</h4>
+                  </td>
+                  <td>{{order.prod_names}}</td>
+                  <td>{{ order.created_at | date : 'medium' }}</td>
+                  <td>{{ getNextOrderDate(order) | date : 'mediumDate' }}</td>
+                  <td>{{order.order_value | currency }}</td>
+                  <td class="text-center">
+                      <div class="clearfix btn_adjust_spacing">
+                          <ng-container *ngIf="order.order_type == 'subscription'">
+                            <a (click)="buyItAgain(order.ll_order_id)" href="javascript:void(0);" class="btn btn-sm btn-info"><i
+                        class="fa fa-shopping-cart"></i> Buy it Again</a>
+                          </ng-container>
+                          <ng-container *ngIf="order.order_type == 'membership'">
+                              <a routerLink="/membership" class="btn btn-sm btn-info"><i
+                          class="fa fa-shopping-cart"></i> Buy it Again</a>
+                            </ng-container>
+                      </div>
+                      <!-- <div class="clearfix">&nbsp;</div> -->
+                      <div class="clearfix btn_adjust_spacing"><a routerLink="/order-view/{{order.ll_order_id}}" class="btn btn-sm btn-primary"><i
+                            class="fa fa-eye"></i> View Details</a></div>
+                      <ng-container>
+                        <!-- <div class="clearfix">&nbsp;</div> -->
+                        <div class="clearfix btn_adjust_spacing"><a routerLink="/my-subscription/{{order.ll_order_id}}" class="btn btn-sm btn-warning"><i
+                              class="fa fa-pencil"></i> Subscription</a></div>
+                      </ng-container>
+                  </td>
+                </tr>
+                <tr *ngIf="!all_orders?.length">
+                  <td class="text-center" colspan="3">You did not place any order yet!</td>
+                  <td colspan="2"><a [routerLink]="['']" class="btn btn-warning"> Shop Now</a></td>
+                </tr>
+
+              </tbody>
+            </table>
+            <div class="loader" *ngIf="showLoader">
+                <div class="loading_icon spin_rotate"><i class="fa fa-circle-o-notch"></i></div>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

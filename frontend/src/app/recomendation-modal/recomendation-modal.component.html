@@ -1,0 +1,50 @@
+<div class="modal-dialog home_modal modal-lg">
+  <div class="modal-content">
+     <div class="modal-header">
+       <button type="button" class="close" (click)="close()" >&times;</button>
+       <h4 class="modal-title">{{title}}</h4>
+     </div>
+     <div class="modal-body">
+      <div class="inner-wrapper">
+        <div class="productBlockContainer columns-{{colCount}}">
+          <div class="product-container first-item" *ngFor="let single of products">
+            <div class="prod-item">
+              <div class="prod-image">
+                <a (click)="viewProductDetails(single.product_id)">
+                  <img *ngIf="single.image != null" src="{{baseurl}}backend/images/products/{{single.image}}"
+                    alt="{{single.product_name}}" style="width:200px;height:200px;"/>
+
+                  <img *ngIf="single.image == null" src="https://www.nato-pa.int/sites/default/files/default_images/default-image.jpg"
+                    alt="{{single.product_name}}" style="width:200px;height:200px;" />
+
+                </a>
+              </div>
+              <div class="product-desc">
+                <div class="name"><a (click)="viewProductDetails(single.product_id)">{{single.product_name}}</a></div>
+                <div class="star-rating">
+                </div>
+                <div class="price">
+                  <!--START: ITEMPRICE-->
+                  <span *ngIf="single.priority_pricing_enable == 1">
+                    {{single.priority_pricing_amount}}
+                  </span>
+                  <span *ngIf="single.priority_pricing_enable == 0">
+                      {{single.product_price}}
+                    </span>
+                  <!--END: ITEMPRICE-->
+                </div>
+                <div class="div-hovered">
+                  <button type="button" class="btn btn-color btnATC" (click)="viewProductDetails(single.product_id)">Buy</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="clear: both;"></div>
+        </div>
+      </div>
+     </div>
+     <div class="modal-footer">
+       <button type="button" class="btn btn-black" (click)="dismissAll()" >No, Thanks</button>
+     </div>
+   </div>
+</div>

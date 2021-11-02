@@ -1,0 +1,556 @@
+<div id="mainContainer">
+  <div class="container">
+    <div class="row">
+
+      <div class="breadcrumbs"><a [routerLink]="['']">Home</a> &gt; Checkout</div>
+      <!--END: BODY_HEADER-->
+      <div id="mainContent" class="col-sm-12">
+        <section id="extrapage" class="page-layout">
+          <h1 class="page_headers">Checkout</h1>
+          <div class="alert alert-success" *ngIf="success_msg != ''">{{success_msg}}</div>
+          <div class="alert alert-danger" *ngIf="(error_msg != '') && (isMembership == '')">{{error_msg}}
+            <a *ngIf="resetPasswordToken" [routerLink]="['/reset-password/'+ resetPasswordToken]">Reset Password</a>
+          </div>
+          <div class="alert alert-danger v" *ngIf="(isMembership != '') && (isMembership == 'vip_member')">
+            You’re a registered VIP Member of PurCBD, please <a [routerLink]="['/login']">Sign in here</a> to continue your purchase and ensure you’re receiving the VIP Pricing. Alternatively, you can reset your password by <a [routerLink]="['/forgot-password']">clicking here</a>.
+          </div>
+          <div class="alert alert-danger no" *ngIf="(isMembership != '') && (isMembership == 'non_vip_member')">
+            This e-mail is already associated with a registered account.  You can click here to <a [routerLink]="['/login']">Sign in here</a>. Alternatively, you can reset your password by <a [routerLink]="['/forgot-password']">clicking here</a>.
+          </div>
+          <!--START: SUB_PAGES-->
+          <!--END: SUB_PAGES-->
+          <div class="content">
+            <div class="col-md-3 res_no_pad">
+              <ul class="list-group mb-3">
+                <li class="list-group-item d-flex justify-content-between lh-condensed" *ngFor="let single of cart_details">
+                  <div>
+                    <h6 class="my-0">
+                      <a target="_blank" routerLink="/products/{{single.get_product.id}}">{{single.get_product.product_name}}
+                        <strong class="text-success subsicrip_txt">{{ single.billing_model === "recurringSale" ?
+                          '[Subscription]' : '' }}</strong>
+                      </a>
+                    </h6>
+                    <small class="text-muted">{{single.get_product.product_tagline}}</small>
+                  </div>
+                  <span class="text-muted">Price: {{single.updatedPrice | currency}} X {{ single.quantity}} <strong
+                      class="text-success pull-right">= {{single.prod_subtotal_price | currency}}</strong> </span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Shipping: </span>
+                  <!-- <strong *ngIf="shippingAmount && shippingAmount > 0.0" class="text-success pull-right">+ {{
+                    shippingAmount | currency }}</strong>
+                  <strong *ngIf="!shippingAmount || shippingAmount <= 0.0" class="text-success pull-right">FREE</strong> -->
+                  <strong *ngIf="shippingAmount && shippingAmount > 0.0" class="text-success pull-right">+ {{ shippingAmount | currency }}</strong>
+                  <strong *ngIf="!shippingAmount || shippingAmount == 0.0" class="text-success pull-right">FREE</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between" *ngIf="redeem_status">
+                  <span>Redeem from wallet: </span>
+                  <strong *ngIf="redeem_value && redeem_value > 0.0" class="text-danger pull-right">- {{
+                    redeem_value | currency }}</strong>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                  <span>Total: </span>
+                  <strong class="text-success pull-right">{{ total | currency }}</strong>
+                  <!-- <strong class="text-success pull-right">{{ shippingAmount + cartTotal | currency }}</strong> -->
+                </li>
+              </ul>
+            </div>
+            <div class="col-md-9 res_no_pad">
+              <section id="registration0">
+                <form name="checkoutform" id="checkoutform" #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+                  <div class="accountRegForm pad10 boxShadow">
+                    <div class="header">
+                      <h3>Billing Information
+                      </h3>
+                    </div>
+                    <app-address-card *ngIf="!model.same_as_shipping_address" type="billing" viewType="select" (addressSelected)="addressSelectedHandler($event, 'billing')" style="margin-bottom: 15px;"></app-address-card>
+                    <div class="clearfix">&nbsp;</div>
+                    <div class="billing-form-area" [style.display]="!billingCollapsed ? 'block' : 'none'">
+                      <div class="row">
+                        <div class="loginField form-group col-md-6" *ngIf="!authenticated">
+                          <input name="email" type="email" id="billing_email" size="25" class="txtBoxStyle form-control" placeholder="Email" (blur)="checkExistingCustomer($event.target.name, $event.target.value)" [(ngModel)]="model.email" #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email="true" tabindex="1">
+                          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                            <div *ngIf="email.errors.required">
+                              Email is required.
+                            </div>
+                            <div *ngIf="!email.errors.required">Invalid Email</div>
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+                        <div class="loginField form-group col-md-6">
+                          <!--<label for="billing_phone">Phone
+                            <span class="required">*</span>
+                          </label>-->
+                          <input name="phone" type="tel" id="billing_phone" maxlength="10" size="25" tabindex="2" placeholder="Phone"
+                            class="txtBoxStyle form-control" [(ngModel)]="model.phone" #phone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }"
+                            required>
+                          <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
+                            <div *ngIf="phone.errors.required">
+                              Phone is required.
+                            </div>
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="loginField form-group col-md-6">
+                          <!--<label for="billing_firstname">First Name
+                            <span class="required">*</span>
+                          </label>-->
+                          <input name="billing_firstname" type="text" id="billing_firstname" maxlength="100" size="15" placeholder="First Name"
+                            tabindex="3" [disabled]='editable' class="txtBoxStyle form-control" [(ngModel)]="model.billingFirstName" #billingFirstName="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && billingFirstName.invalid }" required>
+                          <div *ngIf="billingFirstName.invalid && (billingFirstName.dirty || billingFirstName.touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="billingFirstName.errors.required">
+                              First Name is required.
+                            </div>
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+                        <div class="loginField form-group col-md-6">
+                          <!--<label for="billing_lastname">Last Name
+                            <span class="required">*</span>
+                          </label>-->
+                          <input name="billing_lastname" type="text" id="billing_lastname" maxlength="100" size="15" placeholder="Last Name"
+                            tabindex="4" [disabled]='editable' class="txtBoxStyle form-control" [(ngModel)]="model.billingLastName" #billingLastName="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && billingLastName.invalid }" required>
+                          <div *ngIf="billingLastName.invalid && (billingLastName.dirty || billingLastName.touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="billingLastName.errors.required">
+                              Last Name is required.
+                            </div>
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+                      </div>
+                      <div class="form-group loginField">
+                        <!--<label for="billing_address">Address
+                          <span class="required">*</span>
+                        </label>-->
+                        <input name="billing_address1" type="text" id="billing_address" maxlength="255" size="25" placeholder="Address"
+                          tabindex="5" class="txtBoxStyle form-control" [(ngModel)]="model.billingAddress1" #billingAddress1="ngModel"
+                          [ngClass]="{ 'is-invalid': f.submitted && billingAddress1.invalid }" required>
+                        <div *ngIf="billingAddress1.invalid && (billingAddress1.dirty || billingAddress1.touched)"
+                          class="alert alert-danger">
+                          <div *ngIf="billingAddress1.errors.required">
+                            Address is required.
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                      <!-- start-->
+                      <div class="row">
+                        <div class="loginField form-group col-md-3">
+                          <!--<label for="billing_country">Country
+                            <span class="required">*</span>
+                          </label>-->
+                          <ng-select name="billing_country" [(ngModel)]="model.billingCountry" (change)="getStateList(model.billingCountry)"
+                            #billingCountry="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingCountry.invalid }"
+                            required tabindex="6" placeholder="Select Country">
+                            <ng-option *ngFor="let country of countryList" [value]="country.country_iso_code_2">{{country.country_name}}</ng-option>
+                          </ng-select>
+                          <div *ngIf="billingCountry.invalid && (billingCountry.dirty || billingCountry.touched)" class="alert alert-danger">
+                            <div *ngIf="billingCountry.errors.required">
+                              Country is required.
+                            </div>
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+                        <div class="loginField form-group col-md-3">
+                          <!--<label for="billing_state">State/Province
+                            <span class="required">*</span>
+                          </label>-->
+                          <span name="spanState" id="spanState">
+                            <ng-select name="billing_state" maxlength="100" [(ngModel)]="model.billingState" #billingState="ngModel"
+                              [ngClass]="{ 'is-invalid': f.submitted && billingState.invalid }" required tabindex="7"
+                              placeholder="Select State/Province">
+                              <ng-option [value]="">Select State/Province</ng-option>
+                              <ng-option *ngFor="let state of stateList" [value]="state.state_code">{{state.state_name}}</ng-option>
+                            </ng-select>
+                          </span>
+                          <div *ngIf="billingState.invalid && (billingState.dirty || billingState.touched)" class="alert alert-danger">
+                            <div *ngIf="billingState.errors.required">
+                              State/Province is required.
+                            </div>
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+                        <div class="loginField form-group col-md-3">
+                          <!--<label for="billing_city">City
+                            <span class="required">*</span>
+                          </label>-->
+                          <input name="billing_city" type="text" id="billing_city" size="25" maxlength="100" tabindex="8" placeholder="City"
+                            class="txtBoxStyle form-control" [(ngModel)]="model.billingCity" #billingCity="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingCity.invalid }"
+                            required>
+                          <div *ngIf="billingCity.invalid && (billingCity.dirty || billingCity.touched)" class="alert alert-danger">
+                            <div *ngIf="billingCity.errors.required">
+                              City is required.
+                            </div>
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+                        <div class="loginField form-group col-md-3">
+                          <!--<label for="billing_zip">ZIP Code/Postal Code
+                            <span class="required">*</span>
+                          </label>-->
+                          <input name="billing_zip" type="text" pattern="[0-9]*" size="10" maxlength="5" tabindex="9" class="txtBoxStyle form-control" placeholder="ZIP Code/Postal Code"
+                            [(ngModel)]="model.billingZip" #billingZip="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingZip.invalid }"
+                            required>
+                          <div *ngIf="billingZip.invalid && (billingZip.dirty || billingZip.touched)" class="alert alert-danger">
+                            <div *ngIf="billingZip.errors.required">
+                              ZIP Code/Postal Code is required.
+                            </div>
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+
+                    </div>
+                      <!-- end-->
+
+                    </div>
+                  </div>
+                  <!-- check box-->
+                  <div class="same-checkbox">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="true" id="ship_to_different_address" name="ship_to_different_address"
+                          [(ngModel)]="model.ship_to_different_address" #ship_to_different_address="ngModel" tabindex="10">
+                          Ship to a different address?
+                      </label>
+                    </div>
+                  </div>
+                  <!-- check box-->
+                  <div class="clear"></div>
+                  <hr>
+                  <!-- bellow part chaged when "ship to different address" button came -->
+                  <div *ngIf="model.ship_to_different_address">
+                    <div class="accountRegForm pad10 boxShadow" style="margin-top: 20px;">
+                      <div class="header">
+                        <h3>Shipping Information
+                          <!--<div class="pull-right same-checkbox">
+                              <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" value="yes" id="same_as_shipping_address" name="same_as_shipping_address"
+                                    [(ngModel)]="model.same_as_shipping_address" #same_as_shipping_address="ngModel"
+                                    (change)="samAsBillingAddressPopulate($event)">
+                                  Same as Billing Address
+                                </label>
+                              </div>
+                            </div>-->
+                        </h3>
+                      </div>
+                      <app-address-card *ngIf="!model.same_as_shipping_address" type="shipping" viewType="select" (addressSelected)="addressSelectedHandler($event, 'shipping')" style="margin-bottom: 15px;"></app-address-card>
+                      <div class="clearfix">&nbsp;</div>
+                      <div class="shipping-form-area" [style.display]="!shippingCollapsed ? 'block' : 'none'">
+                        <div class="row">
+                          <div class="loginField form-group col-md-6">
+                            <!--<label for="shipping_firstname">First Name
+                              <span class="required">*</span>
+                            </label>-->
+                            <input name="firstName" type="text" id="shipping_firstname" maxlength="100" size="15" placeholder="First Name"
+                              tabindex="11" class="txtBoxStyle form-control" [(ngModel)]="model.firstName" #firstName="ngModel"
+                              [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }" required>
+                            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger">
+                              <div *ngIf="firstName.errors.required">
+                                First Name is required.
+                              </div>
+                            </div>
+                            <div class="clear"></div>
+                          </div>
+                          <div class="loginField form-group col-md-6">
+                            <!--<label for="shipping_lastname">Last Name
+                              <span class="required">*</span>
+                            </label>-->
+                            <input name="lastName" type="text" id="shipping_lastname" maxlength="100" size="15" placeholder="Last Name"
+                              tabindex="12" class="txtBoxStyle form-control" [(ngModel)]="model.lastName" #lastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }"
+                              required>
+                            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger">
+                              <div *ngIf="lastName.errors.required">
+                                Last Name is required.
+                              </div>
+                            </div>
+                            <div class="clear"></div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <div class="loginField">
+                            <!--<label for="shipping_address">Address
+                              <span class="required">*</span>
+                            </label>-->
+                            <input name="address" type="text" id="shipping_address" maxlength="255" size="25" placeholder="Address"
+                              tabindex="13" class="txtBoxStyle form-control" [(ngModel)]="model.address" #address="ngModel" [ngClass]="{ 'is-invalid': f.submitted && address.invalid }"
+                              required>
+                            <div *ngIf="address.invalid && (address.dirty || address.touched)" class="alert alert-danger">
+                              <div *ngIf="address.errors.required">
+                                Address is required.
+                              </div>
+                            </div>
+                            <div class="clear"></div>
+                          </div>
+                        </div>
+
+                        <!-- start-->
+                        <div class="row">
+                          <div class="loginField form-group col-md-3">
+                            <!--<label for="shipping_country">Country
+                              <span class="required">*</span>
+                            </label>-->
+                            <ng-select name="country" [(ngModel)]="model.country" (change)="getStateList(model.country)"
+                              #country="ngModel" [ngClass]="{ 'is-invalid': f.submitted && country.invalid }" required
+                              tabindex="14" placeholder="Select Country">
+                              <ng-option value="">Select Country</ng-option>
+                              <ng-option *ngFor="let country of countryList" [value]="country.country_iso_code_2">{{country.country_name}}</ng-option>
+                            </ng-select>
+                            <div *ngIf="country.invalid && (country.dirty || country.touched)" class="alert alert-danger">
+                              <div *ngIf="country.errors.required">
+                                Country is required.
+                              </div>
+                            </div>
+                            <div class="clear"></div>
+                          </div>
+                          <div class="loginField form-group col-md-3">
+                            <!--<label for="shipping_state">State/Province
+                              <span class="required">*</span>
+                            </label>-->
+                            <span name="spanState" id="spanState">
+                              <ng-select name="state" maxlength="100" [(ngModel)]="model.state" #state="ngModel"
+                                [ngClass]="{ 'is-invalid': f.submitted && state.invalid }" required tabindex="15" placeholder="Select State/Province">
+                                <ng-option [value]="" selected>Select State/Province</ng-option>
+                                <ng-option *ngFor="let state of stateList" [value]="state.state_code">{{state.state_name}}</ng-option>
+                              </ng-select>
+                            </span>
+                            <div *ngIf="state.invalid && (state.dirty || state.touched)" class="alert alert-danger">
+                              <div *ngIf="state.errors.required">
+                                State/Province is required.
+                              </div>
+                            </div>
+                            <div class="clear"></div>
+                          </div>
+                          <div class="loginField form-group col-md-3">
+                            <!--<label for="shipping_city">City
+                              <span class="required">*</span>
+                            </label>-->
+                            <input name="city" type="text" id="shipping_city" size="25" maxlength="100" tabindex="16" placeholder="City"
+                              class="txtBoxStyle form-control" [(ngModel)]="model.city" #city="ngModel" [ngClass]="{ 'is-invalid': f.submitted && city.invalid }"
+                              required>
+                            <div *ngIf="city.invalid && (city.dirty || city.touched)" class="alert alert-danger">
+                              <div *ngIf="city.errors.required">
+                                City is required.
+                              </div>
+                            </div>
+                            <div class="clear"></div>
+                          </div>
+                          <div class="loginField form-group col-md-3">
+                            <!--<label for="shipping_zip">ZIP Code/Postal Code
+                              <span class="required">*</span>
+                            </label>-->
+                            <input name="zip" type="text" size="10" pattern="[0-9]*" maxlength="5" tabindex="17" class="txtBoxStyle form-control" placeholder="ZIP Code/Postal Code"
+                              [(ngModel)]="model.zip" #zip="ngModel" [ngClass]="{ 'is-invalid': f.submitted && zip.invalid }"
+                              required>
+                            <div *ngIf="zip.invalid && (zip.dirty || zip.touched)" class="alert alert-danger">
+                              <div *ngIf="zip.errors.required">
+                                ZIP Code/Postal Code is required.
+                              </div>
+                            </div>
+                            <div class="clear"></div>
+                          </div>
+                      </div>
+                      <!-- end-->
+                      </div>
+                    </div>
+                    <div class="clear"></div>
+                    <hr>
+                  </div>
+                  <!-- shipping address section end-->
+                  <div class="accountRegForm pad10 boxShadow" style="margin-top: 20px;">
+                    <div class="header">
+                      <h3>Payment Information</h3>
+                    </div>
+                    <div class="loginField" *ngIf="walletBalance > 0.0">
+                      <label for="redeemWallet" class="text-danger">You Can Redeem By Wallet [ Available Balance : $
+                        {{walletBalance}}]
+                      </label>
+                      <br>
+                      <p *ngIf="!redeem_btn_status" class="text-success redeem-msg">
+                        You are using $ {{redeem_value}} to place this order.
+                      </p>
+                      <div class="input-group form-group">
+                        <input type="hidden" name="redeemWallet" [(ngModel)]="model.redeemWallet" #redeemWallet="ngModel" tabindex="18">
+                        <input type="text" name="redeemCheck" [readonly]="!redeem_btn_status" [(ngModel)]="model.redeemCheck" #redeemCheck="ngModel"
+                          class="form-control txtBoxStyle form-control" placeholder="You can also redeem from your wallet balance." tabindex="19">
+                        <span class="input-group-btn">
+                          <button type="button" *ngIf="redeem_btn_status" class="btn btn-success" (click)="redeemWalletAmountCheck()" >Redeem</button> <!-- (click)="redeemWalletAmount()" -->
+                          <button type="button" *ngIf="!redeem_btn_status" class="btn btn-success" [tooltip]="editBtnTemplate" (click)="redeemWalletAmountEditOrRemove('edit')" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</button>
+                          <button type="button" *ngIf="!redeem_btn_status" class="btn btn-danger" [tooltip]="removeBtnTemplate" (click)="redeemWalletAmountEditOrRemove('remove')" ><i class="fa fa-times" aria-hidden="true"></i> Remove</button>
+                        </span>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="row clearfix">
+                        <label for="creditCardNumber" class="col-md-2 control-label">Card Number
+                          <span class="required">*</span>
+                        </label>
+                        <div class="col-md-7 loginField form-group" *ngIf="takeCardInformation">
+                          <!--<label for="creditCardNumber">Card Number
+                            <span class="required">*</span>
+                          </label>-->
+                          <input name="creditCardNumber" type="text" pattern="[0-9]*" inputmode="numeric" id="creditCardNumber" maxlength="16" size="16" placeholder="Card Number"
+                            tabindex="19" class="txtBoxStyle form-control" [(ngModel)]="model.creditCardNumber" #creditCardNumber="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && creditCardNumber.invalid }" required (focusout)="detectCardType()" (keydown)="detectCardType()">
+                          <div *ngIf="creditCardNumber.invalid && (creditCardNumber.dirty || creditCardNumber.touched)"
+                            class="alert alert-danger">
+                            <div *ngIf="creditCardNumber.errors.required">
+                              Credit Card Number is required.
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="loginField form-group col-md-3" *ngIf="takeCardInformation">
+                          <!--<label for="creditCardType">Card Type
+                            <span class="required">*</span>
+                          </label>-->
+                          <ng-select name="creditCardType" [(ngModel)]="model.creditCardType" #creditCardType="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && creditCardType.invalid }" required tabindex="20" placeholder="Card Type" >
+                            <ng-option value="">Select Card Type</ng-option>
+                            <ng-option value="visa">VISA</ng-option>
+                            <ng-option value="master">Master Card</ng-option>
+                            <ng-option value="discover">Discover</ng-option>
+                          </ng-select>
+                          <div *ngIf="creditCardType.invalid && (creditCardType.dirty || creditCardType.touched)" class="alert alert-danger">
+                            <div *ngIf="creditCardType.errors.required">
+                              Card Type is required.
+                            </div>
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+                    </div>
+
+                    <div class="row clearfix">
+                      <label class="col-md-2 control-label">Expiration Date
+                        <span class="required">*</span></label>
+                      <div class="loginField form-group col-md-3">
+                          <!--<label for="expmonth">Exp. Month
+                            <span class="required">*</span>
+                          </label>-->
+                          <ng-select name="expmonth" [(ngModel)]="model.expmonth" #expmonth="ngModel" [ngClass]="{ 'is-invalid': f.submitted && expmonth.invalid }"
+                          required tabindex="21" placeholder="Exp. Month">
+                            <ng-option *ngFor="let expmonth of expmonthList;" [value]="expmonth.id">{{expmonth.name}}</ng-option>
+                        </ng-select>
+                          <div *ngIf="expmonth.invalid && (expmonth.dirty || expmonth.touched)" class="alert alert-danger">
+                            <div *ngIf="expmonth.errors.required">
+                              Exp. Month is required.
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+
+                        <div class="loginField form-group col-md-3">
+                          <!--<label for="expyear">Exp. Year
+                            <span class="required">*</span>
+                          </label>-->
+                          <span name="spanState" id="spanState">
+                            <ng-select name="expyear" maxlength="100" [(ngModel)]="model.expyear" #expyear="ngModel"
+                              [ngClass]="{ 'is-invalid': f.submitted && expyear.invalid }" required tabindex="22" placeholder="Exp. Year">
+                              <ng-option *ngFor="let expyear of expyearList" [value]="expyear.id">{{expyear.name}}</ng-option>
+                            </ng-select>
+                          </span>
+                          <div *ngIf="expyear.invalid && (expyear.dirty || expyear.touched)" class="alert alert-danger">
+                            <div *ngIf="expyear.errors.required">
+                              Exp. Year is required.
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="loginField col-md-4 form-group">
+                          <h5>(MM/YYYY)</h5>
+                          <div class="clearfix"></div>
+                        </div>
+                      </div>
+
+                      <div class="row clearfix">
+                        <div class="col-md-2 pad_0_res">
+                          <label for="CVV">CVV2
+                            <span class="required">*</span>
+                          </label>
+                        </div>
+                        <div class="loginField form-group col-md-3" *ngIf="takeCardInformation">
+                          <!--<label for="CVV">CVV
+                            <span class="required">*</span>
+                          </label>-->
+                          <input name="CVV" type="text" pattern="[0-9]*" inputmode="numeric" id="CVV" maxlength="3" size="15" tabindex="23" class="txtBoxStyle form-control" placeholder="CVV"
+                            [(ngModel)]="model.CVV" #CVV="ngModel" [ngClass]="{ 'is-invalid': f.submitted && CVV.invalid }"
+                            required>
+                          <div *ngIf="CVV.invalid && (CVV.dirty || CVV.touched)" class="alert alert-danger">
+                            <div *ngIf="CVV.errors.required">
+                              CVV Name is required.
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="col-md-3 pad_0_res">
+                          <a href="javascript:void(0);" [tooltip]="cvvTemplate" class="btn" placement="top">What is this?</a>
+                        </div>
+                    </div>
+
+
+                    <div class="loginField checkbx_res" *ngIf="takeCardInformation">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" value="yes" id="tnc" name="tnc" [(ngModel)]="model.tnc" #tnc="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && tnc.invalid }" required tabindex="24">
+                            I agree to the Terms and Conditions and Privacy Policy of this site. By selecting a Subscribe and Save option I agree to receive a shipment every month and have my credit card billed the amount of my selected package. Subscriptions can be cancelled at anytime by calling customer service at (888) 256-7732, from 9am to 10pm Monday to Friday or by logging into your account and cancelling the subscription.
+                        </label>
+                      </div>
+                      <div *ngIf="tnc.invalid && (tnc.dirty || tnc.touched)" class="alert alert-danger">
+                        <div *ngIf="tnc.errors.required">
+                          Need to Accept Terms & Conditions
+                        </div>
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                  </div>
+                  <div class="submit-button" style="margin-top:20px;">
+                    <button type="submit" id="submitted" name="submitted" class="btn" [disabled]="!f.form.valid" tabindex="25">
+                      <i class="icon-ok"></i> Complete Checkout
+                    </button> &nbsp;
+                    <a routerLink="/cart" class="btn btn-primary">Back</a>
+                  </div>
+                  <div class="clear"></div>
+                  <div class="clear"></div>
+                  <!--START: CATEGORY_FOOTER-->
+                  <div class="category-footer" id="registrationFooter">
+                    <br>
+                  </div>
+                  <!--END: CATEGORY_FOOTER-->
+                </form>
+              </section>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </section>
+      </div>
+      <!--END: FRAME_MID-->
+    </div>
+    <!-- /.row -->
+  </div>
+</div>
+<ngx-spinner
+bdColor = "rgba(0, 0, 0, 0.38)"
+size = "medium"
+color = "#276900"
+type = "ball-clip-rotate"
+>
+</ngx-spinner>
+<ng-template #cvvTemplate>
+    The CVV Number ("Card Verification Value") on your credit card or debit card is a 3 digit number on VISA, MasterCard and Discover branded credit and debit cards.
+    <img src="assets/images/CVV-demo.png" width="120px;" />
+</ng-template>
+
+<ng-template #editBtnTemplate>
+  Click here to modify the redeem amount.
+</ng-template>
+
+<ng-template #removeBtnTemplate>
+  Click here to remove redeemed amount from this order.
+</ng-template>

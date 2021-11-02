@@ -1,0 +1,27 @@
+<div id="mainContainer">
+    <div class="container">
+      <div class="row">
+        <!--START: LEFT BAR-->
+        <app-my-account-left-menu></app-my-account-left-menu>
+        <!--END: LEFT BAR-->
+        <div id="sidebar-toggle" class="hide">
+          <a href="javascript:void(0);">SHOW SIDEBAR
+            <i class="fa fa-plus"></i>
+          </a>
+        </div>
+        <!--END: LEFT BAR-->
+        <!--START: FRAME_MID-->
+        <!--START: BODY_HEADER-->
+        <div class="breadcrumbs">
+          <a id='catCrumbHomeLink' [routerLink]="['']">Home</a> > My Account > {{ addressTypeName}} Information > {{ actionType }}
+        </div>
+        <!--END: BODY_HEADER-->
+  
+        <div id="mainContent" class="col-sm-9">
+          <section id="registration0">
+            <app-address-form [action]="actionType" [type]="addressTypeName" [id]="addressId"></app-address-form>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>

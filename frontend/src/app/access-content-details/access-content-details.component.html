@@ -1,0 +1,43 @@
+<div id="mainContainer">
+  <div class="container">
+    <div class="row">
+      <!--START: LEFT BAR-->
+      <app-my-account-left-menu></app-my-account-left-menu>
+      <!--END: LEFT BAR-->
+      <div id="sidebar-toggle" class="hide">
+        <a href="javascript:void(0);">SHOW SIDEBAR
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
+      <!--END: LEFT BAR-->
+      <!--START: FRAME_MID-->
+      <!--START: BODY_HEADER-->
+      <div class="breadcrumbs">
+        <a id='catCrumbHomeLink' [routerLink]="['']">Home</a> > 
+        <a id='catCrumbHomeLink' [routerLink]="['/billingInfo']">My Account</a> >
+        <a id='catCrumbHomeLink' [routerLink]="['/accessContent']">Access Contents</a> >
+        <span *ngIf="accessContent">{{ accessContent.title }}</span>
+      </div>
+      <!--END: BODY_HEADER-->
+
+      <div id="mainContent" class="col-sm-9">
+        <section id="registration0" *ngIf="accessContent">
+          <h1 class="page_headers" >{{ accessContent.title }}</h1>
+          <hr>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="custom-block-item">
+                <div class="item-desc">
+                  <p>{{ accessContent.short_description }}</p>
+                  <div [innerHtml]="contentHtmlData"></div>
+                  <p style="text-align: center;"><a [routerLink]="['/generic-content']" class="btn btn-info readmore">Back to All Generic Information</a></p>
+                </div>
+              </div>
+            </div>            
+          </div>
+          <!-- <app-pager></app-pager> -->
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

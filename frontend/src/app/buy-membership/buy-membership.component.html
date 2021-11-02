@@ -1,0 +1,530 @@
+<div id="mainContainer" style="margin-top: 0px;">
+  <div class="container">
+    <div class="row">
+      <section id="registration0">
+        <form name="buyMembershipform" id="buyMembershipform" #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+          <h1 class="page_headers">Checkout with your chosen Membership Package</h1>
+          <hr>
+          <!-- <div class="content" *ngIf="!authenticated && resetPasswordToken">
+            <h4 class="page_headers">Please set your password to proceed order and get benifit and exicting offers!
+              <a [routerLink]="['/reset-password/'+ resetPasswordToken]" class="btn btn-sm btn-warning">Reset
+                Password
+                <i class="fa fa-angle-right"></i>
+              </a>
+            </h4>
+          </div> -->
+
+          <div class="row">
+            <div class="primary col-sm-4">
+              <div id="mediaContainer">
+                <div id="mediaBlock">
+                  <!--START: image1-->
+                  <div class="main-image" *ngIf="membership_details">
+                    <a href="javascript:void(0);" rel="selectors-effect-speed: 600;" title="{{membership_details.product_name}}">
+                      <img *ngIf="membership_details.get_media[0]?.image" src="{{baseurl}}backend/images/membershipPackage/{{membership_details.get_media[0].image}}"
+                        width="200" />
+                        <img *ngIf="!membership_details.get_media[0]?.image" src="https://via.placeholder.com/200x200.png?text=No%20Image%20Found"
+                        width="200" />
+                    </a>
+                  </div>
+                  <!--END: image1-->
+                </div>
+              </div>
+            </div>
+            <div class="secondary col-sm-6">
+              <h1 class="page_headers" *ngIf="membership_details">{{membership_details.product_name}}</h1>
+              <div class="product-short-desc">
+                <p>&nbsp;</p>
+              </div>
+              <!--START: pricing-->
+              <div class="pricingBlock">
+                <h3 class="hidden">Price</h3>
+                <!--START: ITEMPRICE-->
+                <div class="yourprice price">
+                  <label>Your Price:</label>
+                  <span id="price" *ngIf="membership_details">${{membership_details.product_price}}</span>
+                </div>
+              </div>
+              <!--START: extrafields-->
+              <div class="extrafieldsBlock">
+              </div>
+              <!--END: extrafields-->
+            </div>
+          </div>
+          <br>
+          <br>
+          <!-- error message section -->
+          <div class="alert alert-danger v" *ngIf="(isMembershipExist != '') && (isMembershipExist == 'vip_member')">
+            You’re a registered VIP Member of PurCBD, please <a [routerLink]="['/login']">Sign in here</a> to continue your purchase and ensure you’re receiving the VIP Pricing. Alternatively, you can reset your password by <a [routerLink]="['/forgot-password']">clicking here</a>.
+          </div>
+          <div class="alert alert-danger no" *ngIf="(isMembershipExist != '') && (isMembershipExist == 'non_vip_member')">
+            This e-mail is already associated with a registered account.  You can click here to <a [routerLink]="['/login']">Sign in here</a>. Alternatively, you can reset your password by <a [routerLink]="['/forgot-password']">clicking here</a>.
+          </div>
+          <!-- end error message section -->
+          <div class="group-message"></div>
+          <section id="registration0">
+            <form name="checkoutform" id="checkoutform" #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+              <div class="accountRegForm pad10 boxShadow">
+                <div class="header">
+                  <h3>Billing Information
+                  </h3>
+                </div>
+
+                <app-address-card *ngIf="!model.same_as_shipping_address" type="billing" viewType="select" (addressSelected)="addressSelectedHandler($event, 'billing')"></app-address-card>
+                <div class="clearfix">&nbsp;</div>
+                <div class="billing-form-area">
+                  <div class="row">
+                    <div class="loginField form-group col-md-6">
+                      <!--<label for="billing_firstname">First Name
+                        <span class="required">*</span>
+                      </label>-->
+                      <input name="billing_firstname" type="text" id="billing_firstname" maxlength="100" size="15"
+                        tabindex="1" placeholder="First Name" class="txtBoxStyle form-control" [(ngModel)]="model.billingFirstName" #billingFirstName="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && billingFirstName.invalid }" required>
+                      <div *ngIf="billingFirstName.invalid && (billingFirstName.dirty || billingFirstName.touched)" class="alert alert-danger">
+                        <div *ngIf="billingFirstName.errors.required">
+                          First Name is required.
+                        </div>
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                    <div class="loginField form-group col-md-6">
+                      <!--<label for="billing_lastname">Last Name
+                        <span class="required">*</span>
+                      </label>-->
+                      <input name="billing_lastname" type="text" id="billing_lastname" maxlength="100" size="15"
+                        tabindex="2" placeholder="Last Name" class="txtBoxStyle form-control" [(ngModel)]="model.billingLastName" #billingLastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingLastName.invalid }"
+                        required>
+                      <div *ngIf="billingLastName.invalid && (billingLastName.dirty || billingLastName.touched)" class="alert alert-danger">
+                        <div *ngIf="billingLastName.errors.required">
+                          Last Name is required.
+                        </div>
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="loginField form-group col-md-6" *ngIf="!authenticated">
+                        <!--<label for="billing_email">Email
+                          <span class="required">*</span>
+                        </label>-->
+                        <input name="billing_email" type="email" id="billing_email" size="25" placeholder="Email"
+                          class="txtBoxStyle form-control" [(ngModel)]="model.email" #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }"
+                          required email="true" tabindex="3">
+                        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                          <div *ngIf="email.errors.required">
+                            Email is required.
+                          </div>
+                          <div *ngIf="!email.errors.required">Invalid Email</div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+
+                      <div class="loginField form-group col-md-6">
+                        <!--<label for="billing_phone">Phone
+                          <span class="required">*</span>
+                        </label>-->
+                        <input name="phone" type="tel" id="phone" maxlength="10" size="25" tabindex="4" placeholder="Phone"
+                          class="txtBoxStyle form-control" [(ngModel)]="model.phone" #phone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }"
+                          required >
+                        <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
+                          <div *ngIf="phone.errors.required">
+                            Phone is required.
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                  </div>
+
+                  <div class="loginField form-group">
+                    <!--<label for="billing_address">Address
+                      <span class="required">*</span>
+                    </label>-->
+                    <input name="billing_address" type="text" id="billing_address" maxlength="255" size="25" placeholder="Address"
+                      tabindex="5" class="txtBoxStyle form-control" [(ngModel)]="model.billingAddress1" #billingAddress1="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingAddress1.invalid }"
+                      required>
+                    <div *ngIf="billingAddress1.invalid && (billingAddress1.dirty || billingAddress1.touched)" class="alert alert-danger">
+                      <div *ngIf="billingAddress1.errors.required">
+                        Address is required.
+                      </div>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  <!--row start-->
+                  <div class="row">
+                      <div class="loginField form-group col-md-3">
+                        <!--<label for="billing_country">Country
+                          <span class="required">*</span>
+                        </label>-->
+                        <ng-select name="billing_country" [(ngModel)]="model.billingCountry" (change)="getStateList(model.billingCountry)"
+                          #billingCountry="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingCountry.invalid }" required
+                          tabindex="6" placeholder="Select Country">
+                          <ng-option [value]="" [disabled]="true">Select Country</ng-option>
+                          <ng-option *ngFor="let country of countryList" [value]="country.country_iso_code_2">{{country.country_name}}</ng-option>
+                        </ng-select>
+                        <div *ngIf="billingCountry.invalid && (billingCountry.dirty || billingCountry.touched)" class="alert alert-danger">
+                          <div *ngIf="billingCountry.errors.required">
+                            Country is required.
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                      <div class="loginField form-group col-md-3">
+                        <!--<label for="billing_state">State/Province
+                          <span class="required">*</span>
+                        </label>-->
+                        <span name="spanState" id="spanState">
+                          <ng-select name="billing_state" maxlength="100" [(ngModel)]="model.billingState" #billingState="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && billingState.invalid }" required tabindex="7" placeholder="Select State/Province">
+                            <ng-option [value]="" [disabled]="true">Select State/Province</ng-option>
+                            <ng-option *ngFor="let state of stateList" [value]="state.state_code">{{state.state_name}}</ng-option>
+                          </ng-select>
+                        </span>
+                        <div *ngIf="billingState.invalid && (billingState.dirty || billingState.touched)" class="alert alert-danger">
+                          <div *ngIf="billingState.errors.required">
+                            State/Province is required.
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                      <div class="loginField form-group col-md-3">
+                        <!--<label for="billing_city">City
+                          <span class="required">*</span>
+                        </label>-->
+                        <input name="billing_city" type="text" id="billing_city" size="25" maxlength="100" tabindex="8" placeholder="City"
+                          class="txtBoxStyle form-control" [(ngModel)]="model.billingCity" #billingCity="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingCity.invalid }"
+                          required>
+                        <div *ngIf="billingCity.invalid && (billingCity.dirty || billingCity.touched)" class="alert alert-danger">
+                          <div *ngIf="billingCity.errors.required">
+                            City is required.
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+
+                      <div class="loginField form-group col-md-3">
+                        <!--<label for="billing_zip">ZIP Code/Postal Code
+                          <span class="required">*</span>
+                        </label>-->
+                        <input name="billing_zip" type="text" size="10" maxlength="5" tabindex="9" class="txtBoxStyle form-control" placeholder="ZIP Code/Postal Code"
+                          [(ngModel)]="model.billingZip" #billingZip="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingZip.invalid }"
+                          required>
+                        <div *ngIf="billingZip.invalid && (billingZip.dirty || billingZip.touched)" class="alert alert-danger">
+                          <div *ngIf="billingZip.errors.required">
+                            ZIP Code/Postal Code is required.
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+
+                  </div>
+                  <!--end-->
+
+                </div>
+              </div>
+
+              <!-- check box-->
+              <div class="same-checkbox">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" value="true" id="ship_to_different_address" name="ship_to_different_address"
+                        [(ngModel)]="model.ship_to_different_address" #ship_to_different_address="ngModel" tabindex="10">
+                        Ship to a different address?
+                    </label>
+                  </div>
+                </div>
+                <!-- check box-->
+              <div class="clear"></div>
+              <hr>
+              <div *ngIf="model.ship_to_different_address">
+                <div class="accountRegForm pad10 boxShadow" style="margin-top: 20px;">
+                  <div class="header">
+                    <h3>Shipping Information
+                      <!--<div class="pull-right same-checkbox">
+                        <div class="checkbox">
+                          <label>
+                              <input type="checkbox" value="yes" id="same_as_shipping_address" name="same_as_shipping_address"  [(ngModel)]="model.same_as_shipping_address" #same_as_shipping_address="ngModel" (change)="samAsBillingAddressPopulate($event)">
+                            Same as Shipping Address
+                          </label>
+                        </div>
+                      </div>-->
+                    </h3>
+                  </div>
+                  <app-address-card *ngIf="!model.same_as_shipping_address" type="shipping" viewType="select" (addressSelected)="addressSelectedHandler($event, 'shipping')"></app-address-card>
+                  <div class="clearfix">&nbsp;</div>
+                  <div class="shipping-form-area">
+                    <div class="row">
+                      <div class="loginField form-group col-md-6">
+                        <!--<label for="shipping_firstname">First Name
+                          <span class="required">*</span>
+                        </label>-->
+                        <input name="firstname" type="text" id="shipping_firstname" maxlength="100" size="15" placeholder="First Name"
+                          tabindex="11" class="txtBoxStyle form-control" [(ngModel)]="model.firstName" #firstName="ngModel"
+                          [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }" required>
+                        <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                          class="alert alert-danger">
+                          <div *ngIf="firstName.errors.required">
+                            First Name is required.
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                      <div class="loginField form-group col-md-6">
+                        <!--<label for="shipping_lastname">Last Name
+                          <span class="required">*</span>
+                        </label>-->
+                        <input name="lastname" type="text" id="shipping_lastname" maxlength="100" size="15" placeholder="Last Name"
+                          tabindex="12" class="txtBoxStyle form-control" [(ngModel)]="model.lastName" #lastName="ngModel"
+                          [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }" required>
+                        <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+                          class="alert alert-danger">
+                          <div *ngIf="lastName.errors.required">
+                            Last Name is required.
+                          </div>
+                        </div>
+                        <div class="clear"></div>
+                      </div>
+                    </div>
+
+                    <div class="form-group loginField">
+                      <!--<label for="shipping_address">Address
+                        <span class="required">*</span>
+                      </label>-->
+                      <input name="address" type="text" id="shipping_address" maxlength="255" size="25" placeholder="Address"
+                        tabindex="13" class="txtBoxStyle form-control" [(ngModel)]="model.address" #address="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && address.invalid }" required>
+                      <div *ngIf="address.invalid && (address.dirty || address.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="address.errors.required">
+                          Address is required.
+                        </div>
+                      </div>
+                      <div class="clear"></div>
+                    </div>
+                    <!-- start-->
+                    <div class="row">
+                        <div class="loginField col-md-3 form-group">
+                          <!--<label for="shipping_country">Country
+                            <span class="required">*</span>
+                          </label>-->
+                          <ng-select name="country" [(ngModel)]="model.country" (change)="getStateList(model.country)"
+                            #country="ngModel" [ngClass]="{ 'is-invalid': f.submitted && country.invalid }"
+                            required tabindex="14" placeholder="Select Country">
+                            <ng-option [value]="" [disabled]="true">Select Country</ng-option>
+                            <ng-option *ngFor="let country of countryList" [value]="country.country_iso_code_2">{{country.country_name}}</ng-option>
+                          </ng-select>
+                          <div *ngIf="country.invalid && (country.dirty || country.touched)" class="alert alert-danger">
+                            <div *ngIf="country.errors.required">
+                              Country is required.
+                            </div>
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+
+                        <div class="loginField form-group col-md-3">
+                          <!--<label for="shipping_state">Province
+                            <span class="required">*</span>
+                          </label>-->
+                          <span name="spanState" id="spanState">
+                            <ng-select name="state" maxlength="100" [(ngModel)]="model.state" #state="ngModel"
+                              [ngClass]="{ 'is-invalid': f.submitted && state.invalid }" required tabindex="15"
+                              placeholder="Select State/Province">
+                              <ng-option [value]="" [disabled]="true">Select State/Province</ng-option>
+                              <ng-option *ngFor="let state of stateList" [value]="state.state_code">{{state.state_name}}</ng-option>
+                            </ng-select>
+                          </span>
+                          <div *ngIf="state.invalid && (state.dirty || state.touched)" class="alert alert-danger">
+                            <div *ngIf="state.errors.required">
+                              State/Province is required.
+                            </div>
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+
+                        <div class="loginField form-group col-md-3">
+                          <!--<label for="shipping_city">City
+                            <span class="required">*</span>
+                          </label>-->
+                          <input name="city" type="text" id="shipping_city" size="25" maxlength="100" tabindex="16" placeholder="City"
+                            class="txtBoxStyle form-control" [(ngModel)]="model.city" #city="ngModel" [ngClass]="{ 'is-invalid': f.submitted && city.invalid }"
+                            required>
+                          <div *ngIf="city.invalid && (city.dirty || city.touched)" class="alert alert-danger">
+                            <div *ngIf="city.errors.required">
+                              City is required.
+                            </div>
+                          </div>
+                          <div class="clear"></div>
+                        </div>
+                        <div class="loginField form-group col-md-3">
+                            <!--<label for="shipping_zip">ZIP Code/Postal Code
+                              <span class="required">*</span>
+                            </label>-->
+                            <input name="zip" type="text" size="10" maxlength="5" tabindex="17" class="txtBoxStyle" placeholder="ZIP Code/Postal Code"
+                              [(ngModel)]="model.zip" #zip="ngModel" [ngClass]="{ 'is-invalid': f.submitted && zip.invalid }"
+                              required>
+                            <div *ngIf="zip.invalid && (zip.dirty || zip.touched)" class="alert alert-danger">
+                              <div *ngIf="zip.errors.required">
+                                ZIP Code/Postal Code is required.
+                              </div>
+                            </div>
+                            <div class="clear"></div>
+                          </div>
+                    </div>
+                    <!--end-->
+
+                  </div>
+                </div>
+                <div class="clear"></div>
+                <hr>
+              </div>
+              <div class="accountRegForm pad10 boxShadow" style="margin-top: 20px;">
+                <div class="header">
+                  <h3>Payment Information</h3>
+                </div>
+
+                <div class="row">
+                  <label for="creditCardNumber" class="col-md-2 control-label">Card Number
+                    <span class="required">*</span>
+                  </label>
+                  <div class="loginField form-group col-md-7">
+                    <input name="creditCardNumber" type="text" pattern="[0-9]*" inputmode="numeric" id="creditCardNumber" maxlength="16" size="16"
+                      tabindex="18" class="txtBoxStyle form-control" [(ngModel)]="model.creditCardNumber" #creditCardNumber="ngModel" placeholder="Card Number"
+                      [ngClass]="{ 'is-invalid': f.submitted && creditCardNumber.invalid }" required (focusout)="detectCardType()" (keydown)="detectCardType()">
+                    <div *ngIf="creditCardNumber.invalid && (creditCardNumber.dirty || creditCardNumber.touched)"
+                      class="alert alert-danger">
+                      <div *ngIf="creditCardNumber.errors.required">
+                        Credit Card Number is required.
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="loginField form-group col-md-3">
+                    <ng-select name="creditCardType" [(ngModel)]="model.creditCardType" #creditCardType="ngModel"
+                        [ngClass]="{ 'is-invalid': f.submitted && creditCardType.invalid }" required tabindex="19"
+                        placeholder="Select Card Type">
+                        <ng-option [value]="" [disabled]="true">Select Card Type</ng-option>
+                        <ng-option value="visa">VISA</ng-option>
+                        <ng-option value="master">Master Card</ng-option>
+                        <ng-option value="discover">Discover</ng-option>
+                    </ng-select>
+                    <div *ngIf="creditCardType.invalid && (creditCardType.dirty || creditCardType.touched)" class="alert alert-danger">
+                      <div *ngIf="creditCardType.errors.required">
+                        Card Type is required.
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                </div>
+
+                <!-- start row-->
+                <div class="row">
+                    <div class="loginField form-group col-md-2">
+                      <label for="creditCardType">Expiration Date
+                        <span class="required">*</span>
+                      </label>
+                    </div>
+                    <div class="loginField col-md-3 form-group">
+                      <!--<label for="expmonth">Exp. Month
+                        <span class="required">*</span>
+                      </label>-->
+                      <ng-select name="expmonth" [(ngModel)]="model.expmonth" #expmonth="ngModel" [ngClass]="{ 'is-invalid': f.submitted && expmonth.invalid }"
+                        required tabindex="20" placeholder="Exp. Month">
+                        <ng-option value="" [disabled]="true">Month</ng-option>
+                        <ng-option *ngFor="let expmonth of months;" [value]="expmonth.id">{{expmonth.name}}</ng-option>
+                    </ng-select>
+                      <div *ngIf="expmonth.invalid && (expmonth.dirty || expmonth.touched)" class="alert alert-danger">
+                        <div *ngIf="expmonth.errors.required">
+                          Exp. Month is required.
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="loginField col-md-3 form-group">
+                      <!--<label for="expyear">Exp. Year
+                        <span class="required">*</span>
+                      </label>-->
+                      <span name="spanState" id="spanState">
+                        <ng-select name="expyear" maxlength="100" [(ngModel)]="model.expyear" #expyear="ngModel"
+                          [ngClass]="{ 'is-invalid': f.submitted && expyear.invalid }" required tabindex="21" placeholder="Exp. Year">
+                          <ng-option [value]="" [disabled]="true">Exp. Month</ng-option>
+                          <ng-option *ngFor="let expyear of years" [value]="expyear.id">{{expyear.name}}</ng-option>
+                      </ng-select>
+                      </span>
+                      <div *ngIf="expyear.invalid && (expyear.dirty || expyear.touched)" class="alert alert-danger">
+                        <div *ngIf="expyear.errors.required">
+                          Exp. Year is required.
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="loginField col-md-4 form-group">
+                      <h5>(MM/YYYY)</h5>
+                      <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                    <label for="CVV">CVV2
+                      <span class="required">*</span>
+                    </label>
+                  </div>
+                  <div class="loginField form-group col-md-3">
+                    <input name="CVV" type="text" pattern="[0-9]*" inputmode="numeric" id="CVV" maxlength="3" size="15" tabindex="22" class="txtBoxStyle form-control" placeholder="CVV"
+                      [(ngModel)]="model.CVV" #CVV="ngModel" [ngClass]="{ 'is-invalid': f.submitted && CVV.invalid }"
+                      required>
+                    <div *ngIf="CVV.invalid && (CVV.dirty || CVV.touched)" class="alert alert-danger">
+                      <div *ngIf="CVV.errors.required">
+                        CVV2 Name is required.
+                      </div>
+                    </div>
+                    <div class="clear"></div>
+                  </div>
+                  <div class="col-md-3">
+                    <a href="javascript:void(0);" [tooltip]="cvvTemplate" class="btn" placement="top">What is this?</a>
+                  </div>
+                </div>
+                <!-- end-->
+
+
+
+                <div class="loginField" >
+                  <div class="checkbox">
+                      <label>
+                          <input type="checkbox" value="yes" id="tnc" name="tnc"  [(ngModel)]="model.tnc" #tnc="ngModel" [ngClass]="{ 'is-invalid': f.submitted && tnc.invalid }"
+                          required tabindex="23">
+                          I agree to the Terms and Conditions and Privacy Policy of this site. By selecting a Subscribe and Save option I agree to receive a shipment every month and have my credit card billed the amount of my selected package. Subscriptions can be cancelled at anytime by calling customer service at (888) 256-7732, from 9am to 10pm Monday to Friday or by logging into your account and cancelling the subscription.
+                      </label>
+                  </div>
+                  <div *ngIf="tnc.invalid && (tnc.dirty || tnc.touched)" class="alert alert-danger">
+                    <div *ngIf="tnc.errors.required">
+                      Need to Accept Terms & Conditions
+                    </div>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+              <div class="submit-button" style="margin-top:20px;">
+                <button type="submit" id="submitted" name="submitted" class="btn btn-primary" [disabled]="!f.form.valid" tabindex="24">
+                  <i class="icon-ok"></i> Complete Checkout
+                </button> &nbsp;
+              </div>
+            </form>
+          </section>
+        </form>
+      </section>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>
+<ngx-spinner
+bdColor = "rgba(76,180,113,0.5)"
+size = "medium"
+color = "#276900"
+type = "ball-clip-rotate"
+>
+</ngx-spinner>
+<ng-template #cvvTemplate>
+    The CVV Number ("Card Verification Value") on your credit card or debit card is a 3 digit number on VISA, MasterCard and Discover branded credit and debit cards.
+    <img src="assets/images/CVV-demo.png" width="120px;" />
+</ng-template>

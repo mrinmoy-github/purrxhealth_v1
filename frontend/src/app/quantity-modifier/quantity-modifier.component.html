@@ -1,0 +1,12 @@
+
+
+<div class="input-group mb-3 main_addon">
+    <div class="input-group-btn">
+      <button (click)="decreaseQty()" class="btn input-group-text minus"><i class="fa fa-minus"></i></button>
+    </div>
+    <input type="text" class="form-control text-center" [(ngModel)]="quantity" (ngModelChange)="updateQuantity()" (keydown)='validateNumber($event)' readonly>
+    <!-- <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)"> -->
+    <div class="input-group-btn">
+      <button (click)="increaseQty()" class="btn input-group-text"><i class="fa fa-plus"></i></button>
+    </div>
+  </div>

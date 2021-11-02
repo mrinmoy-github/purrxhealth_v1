@@ -1,0 +1,27 @@
+_change_log_AB.txt
+For Recommendation
+Package.json
+    //"ng2-bootstrap-modal": "^1.0.1",
+    "ng2-bootstrap-modal": "https://github.com/Sky4CE/ng2-bootstrap-modal/tarball/v.1.0.2",
+
+npm install --save rxjs-compat
+
+npm install ngx-clipboard --save
+
+
+# npm install script-loader <-- No Need
+# npm install ngx-owl-carousel --save <-- No Need
+
+npm install ng2-toastr --save <-- No Need
+npm install ngx-toastr --save
+npm install @angular/animations --save
+npm update
+
+
+npm install --save @ng-select/ng-select
+
+
+npm install ngx-credit-cards --save  <-- No Need
+
+npm install credit-card-type
+-- Done --

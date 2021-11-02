@@ -1,0 +1,101 @@
+.referral_code .coupon {
+    border: 3px dashed #bcbcbc;
+    border-radius: 10px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", 
+    "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;
+}
+
+.referral_code .coupon .head {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    min-height: 50px;
+}
+
+.referral_code .title .visible-xs {
+    font-size: 12px;
+}
+
+.referral_code .coupon .title img {
+    font-size: 30px;
+    height: 30px;
+    margin-top: 5px;
+}
+
+@media screen and (max-width: 500px) {
+    .referral_code .coupon .title img {
+        height: 15px;
+    }
+}
+
+.referral_code .coupon .title span {
+    float: right;
+    margin-top: 5px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.referral_code .coupon-img {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 0;
+}
+
+.referral_code .items {
+    margin: 15px 0;
+}
+
+.referral_code .usd, .cents {
+    font-size: 20px;
+}
+
+.referral_code .number {
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.referral_code sup {
+    top: -15px;
+}
+
+.referral_code .business-info ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-align: center;
+}
+
+.referral_code .business-info ul li { 
+    display: inline;
+    text-align: center;
+}
+
+.referral_code .business-info ul li span {
+    text-decoration: none;
+    padding: .2em 1em;
+}
+
+.referral_code .business-info ul li span i {
+    padding-right: 5px;
+}
+
+.referral_code .disclosure {
+    padding-top: 15px;
+    font-size: 11px;
+    color: #bcbcbc;
+    text-align: center;
+}
+
+.referral_code .coupon-code {
+    color: #333333;
+    font-size: 11px;
+}
+
+.referral_code .exp {
+    color: #f34235;
+}
+
+.referral_code .print {
+    font-size: 14px;
+    float: right;
+}

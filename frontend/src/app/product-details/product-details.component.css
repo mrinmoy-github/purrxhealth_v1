@@ -1,0 +1,108 @@
+.coupon{
+    padding-left: 0px;
+}
+
+.couponBtn{
+    background-image: none;
+}
+
+.coupon_block{
+    margin: 15px;
+}
+.product_availability.no{ background: #B0394B; }
+.coupon-field{width:100% !important;}
+.ngx-gallery-image.ngx-gallery-active{background-size: 100%;}
+
+
+.mr-20{margin-right: 20px;}
+.updateCart{background: #d58512;border-color: #d58512;box-shadow: none;}
+
+
+
+.options_div {padding: 0px;font-family: 'Lato', sans-serif; display: inline-block; width: 100%; }
+.pull-right {float: right;}
+.pull-left {float: left!important;}
+.options_div li {
+width: 49%;
+list-style: none;
+border: 1px solid #ccc;
+border-radius: 8px;
+position: relative;
+height: 150px;
+}
+.options_div li.selected-option {
+border-color: #95cb4d;
+background: #f0fff3;
+}
+.options_div li.selected-option::before {
+content: "\f00c";
+font-family: fontawesome;
+position: absolute;
+left: 8px;
+background: #84bd37;
+width: 20px;
+height: 20px;
+line-height: 20px;
+text-align: center;
+color: #fff;
+border-radius: 150px;
+font-size: 10px;
+top: 15px;
+}
+.options_div li a {
+padding: 15px 34px;
+display: block;
+color: #333;text-decoration: none;
+}
+.options_div li p {
+font-size: 16px;
+margin: 0px;
+}
+.options_div li h4 {
+font-size: 28px;
+font-weight: 900;
+margin: 0px 0px 6px 0px;
+/* min-height: 60px; */
+padding-top: 15px;
+padding-bottom: 15px;
+}
+.options_div li h5 {
+font-size: 14px;
+margin: 8px 0px 0px 0px;font-weight: 400;
+}
+.options_div li h6 {
+font-size: 14px;
+margin: 0px;
+color: #36469d;font-weight: 400
+}
+.side_price {
+position: absolute;
+right: -5px;
+top: -10px;
+width: 50px;
+height: 50px;
+font-size: 10px;
+background: #d30d0d;
+color: #fff;
+text-align: center;
+border-radius: 50%;
+line-height: 12px;
+padding-top: 10px;
+font-weight: bold;
+letter-spacing: 0.5px;
+}
+@media(max-width: 767px){
+    .secondary{margin-top: 25px;}
+    .secondary .page_headers{margin-bottom: 0px !important;}
+    #product-details .product-short-desc{padding-top: 5px;}
+}
+@media(max-width: 575px){
+.options_div li{float: none;width: 100%;margin: 5px 0px;margin-bottom: 20px;}
+}
+@media(max-width: 480px){
+    .fl_width{width: 100%;margin: 5px 0px;}
+}
+.removeBtn {
+    /* color: #a01010; */
+    background-color:  #a01010;
+}

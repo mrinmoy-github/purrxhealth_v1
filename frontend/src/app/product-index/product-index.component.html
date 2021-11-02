@@ -1,0 +1,33 @@
+<div id="mainContainer">
+  <div class="container">
+    <div class="row">
+      <!--START: LEFT BAR-->
+      <!--START: FRAME_CATEGORY-->
+      <!--END: FRAME_CATEGORY-->
+      <!--END: LEFT BAR-->
+      <!--START: FRAME_MID-->
+      <div class="container">
+        <section id="productIndex" class="page-layout no-breadcrumb pb80">
+          <h1 class="page_headers">BudBox - Product Index</h1>
+          <!--<div class="product-index-paging">: 1 </div>-->
+          <div class="row">
+            <div class="col-sm-12">
+              <ul class="list-group">
+                <!--START: items-->
+                <li class="product-index-item list-group-item" *ngFor="let single of product_list">
+                  <a routerLink="/products/{{single.id}}">{{single.product_name}}</a>
+                </li>                
+                <!--END: items-->
+              </ul>
+            </div>
+            <!--<div class="product-index-paging">: 1 </div>-->
+          </div>
+        </section>
+      </div>
+      <!--END: FRAME_MID-->
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>

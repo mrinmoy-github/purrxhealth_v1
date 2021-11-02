@@ -1,0 +1,16 @@
+.required{color:red;}
+select{max-width: 100%;}
+textarea{margin: 0px; width: 1224px; height: 63px; max-width: 100%;}
+#registration0{padding: 10px;}
+form#registrationform .submit-button{margin-left: 0px;}
+form#checkoutform .submit-button{margin-left: 0px;}
+.btn{
+    background-image: none;
+}
+.same-checkbox{
+  font-size: 1.1rem;
+  font-weight: 800;
+  color : #003366;
+  margin-right: 5px;
+  padding-bottom: 5px;
+}

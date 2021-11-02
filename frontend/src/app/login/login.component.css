@@ -1,0 +1,13 @@
+.myaccountLogin{width: 40%;}
+form .is-invalid{ border-color: red !important;}
+form .ng-valid{ border-color: green !important;}
+
+.error_feedback,.required{color: red;}
+
+@media(max-width:991px){
+    #loginAccount{padding: 30px 40px;}
+}
+
+@media(max-width:767px){
+    .myaccountLogin{max-width: 500px;width: 100%;}
+}

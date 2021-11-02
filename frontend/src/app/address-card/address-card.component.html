@@ -1,0 +1,61 @@
+<ng-container *ngIf="viewType == 'modify'">
+  <div class="row">
+      <div class="col-md-4 col-sm-4" *ngFor="let addressDeatils of allAddress">
+          <div class="card_div">
+            <ul class="list-group">
+              <li class="">First name : <span class="details_group">{{ addressDeatils.first_name }}</span> </li>
+              <li class="">Last Name : <span class="details_group">{{ addressDeatils.last_name }}</span></li>
+              <li class="">City : <span class="details_group">{{ addressDeatils.city }}</span></li>
+              <li class="">State : <span class="details_group">{{ addressDeatils.state.state_name }}</span></li>
+              <li class="">Zip : <span class="details_group">{{ addressDeatils.zip }}</span></li>
+            </ul>
+            <div class="button_div">
+              <a [routerLink]="['/address/'+addressDeatils.address_type+'/edit/'+ addressDeatils.id]" class="eidt_bton">Edit</a>
+              <a [routerLink]="" (click)="openModal(template, addressDeatils.id)" class="delete_bton">Delete</a>
+            </div>
+          </div>
+        </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="viewType == 'select' " style="margin-top: 50px;margin-bottom: 30px;">
+  <ng-select *ngIf="allAddress && allAddress.length !== undefined && allAddress.length > 0" [items]="allAddress" bindLabel="address" bindValue="address" (change)="selected($event)" placeholder="Select Address">
+    <ng-template ng-option-tmp let-item="item" let-index="index">
+      <div class="well card_div_well">
+        <strong>{{ item.first_name }} {{ item.last_name }}</strong>
+        <hr>
+        <ul class="list-group">
+          <li class=""><label><strong>Address :</strong> {{ item.address }}</label></li>
+          <li class=""><label><strong>City :</strong> {{ item.city }}</label></li>
+          <li class=""><label><strong>State :</strong> {{ item.state.state_name }}</label></li>
+          <li class=""><label><strong>Zip :</strong> {{ item.zip }}</label></li>
+        </ul>
+      </div>
+    </ng-template>
+  </ng-select>
+	<!-- <ul class="grouo_dm" *ngIf="allAddress && allAddress.length !== undefined && allAddress.length > 0">
+    <li *ngFor="let addressDeatils of allAddress" class="list-group-item">{{ addressDeatils.first_name }} {{
+        addressDeatils.last_name }}, {{ addressDeatils.city }}, {{ addressDeatils.state.state_name }}, {{
+        addressDeatils.zip }}
+      <div class="pull-right">
+        <a (click)="selected(addressDeatils)" class="slect_right_btn" > Select</a>
+      </div>
+    </li>
+	</ul> -->
+</ng-container>
+
+<ng-container *ngIf="allAddress.length == 0 && viewType == 'modify'">
+ <div class="noRecord">
+    <p>No records found!!..</p>
+  </div>
+</ng-container>
+
+
+<ng-template #template>
+  <div class="modal-body">
+      <p class="text-center m-15 modal-p">Are you sure ?</p>
+  </div>
+  <div class="modal-footer text-center border-0">
+    <a [routerLink]="" (click)="deleteAddress(addrId)" class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i> Delete </a>
+    <button type="button" class="btn btn-default btn-sm" (click)="modalRef.hide()"> <i class="fa fa-times"></i> Close </button>
+  </div>
+</ng-template>

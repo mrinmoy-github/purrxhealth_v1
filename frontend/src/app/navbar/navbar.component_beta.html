@@ -1,0 +1,261 @@
+<!-- Latest compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+<nav class="st-menu st-effect st-effect-1" id="mobile-categoriy">
+   <ul *ngIf="category_list">
+      <li class="home-menu clearfix">
+         <span class="col-xs-6 text-center" style="padding: 10px; border-right: 1px solid #d8d8d8;border-bottom: 1px solid #d8d8d8;"><a (click)="toggleNavMenu()" [routerLink]="['']"><i class="fa fa-home fa-2x"></i></a></span>
+         <span class="col-xs-6 text-center" style="padding: 10px;border-left: 1px solid #d8d8d8;border-bottom: 1px solid #d8d8d8;"><a (click)="toggleNavMenu()" [routerLink]="['/contactus']"><i class="fa fa-user fa-2x"></i></a></span>
+      </li>
+      <li>
+         <a (click)="toggleNavMenu()" [routerLink]="['/membership']" class="cat">{{sitename}} Membership</a>
+      </li>
+      <li>
+         <a (click)="toggleNavMenu()" href="javascript:void(0);" [routerLink]="['/blogs']" class="cat">Blog</a>
+      </li>
+      <li *ngFor="let single of category_list[0]; let i = index;" [ngClass]="{'hasSub' : single.childCats }">
+      <a class="cat"><span (click)="toggleNavMenu()" routerLink="/category/{{single.slug}}" >{{single.name}}</span>
+      <span (click)="toggleSubMenu(i)"  class="pull-right" href="javascript:void(0);"><i [class]="showSubMenu[i] ? 'fa fa-caret-square-o-up fa-2x' : 'fa fa-2x fa-caret-square-o-down'"></i></span>
+      </a>
+      <div [style.display]=" showSubMenu[i] ? 'block' :'none'" class="subMenu">
+         <ul *ngIf="single.childCats" class="child-menu-mobile">
+            <li *ngFor="let childCat of single.childCats">
+               <a (click)="toggleNavMenu()" routerLink="/category/{{childCat.slug}}" class="subcat">{{
+               childCat.name }}</a>
+            </li>
+         </ul>
+      </div>
+      </li>
+      <li *ngIf="authenticated">
+         <a (click)="toggleNavMenu()" href="javascript:void(0);" class="" target="_self" (click)="signout()" data-toggle="modal"
+         data-target="#signoutModal">
+         Sign Out</a>
+      </li>
+      <li>
+         <div class="mobile_submenu">
+            <ul>
+               <p>CHECK US OUT ON SOCIAL MEDIA!</p>
+               <li>
+                  <p>
+                     <span class="left_text">PETS</span>
+                     <span class="right_icon">
+                     <a href="https://twitter.com/purcbd_pets/" target="_blank"><i class="fa fa-twitter"></i></a>
+                     <a href="https://www.instagram.com/purcbd_pets/ " target="_blank"><i class="fa fa-instagram"></i></a>
+                     <a href="https://www.facebook.com/purcbdpets/" target="_blank"><i class="fa fa-facebook"></i></a>
+                     </span>
+                  </p>
+               </li>
+               <li>
+                  <p>
+                     <span class="left_text">HUMANS</span>
+                     <span class="right_icon">
+                     <a href="https://twitter.com/purcbd/" target="_blank"><i class="fa fa-twitter"></i></a>
+                     <a href="https://www.instagram.com/purcbdhealth/ " target="_blank"><i class="fa fa-instagram"></i></a>
+                     <a href="https://www.facebook.com/Purcbd-2186176434766987/" target="_blank"><i class="fa fa-facebook"></i></a>
+                     </span>
+                  </p>
+               </li>
+            </ul>
+         </div>
+      </li>
+   </ul>
+</nav>
+<!--<nav class="st-menu st-effect st-effect-2" id="mobile-customer-menu">
+   <ul>
+       <li class="menu"><a (click)="toggleNavMenu()" [routerLink]="['/contactus']" class="menu" target="_self">Contact Us</a></li>
+       <li *ngIf="authenticated">
+           <a (click)="toggleNavMenu()" href="javascript:void(0);" class="" target="_self" (click)="signout()" data-toggle="modal"
+               data-target="#signoutModal">
+               Sign Out</a>
+       </li>
+   </ul>
+   </nav>-->
+<header id="header">
+   <div id="mobile-navigation" class="visible-xs">
+      <ul id="st-trigger-effects">
+         <li><a data-effect="st-effect-1" id="navbar-handler" href="javascript:void(0);">&nbsp;<i class="fa fa-bars"></i></a></li>
+         <li>
+            <a id="mobile-cart" class="mobile-logo" [routerLink]="['']" title="{{sitename}}"><img src="assets/images/logo.png"
+               alt="" style="height: 35px;" /></a>
+         </li>
+         <li><a id="mobile-cart" [routerLink]="['/cart']"><i class="fa fa-shopping-cart"></i><span id="mobile-item-count" class="item-count">{{cartCount}}</span></a></li>
+      </ul>
+   </div>
+   <div class="header-top">
+      <div class="container">
+         <div class="header-top-left">
+            <ul class="hidden-xs">
+               <li class="menu"><a [routerLink]="['/contactus']" class="menu" target="_self">Contact Us</a></li>
+               <!--END: menuitems_view-->
+               <!--START: login-->
+               <!--                    <li class="not-logged" *ngIf="!authenticated">
+                  <a [routerLink]="['/login']">Sign In</a> or <a [routerLink]="['/membership']"> Become a
+                     VIP Member</a></li>-->
+               <li *ngIf="authenticated">
+                  <a href="javascript:void(0);" class="" target="_self" (click)="signout()" data-toggle="modal"
+                     data-target="#signoutModal">
+                  Sign Out</a>
+               </li>
+               <!--<li class="not-logged menu" *ngIf="authenticated"><a [routerLink]="['/address/billing']">My Account</a></li>--> 
+               <!--END: login-->
+               <!--START: username-->
+               <li class="not-logged menu" *ngIf="authenticated">[ {{ membership_uemail }} ]</li>
+               <!--END: username-->
+            </ul>
+         </div>
+         <!-- /.header-top-left -->
+         <div class="header-top-right">
+            <div class="custom-promotion">
+               <div class="promo-item">
+                  <a href="javascript:void(0);">Free Shipping <span>Spend $200 +</span></a>
+               </div>
+               <div class="promo-item" >
+                  <a *ngIf="!authenticated" [routerLink]="['/login']">Existing User? <span>Sign In Now</span></a>
+                  <a *ngIf="authenticated" [routerLink]="['/address/billing']">My Account</a>
+               </div>
+            </div>
+            <div class="top-cart hidden-xs" id="top-cart">
+               <a [routerLink]="['/cart']" class="has-0-item"><i class="fa fa-shopping-cart"></i>(<span id="item-count">{{
+               cartCount }}
+               Item</span><span id="noItemsText">s</span>)
+               </a>
+               <!--a [routerLink]="['/login']" *ngIf="!authenticated" class="has-0-item"><i class="fa fa-shopping-cart"></i>(<span id="item-count">{{ cartCount }}
+                  Item</span><span id="noItemsText">s</span>)
+                  </a-->
+               <!--START: shopping_cart-->
+               <!--END: shopping_cart-->
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- /.header-top -->
+   <div class="header-bottom">
+      <div class="container">
+         <div class="row">
+            <div class="col-sm-3 col-xs-12 hidden-xs">
+               <div id="logo">
+                  <!--START: global_header--><a [routerLink]="['']" title="{{sitename}}"><img src="assets/images/logo.png"
+                     alt="" style="width:85% !important;" /></a>
+                  <!--END: global_header-->
+               </div>
+               <div class="gift-wrapping-header">
+               </div>
+            </div>
+            <div class="col-sm-9 col-xs-12" style="margin-top:25px" id="menu-container">
+               <nav id="top-categories-menu" class="hidden-xs navbar-right">
+                  <a class="logo-fixed" href="/" title="{{sitename}}">
+                  <img src="assets/images/logo.png" alt="{{sitename}}" />
+                  </a>
+                  <div class="container">
+                     <ul *ngIf="category_list">
+                        <li class="home-menu"><a [routerLink]="['']"><i class="fa fa-home"></i></a></li>
+                        <li>
+                           <a [routerLink]="['/membership']" class="cat">{{sitename}} Membership</a>
+                        </li>
+                        <li>
+                           <a [routerLink]="['/blogs']" class="cat">Blog</a>
+                        </li>
+                        <li *ngFor="let single of category_list[0]" [ngClass]="{'hasSub' : single.childCats }">
+                        <a routerLink="/category/{{single.slug}}" class="cat">{{single.name}}</a>
+                        <div class="subMenu">
+                           <ul *ngIf="single.childCats">
+                              <li *ngFor="let childCat of single.childCats">
+                                 <a routerLink="/category/{{childCat.slug}}" class="subcat">{{
+                                 childCat.name }}</a>
+                              </li>
+                           </ul>
+                        </div>
+                        </li>
+                        <li class="hoverClass hasSub">
+                           <a>CHECK US OUT ON SOCIAL MEDIA!</a>
+                           <div class="subMenu">
+                              <ul>
+                                 <li>
+                                    <p>
+                                       <span class="left_text">PETS</span>
+                                       <span class="right_icon">
+                                       <a href="https://twitter.com/purcbd_pets/" target="_blank"><i class="fa fa-twitter"></i></a>
+                                       <a href="https://www.instagram.com/purcbd_pets/ " target="_blank"><i class="fa fa-instagram"></i></a>
+                                       <a href="https://www.facebook.com/purcbdpets/" target="_blank"><i class="fa fa-facebook"></i></a>
+                                       </span>
+                                    </p>
+                                 </li>
+                                 <li>
+                                    <p>
+                                       <span class="left_text">HUMANS</span>
+                                       <span class="right_icon">
+                                       <a href="https://twitter.com/purcbd/" target="_blank"><i class="fa fa-twitter"></i></a>
+                                       <a href="https://www.instagram.com/purcbdhealth/ " target="_blank"><i class="fa fa-instagram"></i></a>
+                                       <a href="https://www.facebook.com/Purcbd-2186176434766987/" target="_blank"><i class="fa fa-facebook"></i></a>
+                                       </span>
+                                    </p>
+                                 </li>
+                              </ul>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </nav>
+            </div>
+            <!--div class="col-sm-6 col-xs-12 text-right">
+               <div class="header-search" id="searchBox">
+                   <div id="FRAME_SEARCH">
+                       <span class="search-toggle hide"><i class="fa fa-search"></i></span>
+                       <form name="searchForm" method="get" action="search.asp">
+                           <i class="fa fa-search"></i>
+                           <input type="text" name="keyword" value="" id="searchlight" placeholder="Search" />
+                           <button name="search" type="submit">Search</button>
+                       </form>
+                   </div>
+               </div>
+               </div-->
+         </div>
+      </div>
+   </div>
+   <!-- /.header-bottom -->
+   
+   <nav id="top-categories-menu1" class="hidden-xs hide">
+      <a class="logo-fixed" href="/" title="{{sitename}}">
+      <img src="assets/images/logo-fixed.png" alt="{{sitename}}" />
+      </a>
+      <div class="container">
+         <ul *ngIf="category_list">
+            <li class="home-menu"><a [routerLink]="['']"><i class="fa fa-home"></i></a></li>
+            <li>
+               <a [routerLink]="['/membership']" class="cat">{{sitename}} Membership</a>
+            </li>
+            <li>
+               <a [routerLink]="['/blogs']" class="cat">Blog</a>
+            </li>
+            <li *ngFor="let single of category_list[0]" [ngClass]="{'hasSub' : single.childCats }">
+            <a routerLink="/category/{{single.slug}}" class="cat">{{single.name}}</a>
+            <div class="subMenu">
+               <ul *ngIf="single.childCats">
+                  <li *ngFor="let childCat of single.childCats">
+                     <a routerLink="/category/{{childCat.slug}}" class="subcat">{{ childCat.name }}</a>
+                  </li>
+               </ul>
+            </div>
+            </li>
+         </ul>
+      </div>
+   </nav>
+</header>
+<!-- /header -->
+<div id="signoutModal" class="modal fade" role="dialog" aria-labelledby="signoutModal" aria-hidden="true">
+   <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+         <div class="modal-header">
+            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+            <h4 class="modal-title">You have Signed Out successfully.</h4>
+         </div>
+         <!-- <div class="modal-body">
+            <section id="product-details">
+            
+            </section>
+            </div> -->
+         <!-- <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div> -->
+      </div>
+   </div>
+</div>

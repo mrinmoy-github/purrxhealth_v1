@@ -1,0 +1,97 @@
+<div id="mainContainer" style="margin-top: 0px;min-height: 0px;">
+    <div id="breadcrumbs-wrapper">
+        <div class="container">
+          <div class="breadcrumbs">
+            <a id="catCrumbHomeLink" [routerLink]="['']">Home</a>&nbsp;&gt;&nbsp;
+            Member Login
+          </div>
+        </div>
+      </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+      <!--START: LEFT BAR-->
+      <!--END: LEFT BAR-->
+      <!--START: FRAME_MID-->
+      <section id="loginAccount">
+        <!--START: BODY_HEADER-->
+
+        <!--END: BODY_HEADER-->
+        <h1 class="page_headers">Member Login</h1>
+        <!--START: error_message-->
+        <!--END: error_message-->
+        <div class="alpha-col">
+          <div class="header">
+            <h3>Please Login Below</h3>
+          </div>
+          <div class="myaccountLogin pad10">
+            <form id="frmForm" name="loginForm" #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+              <div class="alert alert-success"  *ngIf="success_msg != ''">{{success_msg}}</div>
+                <div class="alert alert-danger"  *ngIf="error_msg != ''">{{error_msg}}</div>
+              <div class="loginField">
+                <input type="email" name="email" value="" size="40" maxlength="50" tabindex="1" placeholder="Email*" class="txtBoxStyle" [(ngModel)]="model.email"
+                  #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email>
+
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                  <div *ngIf="email.errors.required">
+                    Email is required.
+                  </div>
+                  <div *ngIf="email.errors.email">
+                    Email Address is invalid.
+                  </div>
+                </div>
+
+                <div class="clear"></div>
+              </div>
+              <br>
+              <div class="loginField">
+                <input type="password" autocomplete="off" name="password" value="" size="40" maxlength="50" tabindex="2" placeholder="Password*"
+                  class="txtBoxStyle" [(ngModel)]="model.password" #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }"
+                  required>
+
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                  <div *ngIf="password.errors.required">
+                    Password is required.
+                  </div>
+                </div>
+
+                <div class="clear"></div>
+              </div>
+              <br>
+              <!-- <div class="loginField">
+                
+              </div>
+              <br> -->
+              <!--START: captcha-->
+              <!--END: captcha-->
+              <!--START: recaptcha-->
+              <!--END: recaptcha-->
+              <!--START: recaptcharobot-->
+              <!--END: recaptcharobot-->
+              <div class="submit-button">
+                <button type="submit" id="submitted" name="submitted" class="btn" [disabled]="!f.form.valid || showLoader">                  
+                  <span *ngIf="showLoader == true"><i class="fa fa-refresh fa-spin"></i></span>                
+                  {{loginButtonText}}
+                </button>
+                <span class="back_login"><a [routerLink]="['/forgot-password']" class="resetpass-link">
+                  <i class="icon-cw"></i>Forgot Password?</a></span>
+
+              </div>
+
+            </form>
+            <form name="forgotPass" action="login.asp?action=forgotpass&amp;ordertracking=1" method="post">
+              <input type="hidden" name="email" id="resetEmail" value="">
+            </form>
+
+          </div>
+          <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+      </section>
+      <!--END: FRAME_MID-->
+    </div>
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>

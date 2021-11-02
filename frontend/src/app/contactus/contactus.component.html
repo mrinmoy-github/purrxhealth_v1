@@ -1,0 +1,175 @@
+<div id="mainContainer" style="margin-top: 0px;">
+  <div id="breadcrumbs-wrapper">
+    <div class="container">
+      <div class="breadcrumbs">
+        <a [routerLink]="['']">Home</a>
+        <i class="fa fa-angle-right"></i>
+        <a [routerLink]="['/contactus']">Contact Us</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <!--START: BODY_HEADER-->
+
+      <!--END: BODY_HEADER-->
+      <!-- <div id="google-map">
+        <div class="container">
+          <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAQKWLAmzXqJQ-ywkUCEd35JuZEGVD_bPk
+          &q=Duncan+BC+V9L0C2+Canada" width="100%" height="400" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+        </div>
+      </div> -->
+      <div class="container">
+
+        <section id="contactUs" class="page-layout">
+          <!--START: CATEGORY_HEADER-->
+          <!--END: CATEGORY_HEADER-->
+          <div class="row">
+            <div class="col-sm-4 col-sm-push-8 col-md-3 col-md-push-9">
+              <div class="storeLocation">
+                <h3>
+                  <span>Need Support?</span>
+                </h3>
+                <div class="store-email">Please use the contact form</div>
+                <div class="store-phone">Toll-free: {{settingsdata.customer_support_no}}
+                </div>
+
+                <label>Opening Hours:</label>
+                <div class="item1">{{settingsdata.operating_hours}}</div>
+              </div>
+            </div>
+            <div class="col-sm-8 col-sm-pull-4 col-md-9 col-md-pull-3">
+              <h1 class="page_headers">Contact Form</h1>
+              <h5 class="page_headers">All
+                <span class="required">*</span> fields are required.</h5>
+                <div class="alert alert-success"  *ngIf="success_msg != ''">{{success_msg}}</div>
+                <div class="alert alert-danger"  *ngIf="error_msg != ''">{{error_msg}}</div>
+              <div class="crmForm">
+                <form id="frmForm" name="contactForm" class="form-horizontal" #f="ngForm" (ngSubmit)="onSubmit(f)"  novalidate>
+                  <div class="form-group">
+                    <label for="departmentid" class="col-sm-3 control-label">Department:</label>
+                    <div class="col-sm-9">
+                      <select name="departmentid" id="departmentid" tabindex="1" class="form-control">
+                        <option value="1">General</option>
+                        <option value="2">Sales</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="customer" class="col-sm-3 control-label">Name
+                      <span class="required">*</span>:</label>
+                    <div class="col-sm-9">
+                      <input type="text" name="name" value="" size="40" maxlength="50" tabindex="2" class="form-control" [(ngModel)]="model.name"
+                        #name="ngModel" [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required>
+                      <div class="error_feedback" *ngIf="f.submitted && name.invalid">
+                        Name is required!
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="phone" class="col-sm-3 control-label">Phone
+                      <span class="required">*</span>:</label>
+                    <div class="col-sm-9">
+                      <input type="text" name="phone" value="" size="40" maxlength="50" tabindex="3" class="form-control" [(ngModel)]="model.phone"
+                        #phone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }" required>
+                      <div class="error_feedback" *ngIf="f.submitted && phone.invalid">
+                        Phone no is required!
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="custemail" class="col-sm-3 control-label">Email
+                      <span class="required">*</span>:</label>
+                    <div class="col-sm-9">
+                      <input type="email" name="email" value="" size="40" maxlength="50" tabindex="4" class="form-control" [(ngModel)]="model.email"
+                        #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email>
+                      <div class="error_feedback" *ngIf="f.submitted && email.invalid">
+                        <div *ngIf="email.errors.required">Email is required!</div>
+                        <div *ngIf="email.errors.email">Please provide a valid email address!</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="subject" class="col-sm-3 control-label">Subject
+                      <span class="required">*</span>:</label>
+                    <div class="col-sm-9">
+                      <input name="subject" type="text" id="subject" value="" size="40" maxlength="150" tabindex="5" class="form-control" [(ngModel)]="model.subject"
+                        #subject="ngModel" [ngClass]="{ 'is-invalid': f.submitted && subject.invalid }" required>
+                      <div class="error_feedback" *ngIf="f.submitted && subject.invalid">
+                        Contact Subject required!
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="reply" class="col-sm-3 control-label">Message
+                      <span class="required">*</span>:</label>
+                    <div class="col-sm-9">
+                      <textarea name="message" id="message" tabindex="6" class="form-control" [(ngModel)]="model.message" #message="ngModel" [ngClass]="{ 'is-invalid': f.submitted && message.invalid }"
+                        required></textarea>
+                      <div class="error_feedback" *ngIf="f.submitted && message.invalid">
+                        Message is required!
+                      </div>
+                    </div>
+                  </div>
+                  <!--START: captcha-->
+                  <!--END: captcha-->
+                  <!--START: recaptcha-->
+                  <!--END: recaptcha-->
+                  <!--START: recaptcharobot-->
+                  <!-- <script type="text/javascript">
+                    var onSubmit = function (token) {
+                      if ('compact' == 'invisible')
+                        jQuery("#frmForm").submit();
+                    }
+                    var onloadCallback = function () {
+                      grecaptcha.render('divRobocop', {
+                        'sitekey': '6Lf9BBkUAAAAAJoQH1mGjLuPIra-ZcFwPoZfFtkJ',
+                        'theme': 'light',
+                        'size': 'compact',
+                        'type': 'image',
+                        'callback': onSubmit
+                      });
+                    }
+                  </script>
+                  <script src="//www.google.com/recaptcha/api.js?onload=onloadCallback&amp;render=explicit" async="" defer=""></script>
+                  <div id="divRobocop">
+                    <div style="width: 164px; height: 144px;">
+                      <div>
+                        <iframe src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6Lf9BBkUAAAAAJoQH1mGjLuPIra-ZcFwPoZfFtkJ&amp;co=aHR0cHM6Ly93d3cuYnVkYm94LmNhOjQ0Mw..&amp;hl=en&amp;type=image&amp;v=v1536705955372&amp;theme=light&amp;size=compact&amp;cb=6ls5uibinlsq"
+                          width="164" height="144" role="presentation" name="a-ub1xq3q0hg68" frameborder="0" scrolling="no"
+                          sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe>
+                      </div>
+                      <textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; "></textarea>
+                    </div>
+                  </div> -->
+                  <!-- <div class="crmField">
+                    <label for="recaptcha_challenge_field">Verification:</label>
+                    &nbsp;
+                  </div> -->
+                  <!--END: recaptcharobot-->
+                  <div id="divSubmitButton" class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                      <!-- <input type="submit"  class="btn btn-black" value="Submit Request"> -->
+                      <button type="submit" class="btn btn-black" [disabled]="!f.form.valid">Submit Request</button>
+                    </div>
+                  </div>
+                </form>
+
+
+              </div>
+            </div>
+          </div>
+          <!-- /.row -->
+          <!--START: CATEGORY_FOOTER-->
+          <!--END: CATEGORY_FOOTER-->
+        </section>
+      </div>
+      <!-- /.container -->
+      <!--END: FRAME_MID-->
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>

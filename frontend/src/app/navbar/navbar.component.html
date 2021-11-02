@@ -1,0 +1,83 @@
+<header class="desktop-header" >
+            <div class="top_header">
+               <p>Spend Over $100 & Qualify for Free Shipping</p>
+            </div>
+            <div class="navbar">
+               <div class="logo">
+                  <a href="#"><img src="assets/images/logo.png" alt=""></a>
+               </div>
+               <div class="menu">
+                <!-- <li *ngFor="let single of category_list[0]; " [ngClass]="{'hasSub' : single.childCats }"> -->
+
+                  <!-- <a routerLink="/category/cbd-for-people">PRODUCTS</a> -->
+
+      <span *ngFor="let single of category_list[0].slice(0); let i = index;" [ngClass]="{'hasSub' : single.childCats }">
+            <a class="cat">
+                <span (click)="toggleNavMenu()" routerLink="/category/{{single.slug}}" >{{single.name}}</span>
+                <span (click)="toggleSubMenu(i)"  class="pull-right" href="javascript:void(0);"><i [class]="showSubMenu[i] ? 'fa fa-caret-square-o-up fa-2x' : 'fa fa-2x fa-caret-square-o-down'"></i></span>
+            </a>
+            <div [style.display]=" showSubMenu[i] ? 'block' :'none'" class="dropdown">
+                             <ul *ngIf="single.childCats" class="dropdown-content">
+                                <li *ngFor="let childCat of single.childCats">
+                                   <a (click)="toggleSubMenu(i)" routerLink="/category/{{childCat.slug}}" class="subcat">{{
+                                   childCat.name }}</a>
+                                </li>
+                             </ul>
+            </div>
+      </span>
+
+                 
+              <a [routerLink]="['/blogs']">LEARN</a>
+              <a [routerLink]="['/login']">LOGIN</a>
+
+               </div>
+
+             <a [routerLink]="['/cart']" class="has-0-item" style="padding: 29px 0 0 167px;
+    font-weight: 400;"><i class="fa fa-shopping-cart"></i>(<span id="item-count">{{ cartCount }} Item</span><span *ngIf="cartCount > 1">s</span>)
+             </a>
+                  
+            </div>
+
+      </header>
+
+
+<!--mobile--->
+      <header class="mobile-header">
+         <div class="nav_bar_top">
+            <div class="nav_left">
+              <a href="#"><img src="assets/images/logo.png" alt="" /></a>
+            </div>
+
+            <div class="nav_right">
+               <a href="javascript:void(0);" class="icon mob_icon" onclick="myFunction()">
+                  <i class="fa fa-bars"></i>
+                </a>
+            </div>
+            <ul class="top_nav_mo_section">
+               <!-- <li><a routerLink="/category/cbd-for-people">PRODUCTS</a></li> -->
+               <!-- <li><a href="#">BY SYMPTOM</a></li> -->
+               <li *ngFor="let single of category_list[0].slice(1); let i = index;" [ngClass]="{'hasSub' : single.childCats }">
+            <a class="cat">
+                <span (click)="toggleNavMenu()" routerLink="/category/{{single.slug}}" >{{single.name}}</span>
+                <span (click)="toggleSubMenu(i)"  class="pull-right" href="javascript:void(0);"><i [class]="showSubMenu[i] ? 'fa fa-caret-square-o-up fa-2x' : 'fa fa-2x fa-caret-square-o-down'"></i></span>
+            </a>
+            <div [style.display]=" showSubMenu[i] ? 'block' :'none'" class="dropdown">
+                             <ul *ngIf="single.childCats" class="dropdown-content">
+                                <li *ngFor="let childCat of single.childCats">
+                                   <a (click)="toggleNavMenu()" routerLink="/category/{{childCat.slug}}" class="subcat">{{
+                                   childCat.name }}</a>
+                                </li>
+                             </ul>
+            </div>
+      </li>    
+               <li><a [routerLink]="['/category/by-symptom-1']">SHOP</a></li>
+               <li><a [routerLink]="['/blogs']">LEARN</a></li>
+               <li><a [routerLink]="['/login']">LOGIN</a></li>
+               <li><a [routerLink]="['/cart']" class="has-0-item" ><i class="fa fa-shopping-cart"></i>(<span id="item-count">{{ cartCount }} Item</span><span *ngIf="cartCount > 1">s</span>)
+             </a></li>
+            </ul>
+            <div style="clear: both;"></div>
+         </div>
+          
+         
+      </header>

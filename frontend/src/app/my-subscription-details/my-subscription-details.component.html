@@ -1,0 +1,289 @@
+<div id="mainContainer">
+  <div class="container">
+    <div class="row">
+      <!--START: LEFT BAR-->
+      <app-my-account-left-menu></app-my-account-left-menu>
+      <!--END: LEFT BAR-->
+      <div id="sidebar-toggle" class="hide">
+        <a href="javascript:void(0);">SHOW SIDEBAR
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
+      <!--END: LEFT BAR-->
+      <!--START: FRAME_MID-->
+      <!--START: BODY_HEADER-->
+      <div class="breadcrumbs">
+        <a id='catCrumbHomeLink' [routerLink]="['']">Home</a> > Order View > Order#{{ll_order_id}}
+      </div>
+      <!--END: BODY_HEADER-->
+      <div id="mainContent" class="col-sm-9">
+        <section id="extrapage" class="page-layout">
+          <h3 class="page_headers">Subscription Order #{{ll_order_id}}</h3>
+          <br>
+          <hr>
+          <!--START: SUB_PAGES-->
+          <!--END: SUB_PAGES-->
+          <div class="content position_relative btn_spacing adjust_btn_width">
+            <div class="row cancelSubsConfirmationDialog" *ngIf="!canModify && order_details && order_details.length">
+              <div class="col-md-12">
+                <span>
+                  <h4>
+                    It is not a recurring order yet, so you can not modify any subscribtion!
+                  </h4>
+                </span>
+              </div>
+            </div>
+            <div class="row" *ngIf="ll_order_details.products !== undefined && ll_order_details.products !== null">
+              <div class="col-sm-12">
+                <h3>Next Subscription Products</h3>
+              </div>
+              <table id="cart" class="table table-hover table-condensed">
+                  <thead>
+                    <tr>
+                      <th style="width:7%">#ID</th>
+                      <th style="width:48%">Product</th>
+                      <th style="width:5%">Price</th>
+                      <th style="width:30%">Next Shipment Date</th>
+                      <th style="width:10%">Quantity</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="ll_order_details.products">
+                      <tr *ngFor="let eachProduct of ll_order_details.products" class="bg-success text-success">
+                        <td *ngIf="eachProduct.next_subscription_product_id && eachProduct.next_subscription_product_id > 0 && eachProduct.next_subscription_product && eachProduct.next_subscription_product_price && eachProduct.recurring_date && eachProduct.next_subscription_qty && eachProduct.is_recurring === '1' && eachProduct.on_hold === '0'">{{eachProduct.next_subscription_product_id}}</td>
+                        <td *ngIf="eachProduct.next_subscription_product_id && eachProduct.next_subscription_product_id > 0 && eachProduct.next_subscription_product && eachProduct.next_subscription_product_price && eachProduct.recurring_date && eachProduct.next_subscription_qty && eachProduct.is_recurring === '1' && eachProduct.on_hold === '0'">{{eachProduct.next_subscription_product}}</td>
+                        <td *ngIf="eachProduct.next_subscription_product_id && eachProduct.next_subscription_product_id > 0 && eachProduct.next_subscription_product && eachProduct.next_subscription_product_price && eachProduct.recurring_date && eachProduct.next_subscription_qty && eachProduct.is_recurring === '1' && eachProduct.on_hold === '0'">{{eachProduct.next_subscription_product_price | currency}}</td>
+                        <td *ngIf="eachProduct.next_subscription_product_id && eachProduct.next_subscription_product_id > 0 && eachProduct.next_subscription_product && eachProduct.next_subscription_product_price && eachProduct.recurring_date && eachProduct.next_subscription_qty && eachProduct.is_recurring === '1' && eachProduct.on_hold === '0'">{{eachProduct.recurring_date | date:'MMM d, y'}}</td>
+                        <td *ngIf="eachProduct.next_subscription_product_id && eachProduct.next_subscription_product_id > 0 && eachProduct.next_subscription_product && eachProduct.next_subscription_product_price && eachProduct.recurring_date && eachProduct.next_subscription_qty && eachProduct.is_recurring === '1' && eachProduct.on_hold === '0'">{{eachProduct.next_subscription_qty }}</td>
+                      </tr>
+                      <tr *ngIf="!getSubscriptedCount">
+                        <td class="text-center" colspan="5">No Subscribed Products in this order!</td>
+                      </tr>
+                  </tbody>
+              </table>
+            </div>
+            <div class="row cancelSubsConfirmationDialog" *ngIf="cancelSubsConfirmationDialog">
+              <div class="col-md-12">
+                <span>
+                  <h4>
+                    Do you really want to cancel subscription for this order? Please confirm. Upon your confirmation,
+                    all the subscriptions under this order will be cancelled.
+                  </h4>
+                </span>
+                <div>
+                  <br>
+                  <a class="btn btn-danger" (click)="cancelSubsConfirmation()"><i class="fa fa-check"></i>&nbsp;
+                    Confirm</a> &nbsp;
+                  <a class="btn btn-default" (click)="ignoreCacelSubsConfirmation()">&nbsp; Cancel</a>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <table id="cart" class="table table-hover table-condensed">
+                  <thead>
+                    <tr>
+                      <th style="width:70%">Product</th>
+                      <th style="width:5%">Price</th>
+                      <th style="width:5%">Quantity</th>
+                      <th style="width:10%" class="text-center">Subtotal</th>
+                      <th style="width:10%" class="text-center">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let single of order_details">
+                      <td data-th="Product">
+                        <div class="row">
+                          <div class="col-sm-2 hidden-xs">
+                            <img *ngIf="single.get_product?.get_media?.length > 0" src="{{baseurl}}backend/images/products/{{single.get_product.get_media[0].image}}"
+                              alt="{{single.get_product.product_name}}" class="img-responsive" />
+    
+                            <img *ngIf="single.get_membership_package?.get_media?.length > 0" src="{{baseurl}}backend/images/membershipPackage/{{single.get_membership_package.get_media[0].image}}"
+                              alt="{{single.get_membership_package.product_name}}" class="img-responsive" />
+    
+                            <img *ngIf="!single.get_product?.get_media && !single.get_membership_package?.get_media" src="https://www.nato-pa.int/sites/default/files/default_images/default-image.jpg"
+                              alt="{{single.get_product.product_name}}" class="img-responsive" />
+                          </div>
+                          <div class="col-sm-10">
+                            <h4 class="nomargin">
+                              <a *ngIf="single.get_product?.product_name" routerLink="/products/{{single.get_product.id}}">{{single.get_product.product_name}}
+                                <strong class="text-success subsicrip_txt">{{ single.billing_model === "recurringSale" ?
+                                  '[Subscription]' : '' }}</strong>
+                              </a>
+                              <a *ngIf="single.get_membership_package?.product_name" routerLink="/membershipDetails/{{single.get_membership_package.id}}">{{single.get_membership_package.product_name}}
+                                <strong class="text-success subsicrip_txt">[Membership]</strong>
+                              </a>
+                            </h4>
+                            <!-- <p>{{single.get_product.product_short_description}}</p> -->
+                          </div>
+                        </div>
+                      </td>
+                      <td data-th="Price">{{single.sell_price | currency }}</td>
+                      <td data-th="Quantity">{{single.quantity}}</td>
+                      <td data-th="Subtotal" class="text-center">{{single.sub_total | currency }}</td>
+                      <td *ngIf="single.is_main_product != 1">
+                          <div class="clearfix btn_adjust_spacing">
+                        <a href="javascript:void(0);" class="btn btn-sm btn-danger" title="Cancel Subscription" *ngIf="single.is_stopped_recurring != 1  && canModify"
+                          (click)="cancelSubsConfirmationDialogFn(single.id)">
+                          <i class="fa fa-times-circle"></i>&nbsp; Cancel
+                        </a>
+                        </div>
+                        <label class="label label-lg label-danger" title="Recurring has been turned OFF for this product"
+                          *ngIf="single.is_stopped_recurring == 1">
+                          <i class="fa fa-times-circle"></i>&nbsp;
+                          Cancelled Subs
+                        </label>
+                        <!-- <div class="clearfix">&nbsp;</div> -->
+                        <div class="clearfix btn_adjust_spacing">
+                          <a *ngIf="single.is_stopped_recurring != 1 && !single.get_membership_package && canModify" (click)="openModal(template, single.get_product.ll_product_id, single.id,single.get_product.recurring_kk_product_id)"
+                            class="btn btn-sm btn-info" placement="right" href="javascript:void(0);">
+                            <i class="fa fa-pencil"></i>&nbsp; Modify
+                          </a>
+                        </div>
+                      </td>
+                      <td *ngIf="single.is_main_product == 1">
+                        <label class="label label-lg label-info" title="Recurring product modified">
+                          <i class="fa fa-times-circle"></i>&nbsp;
+                          Product Modified
+                        </label>
+                      </td>
+                    </tr>
+                    <tr *ngIf="!order_details?.length">
+                      <td class="text-center" colspan="5">No Subscribed Products in this order!</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td><a href="javascript:void(0);" (click)="goBack()" class="btn btn-warning"><i class="fa fa-angle-left"></i>
+                          Back</a></td>
+                      <td colspan="2" class="hidden-xs"></td>
+                      <td colspan="2" class="text-right">
+                        <!-- <a *ngIf="order.order_type !== undefined && order.order_type == 'subscription' && canModify"
+                          class="btn btn-primary" placement="right" href="javascript:void(0);" (click)="openAddModal(templateAdd)">
+                          <i class="fa fa-plus"></i>&nbsp;
+                          Add Product
+                        </a> -->
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+            </div>
+            <div class="loader" *ngIf="showLoader">
+              <div class="loading_icon spin_rotate"><i class="fa fa-circle-o-notch"></i></div>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modify Subscription
+      <!-- <small class="text-success" *ngIf="ll_order_details !== undefined && ll_order_details !== null">
+        [ Next Shipment Date - {{ll_order_details.recurring_date | date:'MMM d, y'}} ]
+      </small> -->
+    </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body div_bdy">
+    <div>
+      <tabset>
+        <tab heading="Change your next billing date" id="tab1">
+          <div class="modal_select">
+            <div class="row">
+              <div class="col-xs-12 col-12 col-lg-6 col-md-6 form-group">
+                <input type="text" placeholder="Select your next billing date" class="form-control" bsDatepicker [(ngModel)]="changedRebillDate" name="changedRebillDate" id="changedRebillDate" [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY'}" autocomplete="off" readonly>
+              </div>
+            </div>
+            <button (click)="updateNextShipmentDate()" class="btn btn-success">Update next billing date</button>
+          </div>
+        </tab>
+        <tab heading="Change Product" id="tab2">
+          <div class="modal_productList">
+            <ul class="product-lists">
+              <li class="text-danger" *ngIf="showMainProductAlert"><strong>Once you change this main product, you can't
+                  change any other product of this order!</strong></li>
+              <li *ngFor="let eachProduct of subscriptionProductsOptions">
+                <div class="product-card">
+                  <input [(ngModel)]="changedSubscriptionProduct" type="radio" name="changedSubscriptionProduct"
+                    [value]="eachProduct.recurring_kk_product_id" id="changedSubscriptionProduct{{eachProduct.id}}" class="input_rdio">
+                    <label for="changedSubscriptionProduct{{eachProduct.id}}">
+                      <span class="product-name"><strong>{{eachProduct.product_name}}</strong> </span>
+                    </label>
+                    <span class="product-price_eachproduct">{{eachProduct.recurring_product_price | currency}}</span>
+                    <div class="width100">
+                      <a href="/products/{{eachProduct.id}}" target="_blank" class="btn btn-sm" title="View this product"><i class="fa fa-eye"></i></a>
+                    </div>
+
+                </div>
+              </li>
+              <li *ngIf="subscriptionProductsOptions?.length == 0">
+                <div class="product-card">
+                  <label for="">
+                    <span class="product-name"><strong>No Products available!</strong> </span>
+                  </label>
+                </div>
+              </li>
+            </ul>
+            <button *ngIf="subscriptionProductsOptions?.length > 0" (click)="updateProduct()" class="btn btn-success">Update
+              Product</button>
+          </div>
+        </tab>
+        <!-- <tab heading="Change Frequency" id="tab3">
+          <div class="modal_select">
+            <select [(ngModel)]="changedSubscriptionFreequency" name="subscriptionFreequency" id="subscriptionFreequency">
+              <option *ngFor="let option of subscriptionFreequencyOptions;" [ngValue]="option.id">{{ option.value }}</option>
+            </select>
+            <button (click)="updateFreequency()" class="btn btn-success">Update Frequency</button>
+          </div>
+        </tab> -->
+      </tabset>
+    </div>
+  </div>
+</ng-template>
+<!-- Add Product Modal Template -->
+<ng-template #templateAdd>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add Products to Next Subscription</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body div_bdy">
+    <div>
+      <tabset>
+        <tab heading="Add Product" id="tab2">
+          <div class="modal_productList">
+            <ul class="product-lists products-with-quantity">
+              <li *ngFor="let eachProduct of subscriptionProductsOptions">
+                <div class="product-card">
+                  <input [(ngModel)]="changedSubscriptionProduct" type="radio" name="changedSubscriptionProduct"
+                    [value]="eachProduct.recurring_kk_product_id" id="changedSubscriptionProduct{{eachProduct.id}}" class="input_rdio">
+                    <label for="changedSubscriptionProduct{{eachProduct.id}}">
+                      <span class="product-name"><strong>{{eachProduct.product_name}}</strong> </span>
+                    </label>
+                      <span class="product-price_eachproduct">{{eachProduct.recurring_product_price | currency}}</span>
+                      <div class="width100">
+                      <a href="/products/{{eachProduct.id}}" target="_blank" class="btn btn-sm" title="View this product"><i class="fa fa-eye"></i></a>
+                      <app-quantity-modifier [productId]="eachProduct.id" (quantityChanged)="handelProductQuantity($event)" class="app-modifire"></app-quantity-modifier>
+                    </div>
+                </div>
+              </li>
+              <li *ngIf="subscriptionProductsOptions?.length == 0">
+                <div class="product-card">
+                  <label for="">
+                    <span class="product-name"><strong>No Products available!</strong> </span>
+                  </label>
+                </div>
+              </li>
+            </ul>
+            <button *ngIf="subscriptionProductsOptions?.length > 0" (click)="addProduct()" class="btn btn-success">Add
+              Product</button>
+          </div>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</ng-template>

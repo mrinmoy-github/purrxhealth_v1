@@ -1,0 +1,89 @@
+<div id="mainContainer">
+  <div class="container">
+    <div class="row">
+      <!--START: LEFT BAR-->
+      <app-my-account-left-menu></app-my-account-left-menu>
+      <!--END: LEFT BAR-->
+      <div id="sidebar-toggle" class="hide">
+        <a href="javascript:void(0);">SHOW SIDEBAR
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
+      <!--END: LEFT BAR-->
+      <!--START: FRAME_MID-->
+      <!--START: BODY_HEADER-->
+      <div class="breadcrumbs">
+        <a id='catCrumbHomeLink' [routerLink]="['']">Home</a> > My Orders
+      </div>
+      <!--END: BODY_HEADER-->
+
+      <div id="mainContent" class="col-sm-9">
+        <section id="extrapage" class="page-layout">
+          <h3 class="page_headers">My Orders</h3>
+          <br>
+          <!--START: SUB_PAGES-->
+          <!--END: SUB_PAGES-->
+          <div class="content position_relative table-responsive btn_spacing">
+            <table id="cart" class="table table-hover table-condensed" *ngIf="all_orders">
+              <thead>
+                <tr>
+                  <th style="width:20%">Type</th>
+                  <th style="width:20%">Order#</th>
+                  <th style="width:30%">Products</th>
+                  <th style="width:20%">Placed at</th>
+                  <th style="width:10%">Amount</th>
+                  <th style="width:20%" class="text-center"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let order of all_orders;">
+                    <td>
+                      <i *ngIf="order.order_type == 'subscription'" class="text-success fa fa-2x fa-shopping-cart" aria-hidden="true" title="Subsription"></i>
+                      <i *ngIf="order.order_type == 'normal'" class="text-primary fa fa-2x fa-shopping-basket" aria-hidden="true" title="Straight Sale"></i>
+                      <i *ngIf="order.order_type == 'membership'" class="text-success fa fa-2x fa-shopping-basket" aria-hidden="true" title="Membership"></i>
+                    </td>
+                    <td>
+                    <h4 class="nomargin">#{{order.ll_order_id}}</h4>
+                  </td>
+                  <td>{{order.prod_names}}</td>
+                  <td>{{order.created_at | date:'MMM d, y, h:mm' }}</td>
+                  <td>{{order.order_value | currency }}</td>
+                  <td class="text-center">
+                    <div class="clearfix btn_adjust_spacing" *ngIf="order.order_type == 'subscription' || order.order_type == 'membership'">
+                      <ng-container *ngIf="order.order_type == 'subscription'">
+                        <a (click)="buyItAgain(order.ll_order_id)" href="javascript:void(0);" class="btn btn-sm btn-info"><i
+                    class="fa fa-shopping-cart"></i> Buy it Again</a>
+                      </ng-container>
+                      <ng-container *ngIf="order.order_type == 'membership'">
+                          <a routerLink="/membership" class="btn btn-sm btn-info"><i
+                      class="fa fa-shopping-cart"></i> Buy it Again</a>
+                        </ng-container>
+                  </div>
+                    <!-- <div class="clearfix">&nbsp;</div> -->
+                    <div class="clearfix btn_adjust_spacing"><a routerLink="/order-view/{{order.ll_order_id}}" class="btn btn-sm btn-primary"><i
+                          class="fa fa-eye"></i> View Details</a></div>
+                    <ng-container *ngIf="order.order_type == 'subscription'">
+                      <!-- <div class="clearfix">&nbsp;</div> -->
+                      <div class="clearfix btn_adjust_spacing"><a routerLink="/my-subscription/{{order.ll_order_id}}" class="btn btn-sm btn-warning"><i
+                            class="fa fa-pencil"></i> Subscription</a></div>
+                    </ng-container>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="orderCount == 0" class="cart-empty">
+              <span style="font-size:28px;">You did not place any order yet!</span>
+              <br>
+              <br>
+              <a [routerLink]="['']" class="btn btn-warning"> Shop Now</a>
+            </div>
+            <div class="loader" *ngIf="showLoader">
+              <div class="loading_icon spin_rotate"><i class="fa fa-circle-o-notch"></i></div>
+            </div>
+          </div>
+          <div class="clear"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

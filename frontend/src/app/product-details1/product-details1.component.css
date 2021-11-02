@@ -1,0 +1,84 @@
+       <style>
+           
+            .modal_n {
+                display: none;
+                position: fixed;
+                z-index: 9999;
+                padding-top: 100px;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgb(0,0,0);
+                background-color: rgba(0,0,0,0.4);
+            }
+            .modal-content_n {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 100%;
+            max-width:600px;
+            }
+
+           
+            .close_n {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            }
+
+            .close_n:hover,
+            .close_n:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+            }
+            .site-footer-expand-trigger.is-expanded:before {
+            -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+            }
+            .site-footer{
+                background: #002850!important;
+            }
+            .gray-lighten-2, .site-footer, .site-footer a {
+                color: #fff;
+            }
+            @media (max-width: 640px){
+                .addMarginbottom{
+                    margin-bottom: 12px;
+                }
+                .sml_logo{
+                    margin-top: 12px;
+                    margin-bottom: 12px;
+                }
+                .xsl_{
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    margin-top: 10px;
+                }
+            }
+            .show-sidebar{
+               display:none;
+           }
+           /*reset max with on page wrapper div*/
+                            .site-safe-area.max-width-6 {
+                                max-width: initial !important;
+                            }
+
+                            #page-content {
+                                min-height: calc(100vh - 160px);
+                            }
+
+                            .oui-react-spinner-container {
+                                height: 32px;
+                                width: 32px;
+                                position: fixed;
+                                top: 30%;
+                                /*left: 50%;*/
+                            }
+
+
+       

@@ -1,0 +1,65 @@
+.btn{
+    background-image:none;
+}
+.edit-button {
+    margin-right: 5px;
+}
+.each-card {
+    /* margin-right: 15px; */
+}
+.grouo_dm{
+  position: relative;
+  display: block;
+  padding: 15px 15px;
+  margin-bottom: 10px;
+  background-color: #ddffe0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.grouo_dm li{
+  list-style: none;
+  font-size: 16px;
+}
+.slect_right_btn{
+  padding: 8px 25px;
+  background: #31AE88;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.slect_right_btn:hover, .slect_right_btn:focus{
+  background: #31AE88;
+  color: #fff;
+  text-decoration: none;
+}
+.card_div{font-family: 'Open Sans', sans-serif;}
+.card_div{    background-color: #fbfbfb;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 1px 2px 5px 1px #bfbfbf;
+  margin-bottom: 30px;
+  min-height: 245px;
+  position: relative;
+  margin-top: 13px;
+  padding-bottom: 50px;}
+.card_div ul{margin-bottom: 0px;}
+.card_div li{list-style: none;padding-bottom: 5px;}
+.card_div .list-group-item{border: 1px solid #efefef;font-size: 15px;background: none;}
+.details_group{font-weight: 600;}
+.button_div{margin-top: 15px;position: absolute;bottom: 15px;left: 15px;}
+.button_div a{display: inline-block;padding:0px 18px; border-left: 1px solid #000;}
+.button_div a:first-child{padding-left: 0px;border-left: 0px;}
+.delete_bton{color: #ff0000;}
+.delete_bton:hover{color: #ff0000;}
+.card_div_well{background-color: #fbfbfb;padding: 15px;border-radius: 5px;box-shadow: 1px 2px 5px 1px #bfbfbf;margin-bottom: 0px;min-height: 100px;position: relative; font-family: 'Roboto', sans-serif;}
+.card_div_well strong{ font-size: 18px; color: #424242; text-transform: uppercase; font-weight: 600; }
+.card_div_well hr{ margin-top: 5px; }
+.card_div_well ul{margin-bottom: 0px;}
+.card_div_well li{list-style: none;padding-bottom: 5px;}
+.card_div_well li label{font-size: 1.3rem;}
+.card_div_well li label strong{ font-weight: 600; font-size: 1.3rem; text-transform: capitalize; }
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected {
+  color: #333;
+  background-color: #b3dddf !important;
+}
+.text-center{text-align: center;} .border-0{border: none;} .m-15{margin: 15px;} .modal-p{font-size: 1.5em; font-weight: 100;}

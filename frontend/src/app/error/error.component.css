@@ -1,0 +1,11 @@
+.image{
+    width: 500px;
+    height: 260px;
+    background: url(https://www.budbox.ca/assets/templates/common-html5/images/404.png) no-repeat;
+    margin: 15px auto;
+}
+
+.err-page-div{
+    text-align: center;
+    font-size: 18px;
+}

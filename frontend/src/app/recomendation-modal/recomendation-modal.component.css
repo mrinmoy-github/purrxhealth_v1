@@ -1,0 +1,4 @@
+.home_modal .product-container {width: 50%;margin-bottom: 20px;}
+.home_modal .product-desc .div-hovered{margin: 0px;}
+.home_modal .prod-item .name, .home_modal .prod-item .price, .home_modal .prod-item  .star-rating{padding: 0px 20px;}
+.home_modal .prod-item .name{min-height: 45px;}

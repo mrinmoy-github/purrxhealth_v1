@@ -1,0 +1,14 @@
+<div id="mainContainer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <h1>FAQs</h1>
+        <accordion [closeOthers]="oneAtATime">
+          <accordion-group *ngFor="let faq of faqs; index as i;" heading="{{i + 1}}. {{ faq.question }}" [isOpen]=" i == 0 ? isFirstOpen : ''">
+            <p>{{ faq.answer }}</p>
+          </accordion-group>
+        </accordion>
+      </div>
+    </div>
+  </div>
+</div>

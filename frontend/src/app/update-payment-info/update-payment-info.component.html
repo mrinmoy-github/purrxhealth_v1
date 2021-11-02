@@ -1,0 +1,133 @@
+<div id="mainContainer">
+  <div class="container">
+    <div class="row">
+      <!--START: LEFT BAR-->
+      <app-my-account-left-menu></app-my-account-left-menu>
+      <!--END: LEFT BAR-->
+      <div id="sidebar-toggle" class="hide">
+        <a href="javascript:void(0);">SHOW SIDEBAR
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
+      <!--END: LEFT BAR-->
+      <!--START: FRAME_MID-->
+      <!--START: BODY_HEADER-->
+      <div class="breadcrumbs">
+        <a id='catCrumbHomeLink' [routerLink]="['']">Home</a> >
+        My Account > 
+        <a id='catCrumbHomeLink' [routerLink]="['/my-orders']">My Orders</a> > 
+        <a id='catCrumbHomeLink' routerLink="/order-view/{{ll_order_id}}">Order View(#{{ll_order_id}})</a> > 
+        Update Payment Information
+      </div>
+      <!--END: BODY_HEADER-->
+
+      <div id="mainContent" class="col-sm-9 position_relative">
+        <section id="registration0">
+          <form name="paymentinfoForm" id="paymentinfoForm" #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+
+            <h1 class="page_headers">Update Payment Information For Order#{{ll_order_id}}</h1>
+
+            <div class="group-message"></div>
+            <div class="accountRegForm pad10 boxShadow" style="margin-top: 20px;">
+              <div class="header">
+                <h3>Payment Information</h3>
+                <h5>Update the Payment Information for the upcoming orders, This details will be used for your upcoming subscription orders, if you have any under this order.</h5>
+
+                <div class="alert alert-success" *ngIf="success_msg != ''">{{success_msg}}</div>
+                <div class="alert alert-danger" *ngIf="error_msg != ''">{{error_msg}}</div>
+              </div>
+              <!-- <div class="loginField">
+                <label for="creditCardType">Card Type
+                  <span class="required">*</span>
+                </label>
+                <select name="creditCardType" [(ngModel)]="model.creditCardType" #creditCardType="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && creditCardType.invalid }" required tabindex="16"
+                  class="txtBoxStyle">
+                  <option value="">Select Card Type</option>
+                  <option value="visa">VISA</option>
+                  <option value="master">Master Card</option>
+                  <option value="discover">Discover</option>
+                </select>
+                <div *ngIf="creditCardType.invalid && (creditCardType.dirty || creditCardType.touched)" class="alert alert-danger">
+                  <div *ngIf="creditCardType.errors.required">
+                    Card Type is required.
+                  </div>
+                </div>
+                <div class="clear"></div>
+              </div> -->
+              <div class="loginField">
+                <label for="creditCardNumber">Card Number
+                  <span class="required">*</span>
+                </label>
+                <input name="creditCardNumber" type="text" id="creditCardNumber" maxlength="16" size="16"
+                  tabindex="17" class="txtBoxStyle" [(ngModel)]="model.creditCardNumber" #creditCardNumber="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && creditCardNumber.invalid }" required>
+                <div *ngIf="creditCardNumber.invalid && (creditCardNumber.dirty || creditCardNumber.touched)"
+                  class="alert alert-danger">
+                  <div *ngIf="creditCardNumber.errors.required">
+                    Credit Card Number is required.
+                  </div>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <div class="row">
+                <div class="loginField col-md-6 pad_0_res">
+                  <label for="expmonth">Exp. Month
+                    <span class="required">*</span>
+                  </label>
+                  <select name="expmonth" [(ngModel)]="model.expmonth" #expmonth="ngModel" [ngClass]="{ 'is-invalid': f.submitted && expmonth.invalid }"
+                    required tabindex="18" class="txtBoxStyle">
+                    <option value="">Month</option>
+                    <option *ngFor="let expmonth of expmonthList;" value="{{expmonth.id}}">{{expmonth.name}}</option>
+                  </select>
+                  <div *ngIf="expmonth.invalid && (expmonth.dirty || expmonth.touched)" class="alert alert-danger">
+                    <div *ngIf="expmonth.errors.required">
+                      Exp. Month is required.
+                    </div>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+                <div class="loginField col-md-6 pad_0_res">
+                  <label for="expyear">Exp. Year
+                    <span class="required">*</span>
+                  </label>
+                  <span name="spanState" id="spanState">
+                    <select name="expyear" maxlength="100" [(ngModel)]="model.expyear" #expyear="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && expyear.invalid }" required tabindex="19" class="txtBoxStyle">
+                      <option value="">Year</option>
+                      <option *ngFor="let expyear of expyearList" value="{{expyear.id}}">{{expyear.name}}</option>
+                    </select>
+                  </span>
+                  <div *ngIf="expyear.invalid && (expyear.dirty || expyear.touched)" class="alert alert-danger">
+                    <div *ngIf="expyear.errors.required">
+                      Exp. Year is required.
+                    </div>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </div>
+            </div>
+            <div class="submit-button">
+              <br />
+              <a routerLink="/order-view/{{ll_order_id}}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Back</a>
+              &nbsp;
+              <button type="submit" id="submitted" name="submitted" class="btn" [disabled]="!f.form.valid">
+                <i class="icon-ok"></i> Update
+              </button> 
+            </div>
+            <div class="clear"></div>
+            <div class="clear"></div>
+            <!--START: CATEGORY_FOOTER-->
+            <div class="category-footer" id="registrationFooter">
+              <br>
+            </div>
+            <!--END: CATEGORY_FOOTER-->
+          </form>
+        </section>
+        <div class="loader" *ngIf="showLoader">
+          <div class="loading_icon spin_rotate"><i class="fa fa-circle-o-notch"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

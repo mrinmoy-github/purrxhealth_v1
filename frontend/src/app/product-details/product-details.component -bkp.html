@@ -1,0 +1,286 @@
+<div id="mainContainer" style="margin-top: 0px;" *ngIf="product_details">
+  <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
+  <div class="container">
+    <div class="row">
+      <!--START: LEFT BAR-->
+      <!--END: LEFT BAR-->
+      <!--START: FRAME_MID-->
+      <!--START: CATEGORY_FULLINE-->
+      <!--END: CATEGORY_FULLINE-->
+      <div id="mainContent" class="col-sm-12">
+        <section id="product-details" class="page-layout">
+          <!--START: CATEGORY_HEADER-->
+          <!--END: CATEGORY_HEADER-->
+          <div class="primary col-sm-6">
+            <div id="mediaContainer">
+              <div id="mediaBlock">
+                <!--START: image1-->
+                <div class="main-image">
+                  <!--START: savings_percentage-->
+                  <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+                  <!--END: savings_percentage-->
+                   <!-- <a *ngIf="product_details.media" href="javascript.void(0);"   class="MagicZoomPlus" id="listing_main_image_link" style="position: relative; display: inline-block; text-decoration: none; outline: 0px; overflow: hidden; margin: auto; width: auto; height: auto;"
+                    title="">
+                    <img *ngIf="product_details.media" src="{{baseurl}}/backend/images/products/{{product_details.get_media[0].image}}"
+                      id="large" alt="{{product_details.product_name}}" style="opacity: 1; visibility: visible;">
+                    <div class="MagicZoomPup" style="z-index: 10; position: absolute; overflow: hidden; display: none; visibility: hidden; width: 332px; height: 332px; opacity: 0.65; left: 0px; top: 0px;"></div>
+                    <div *ngIf="product_details.media" class="MagicZoomBigImageCont inner-zoom" style="overflow: hidden; z-index: 100; top: -100000px; position: absolute; width: 100%; height: 100%; left: 0px; opacity: 0;">
+                      <div class="MagicZoomHeader" style="position: relative; z-index: 10; left: 0px; top: 0px; padding: 3px; display: none; visibility: hidden;"></div>
+                      <div style="overflow: hidden;">
+                        <img src="{{baseurl}}/backend/images/products/{{product_details.get_media[0].image}}" style="padding: 0px; margin: 0px; border: 0px; width: auto; height: auto; position: relative; left: -18px; top: 0px; transform: translateZ(0px);">
+                      </div>
+                    </div>
+                  </a>
+                  <img *ngIf="!product_details.media" src="https://www.jainsusa.com/images/store/landscape/not-available.jpg"
+                    id="large" alt="{{product_details.product_name}}" style="opacity: 1; visibility: visible;">
+                  <div title="" id="imagecaptiont" class="item" style="visibility: visible;"></div> -->
+                </div>
+                <!--END: image1-->
+                <!-- <div class="addl-images">
+                  <div class="prod-thumbnails">
+                    <ul class="owl-carousel owl-loaded owl-drag">
+                      <div class="owl-stage-outer">
+                        <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 75px;">
+                          <div class="owl-item active" style="width: 64.878px; margin-right: 10px;">
+                            <li class="prod-thumb image1 thumb-selected">
+                              <a *ngIf="product_details.media" href="{{baseurl}}/backend/images/products/{{product_details.get_media[0].image}}"
+                                rel="thumb-id:listing_main_image_link" class="MagicThumb-swap" style="outline: none;">
+                                <img src="{{baseurl}}/backend/images/products/{{product_details.get_media[0].image}}"
+                                  alt="">
+                              </a>
+                            </li>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="owl-nav disabled">
+                        <div class="owl-prev disabled">
+                          <i class="fa fa-angle-left"></i>
+                        </div>
+                        <div class="owl-next disabled">
+                          <i class="fa fa-angle-right"></i>
+                        </div>
+                      </div>
+                      <div class="owl-dots disabled"></div>
+                    </ul>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+          </div>
+          <div class="secondary col-sm-6">
+            <h1 class="page_headers">{{product_details.product_name}}</h1>
+            <div class="product-short-desc">
+              <p *ngIf="product_details.product_tagline">{{product_details.product_tagline}}</p>
+            </div>
+            <!--START: pricing-->
+            <div class="pricingBlock"  *ngIf="!product_details.recurring_billing_model_id && !product_details.recurring_product_price">
+              <h3 class="hidden">Price</h3>
+              <!--START: ITEMPRICE-->
+              <div class="yourprice price">
+                <label>Your Price:</label>
+                <span id="productPrice">{{productPrice | currency }}</span>
+                <!--span id="productPrice" *ngIf="authenticated && product_details.priority_pricing_amount">${{product_details.priority_pricing_amount}}</span>
+                <span id="productPrice" *ngIf="authenticated && !product_details.priority_pricing_amount">${{product_details.product_price}}</span-->
+              </div>
+            </div>
+            <!--END: pricing-->
+            <div class="availabilityInfo">
+              <!--START: product_availability-->
+              <div class="product_availability" [ngClass]="{'no' : inStock != 1}">
+                <h4 class="hidden">Availability:</h4>
+                <div id="availability" *ngIf="inStock != 0">Ready to ship!</div>
+                <div id="availability" class="no-availability" *ngIf="inStock != 1">Out of Stock</div>
+              </div>
+              <!--END: product_availability-->
+
+            </div>
+            <!--START: id-->
+            <!--END: id-->
+            <!--START: PRODUCT_FEATURES_BLOCK-->
+            <div class="productFeaturesBlock">
+              <ul>
+                <!--START: PRODUCT_FEATURES-->
+                <li>
+                  <!--START: product_feature_title-->
+                  <span class="feat-title" *ngIf="product_details.product_short_description">{{product_details.product_short_description}}</span>
+                  <!--END: product_feature_title-->
+                  <!-- <span class="feat-name">2mg CBD per .5ml</span> -->
+                </li>
+                <!--END: PRODUCT_FEATURES-->
+              </ul>
+            </div>
+            <!--END: PRODUCT_FEATURES_BLOCK-->
+            <!--START: LOGIN_REQUIRED-->
+            <div class="" *ngIf="inStock != 0">
+                <app-quantity-modifier (quantityChanged)="handleQuantityUpdate($event)" [quantity]="quantity" [productId]="product_details.id" ></app-quantity-modifier>
+
+                <div class="form_div" *ngIf="product_details.product_actual_recurring_price">
+                  <div class="">
+                    <ul class="options_div">
+                      <li class="pull-left {{ selectedBillingModel == 'straightSale' ? 'selected-option' : '' }}" >
+                        <a href="javascript:void(0);" (click)="biilingModelChanged('straightSale')" >
+                          <p>One time purchase</p>
+                          <h4 class="lprice">{{productPrice | currency }}</h4>
+                          <h5 *ngIf="product_details.product_list_price">List: <span class="l_list">{{ product_details.product_list_price | currency }}</span></h5>
+                          <h6 *ngIf="product_details.product_list_price">SAVE:<span class="lsave"> {{ product_details.product_list_price - productPrice | currency }} ({{ getSavePercentage(productPrice)}}%)</span></h6>
+                        </a>
+                      </li>
+                      <li  class="pull-right  {{ selectedBillingModel != 'straightSale' ? 'selected-option' : '' }}">
+                        <a href="javascript:void(0);" (click)="biilingModelChanged('recurringSale')">
+                          <p>Subscribe and SAVE</p>
+                          <h4 class="rprice">{{ product_details.product_actual_recurring_price | currency }}</h4>
+                          <h5 *ngIf="product_details.product_list_price">List: <span class="r_list">{{ product_details.product_list_price | currency }}</span>
+                          </h5>
+                          <h6 *ngIf="product_details.recurring_product_price < product_details.product_list_price">SAVE: <span class="rsave">{{ product_details.product_list_price - product_details.recurring_product_price | currency }} ({{ getSavePercentage(product_details.recurring_product_price)}}%)</span></h6>
+                        </a>
+                        <div class="side_price">
+                          Free Shipping
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+
+              <button type="button" class="btn btn-color btnATC fl_width" (click)="addToCart(product_details.id)" *ngIf="!is_addedToCart">
+                <i class="fa fa-shopping-cart"></i>&nbsp; Add to Cart
+              </button>
+
+              <button type="button" class="btn btn-color btn-danger updateCart mr-20 fl_width" (click)="addToCart(product_details.id)" *ngIf="is_addedToCart">
+                <i class="fa fa-refresh"></i>&nbsp; Update Cart
+            </button>
+            <button type="button" class="btn btn-color btnATC fl_width" (click)="goToCart()" *ngIf="is_addedToCart">
+                <i class="fa fa-shopping-cart"></i>&nbsp; Go To Cart
+            </button>
+              &nbsp;&nbsp;
+              <!-- <button type="button" class="btn btn-color btnATC">
+                <i class="fa fa-flash"></i> &nbsp;Buy Now
+              </button> -->
+            </div>
+
+            <!----div class="loginReqBlock" *ngIf="!authenticated">You need to be a registered customer to order this
+              product. Please
+              <a [routerLink]="['/login']">Login to your account</a> or
+              <a [routerLink]="['/signup']">click here to Register</a>.
+            </div-->
+            <br/>
+            <div class="alert alert-success" *ngIf="success_msg != ''">{{success_msg}}</div>
+            <div class="alert alert-danger" *ngIf="error_msg != ''">{{error_msg}}</div>
+            <div class="coupon_block" *ngIf="inStock != 1">
+              <form id="frmForm" name="notifyForm" class="form-horizontal" #fNotify="ngForm" (ngSubmit)="onStockEntryNotifyMe(fNotify)"
+                novalidate>
+                <div class="form-group">
+                  <div class="col-sm-12 coupon" style="font-size:14px; font-weight: bold;">Please enter your email to get notification when the stock is available.</div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-9 col-xs-8 coupon">
+                    <input type="hidden" [(ngModel)]="model.currProductId" name="currProductId" value="{{productId}}">
+                    <input type="email" name="notify_me" id="notify_me" placeholder="Enter Your Email" value="" size="40" maxlength="50"
+                      tabindex="1" class="form-control coupon-field" [(ngModel)]="model.notify_me" #notify_me="ngModel"
+                      [ngClass]="{ 'is-invalid': fNotify.submitted && notify_me.invalid }" required email="true">
+                    <div *ngIf="notify_me.invalid && (notify_me.dirty || notify_me.touched)" class="alert alert-danger">
+                      <div *ngIf="notify_me.errors.required">
+                        Email is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 col-xs-4 coupon">
+                    <button class="btn btn-success couponBtn" type="submit" [disabled]="!fNotify.form.valid">Notify Me</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- Coupon Section Start -->
+            <!-- <div class="coupon_block" *ngIf="!isCouponApplied && (product_details.eligible_for_coupon == 1)">
+              <form id="frmForm" name="contactForm" class="form-horizontal" #f="ngForm" (ngSubmit)="onSubmit(f)"
+                novalidate>
+                <div class="form-group">
+                  <div class="col-sm-6 coupon" style="font-size:14px; font-weight: bold;">Have a Coupon Code?</div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-9 coupon">
+                    <input type="hidden" [(ngModel)]="model.currProductId" name="currProductId" value="{{productId}}">
+                    <input type="hidden" [(ngModel)]="model.is_logged_in" name="is_logged_in" value="{{authenticated}}">
+                    <input type="text" name="coupon_code" id="coupon_code" placeholder="Coupon Code" value="" size="40" maxlength="50"
+                      tabindex="1" class="form-control coupon-field" [(ngModel)]="model.coupon_code" #coupon_code="ngModel"
+                      [ngClass]="{ 'is-invalid': f.submitted && coupon_code.invalid }" required>
+                    <div *ngIf="coupon_code.invalid && (coupon_code.dirty || coupon_code.touched)" class="alert alert-danger">
+                      <div *ngIf="coupon_code.errors.required">
+                        Coupon Code is required.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-3 coupon">
+                    <button class="btn btn-success couponBtn" type="submit" [disabled]="!f.form.valid">Apply</button>
+                  </div>
+                </div>
+              </form>
+              <span>
+              </span>
+            </div>
+            <div *ngIf="isCouponApplied">
+                <div class="alert alert-success" >Coupon Code: {{couponCodeApplied}} applied.</div>
+                <button class="btn btn-danger couponBtn" type="button" (click)="removeCoupon()">
+                  <i class="fa fa-trash"></i> Remove Coupon
+                </button>
+            </div> -->
+            <!-- Coupon Section End! -->
+
+            <div class="detail-section">
+              <div class="beta-col" *ngIf="authenticated">
+                <!-- <div class="createFirstReview">
+                  <button type="button" class="btn btn-md btn-default">
+                    <i class="fa fa-star"></i>Review this item</button>
+                </div> -->
+                <div class="email_friend">
+                  <button type="button" class="btn btn-md btn-default" (click)="getReferAFriendUrl()">
+                    <i class="fa fa-envelope"></i>Email a friend</button>
+                </div>
+              </div>
+            </div>
+            <div class="social-mediaBlock">
+              <div class="social-bookmarking">
+                <div class="addthis_toolbox addthis_default_style ">
+                  <a class="addthis_button_preferred_1"></a>
+                  <a class="addthis_button_preferred_2"></a>
+                  <a class="addthis_button_preferred_3"></a>
+                  <a class="addthis_button_preferred_4"></a>
+                  <a class="addthis_button_compact"></a>
+                  <a class="addthis_counter addthis_bubble_style"></a>
+                </div>
+              </div>
+            </div>
+            <!--START: extrafields-->
+            <div class="extrafieldsBlock">
+            </div>
+            <!--END: extrafields-->
+          </div>
+          <div class="col-sm-12" *ngIf="product_details.product_description && product_details.product_description != ''">
+            <!--START: tabs-->
+            <div id="rTabs" class="r-tabs">
+              <ul class="r-tabs-nav">
+                <li class="r-tabs-tab r-tabs-state-active">
+                  <a href="#tab-1" class="r-tabs-anchor">Description</a>
+                </li>
+              </ul>
+              <div class="r-tabs-accordion-title r-tabs-state-active">
+                <a href="#tab-1" class="r-tabs-anchor">Description</a>
+              </div>
+              <div class="r-tabs-panel r-tabs-state-active" id="tab-1" style="display: block;">
+                <div class="item" itemprop="description">
+                  <span [innerHtml]="product_details.product_description | safe:'html'">
+                  </span>
+                </div>
+              </div>
+            </div>
+            <!--END: tabs-->
+          </div>
+          <div class="clearfix">&nbsp;</div>
+        </section>
+      </div>
+      <!--END: FRAME_MID-->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+</div>

@@ -1,0 +1,83 @@
+<footer>
+            <div class="container">
+               <div class="row">
+                  <div class="column">
+                     <div class="f_1">
+                        <ul>
+                           <li class="footer_head"><a href="#">OUR OFFERINGS</a></li>
+                           <li><a routerLink="/category/by-symptom-1">Shop All Products</a></li>
+                        </ul>
+                     </div>
+                     <div class="f_2">
+                        <ul>
+                           <li class="footer_head"><a [routerLink]="['/blogs']">LEARN</a></li>
+                           <li><a [routerLink]="['/blogs']">Our Blog</a></li>
+                           <li><a [routerLink]="['/faq']">FAQs</a></li>
+                        </ul>
+                     </div>
+                     <div class="f_3">
+                        <ul>
+                           <li class="footer_head"><a [routerLink]="['/contactus']">CONTACT US</a></li>
+                           <li><a href="tel:(888) 256-7732"><i class="fa fa-phone"></i> (888) 256-7732</a></li>
+                           <li><a href="mailto:support@trypurrx.com"><i class="fa fa-envelope-o"></i> support@trypurrx.com</a></li>
+                        </ul>
+                     </div>
+                     <div class="f_4">
+                        <ul class="social_icons">
+                           <li><a href="#"><img src="assets/images/Instagram.png" alt="instagram-logo"></a></li>
+                           <li><a href="#"><img src="assets/images/Facebook.png" alt="fb-logo"></a></li>
+                           <li><a href="#"><img src="assets/images/Twitter.png" alt="twitter-logo"></a></li>
+                        </ul>
+                        
+                        <img src="assets/images/5907663.png" alt="footer-logo" class="footer-logo">
+                     </div>
+                     <div class="clear"></div>
+                  </div>
+               </div>
+               <div class="row">
+                 <div class="column">
+                    <div class="foo_last_1">
+                     <table>
+                           <tr>
+                              <td><img src="assets/images/logo-small.png" alt=""></td>
+                              <td><i class="fa fa-copyright"></i> 2021 by PurRX</td>
+                              
+                           </tr>
+                        </table>  
+                    </div>
+                    <div class="foo_last_2">
+                     <table>
+                           <tr>
+                              <td><a [routerLink]="" (click)="openModal(privacyPolicy)">Privacy Policy</a></td>
+                              <td><a [routerLink]="" (click)="openModal(termsAndConditions)">Terms & Conditions</a></td>
+                              
+                           </tr>
+                        </table>
+                       
+                    </div>
+                 </div>
+                 <div class="clear"></div>
+              </div>
+            </div>
+      </footer>
+
+
+      <ng-template #termsAndConditions>
+    <div class="btn-holder">
+        <button type="button" class="custom-btn" (click)="modalRef.hide()"> <i class="fa fa-times"></i></button>
+    </div>
+    <div class="modal-body modal-body-custom">
+        <app-terms-and-conditions></app-terms-and-conditions>
+    </div>
+</ng-template>
+
+<ng-template #privacyPolicy>
+    <div class="btn-holder">
+        <button type="button" class="custom-btn" (click)="modalRef.hide()"> <i class="fa fa-times"></i></button>
+    </div>
+    <div class="modal-body modal-body-custom">
+        <app-privacy-policy></app-privacy-policy>>
+    </div>
+</ng-template>
+
+<app-scroll-top></app-scroll-top>

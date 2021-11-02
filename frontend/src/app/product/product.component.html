@@ -1,0 +1,158 @@
+<div id="mainContainer">
+  <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
+  <div class="container">
+    <div class="row">
+
+      <div id="mainContent" class="col-sm-12">
+        <section id="category" class="page-layout">
+          <!--START: CATEGORY_HEADER-->
+          <div class="category-image" id="categoryImage" *ngIf="categoryName != '' && categoryDesc != '' && productCategory">
+            <span style="font-size: 8pt; color: rgb(97, 168, 152);" class="hidden-xs">
+              <h1 class="subcategory-heading">{{ categoryName }} </h1>
+              <div class="text-center clearfix" *ngIf="categoryBanners && categoryBanners[0] !== undefined">
+                <img src="{{baseurl}}backend/images/productCategory/{{categoryBanners[0].image}}" class="img-responsive img-thumbnail">
+              </div>
+              <p>
+                <br>
+                <span style="font-size: 10pt; color: rgb(105, 105, 105);">{{ categoryDesc }}
+                </span>
+              </p>
+            </span>
+            <span style="font-size: 8pt; color: rgb(97, 168, 152);" class="visible-xs">
+                <span class="subcategory-heading subcategory-custom-heading">{{ categoryName }} </span>
+                <div class="text-center clearfix" *ngIf="categoryBanners && categoryBanners[0] !== undefined">
+                  <img src="{{baseurl}}backend/images/productCategory/{{categoryBanners[0].image}}" class="img-responsive img-thumbnail">
+                </div>
+                <p>
+                  <br>
+                  <span style="font-size: 10pt; color: rgb(105, 105, 105);">{{ categoryDesc }}
+                  </span>
+                </p>
+              </span>
+          </div>
+          <!--END: CATEGORY_HEADER-->
+          <!--START: SUB_CATEGORIES-->
+          <div class="module-wrapper" *ngIf="subCategories">
+            <div class="inner-wrapper">
+              <div class="productBlockContainer columns-3">
+                <div class="product-container first-item" *ngFor="let eachSubCategory of subCategories">
+                  <div class="prod-item">
+                    <div class="prod-image">
+                      <a routerLink="/category/{{eachSubCategory.slug}}">
+                        <img *ngIf="eachSubCategory.get_media?.length > 0" src="{{baseurl}}backend/images/productCategory/{{eachSubCategory.get_media[0].image}}"
+                          alt="{{eachSubCategory.name}}" style="width:200px;height:200px;"/>
+
+                        <img *ngIf="eachSubCategory.get_media?.length == 0" src="https://www.nato-pa.int/sites/default/files/default_images/default-image.jpg"
+                          alt="{{eachSubCategory.name}}" style="width:200px;height:200px;" />
+
+                      </a>
+                    </div>
+                    <div class="product-desc">
+                      <div class="name"><a routerLink="/category/{{eachSubCategory.slug}}"><strong>{{eachSubCategory.name}}</strong></a></div>
+                      <p class="">
+                        <span [innerHtml]="getShortDescription(eachSubCategory) | safe:'html'"></span>
+                      </p>
+                      <div class="div-hovered">
+                        <button type="button" class="btn btn-color btnATC" (click)="routeSubCategory(eachSubCategory.slug)">View Products</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div style="clear: both;"></div>
+              </div>
+            </div>
+          </div>
+          <!--END: SUB_CATEGORIES-->
+          <!--START: ITEMS-->
+          <div id="productCategoryBlock">
+            <div class="category-toolbar">
+              <div class="view-as-btn">
+                <div class="btn-group">
+                  <a href="javascript:void(0);" id="grid-view" title="Grid View" class="current-view">
+                    <div>
+                      <div class="icon-bar"></div>
+                      <div class="icon-bar"></div>
+                      <div class="icon-bar"></div>
+                    </div>
+                    <span>GRID</span>
+                  </a>
+                  <a href="javascript:void(0);" id="list-view" title="List View">
+                    <div>
+                      <div class="icon-bar"></div>
+                      <div class="icon-bar"></div>
+                      <div class="icon-bar"></div>
+                    </div>
+                    <span>LIST</span>
+                  </a>
+                </div>
+              </div>
+              <div class="product-count">Products (Total Items: {{ totalItems }})
+              </div>
+              <div class="sort-by">
+                <!--START: sortbylist-->
+                <h3 class="subcategory-heading featured-heading">FEATURED PRODUCTS</h3>
+                <!--END: sortbylist-->
+              </div>
+            </div>
+            <!-- //.category-toolbar -->
+            <!--START: catitemslist-->
+            <!--END: catitemslist-->
+
+            <div class="module-wrapper">
+              <div class="inner-wrapper">
+                <!--START: CATEGORY_ITEMS-->
+                <div class="productBlockContainer columns-3" *ngIf="product_list">
+                  <div class="product-container first-item" *ngFor="let single of product_list">
+                    <div class="prod-item">
+                      <div class="prod-image">
+                        <a routerLink="/products/{{single.id}}">
+                          <img *ngIf="single.get_media?.length > 0" src="{{baseurl}}backend/images/products/{{single.get_media[0].image}}"
+                            alt="{{single.product_name}}" style="width:200px;height:200px;"/>
+
+                          <img *ngIf="single.get_media?.length == 0" src="https://www.nato-pa.int/sites/default/files/default_images/default-image.jpg"
+                            alt="{{single.product_name}}" style="width:200px;height:200px;" />
+
+                        </a>
+                      </div>
+                      <div class="product-desc">
+                        <div class="name"><a routerLink="/products/{{single.id}}"><strong>{{single.product_name}}</strong></a></div>
+                          <p class="hidden-eclipse"><span>{{single.product_short_description}}</span></p>
+                        <div class="price">
+                          <!--START: ITEMPRICE-->
+                          <span class="hidden">Your Price:&nbsp;</span>
+                          <span *ngIf="single.product_actual_price">{{single.product_actual_price | currency }}</span>
+                          <!--END: ITEMPRICE-->
+                        </div>
+                        <div class="div-hovered">
+                          <button type="button" class="btn btn-color btnATC" (click)="routeProductDetails(single.id)">Buy</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="clear: both;"></div>
+                </div>
+
+                <!--END: CATEGORY_ITEMS-->
+              </div>
+              <!-- //.inner-wrapper -->
+            </div>
+            <!-- //.module-wrapper -->
+            <div class="paging">
+              <!--START: PAGING-->
+              <!--END: PAGING-->
+              <!--START: UNDOVIEWALL-->
+              <!--END: UNDOVIEWALL-->
+            </div>
+          </div>
+          <!--END: ITEMS-->
+
+          <div class="category-no-products text-center">
+            <div class="alert alert-warning">There are no products to list in this category.</div>
+            <a class="btn btn-alt" href="https://www.budbox.ca">Continue Shopping</a>
+          </div>
+
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

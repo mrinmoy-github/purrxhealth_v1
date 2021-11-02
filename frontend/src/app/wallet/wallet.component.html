@@ -1,0 +1,125 @@
+<div id="mainContainer">
+  <div class="container">
+    <div class="row">
+      <app-my-account-left-menu></app-my-account-left-menu>
+      <div id="sidebar-toggle" class="hide">
+        <a href="javascript:void(0);">SHOW SIDEBAR
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
+      <div class="breadcrumbs">
+        <a id='catCrumbHomeLink' [routerLink]="['']">Home</a> > My Wallet
+      </div>
+      <div id="mainContent" class="col-sm-9">
+          <section id="extrapage" class="page-layout">
+            <h3 class="page_headers">My Wallet</h3>
+            <div class="content">
+              <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-6 referral_code" *ngIf="wallet">
+                  <!-- REFERRAL START -->
+                  <div class="panel panel-success coupon">
+                      <div class="panel-heading head">
+                        <div class="panel-title title">
+                            <i class="fa fa-dollar fa-2x"></i>
+                            <span class="hidden-xs">Wallet</span>
+                            <span class="visible-xs">Wallet</span>
+                        </div>
+                      </div>
+                      <div class="panel-body">
+                        <img src="assets/images/wallet_money.jpg" class="coupon-img img-rounded">
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                <div class="offer text-info">
+                                    <!-- <span class="usd"><sup>$</sup></span> -->
+                                    <span class="number">${{walletAvailableNumber}}.{{walletAvailableCent}}</span>
+                                    <!-- <span class="cent">{{walletAvailableCent}}</span> -->
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                  <ul class="list-group mt-10">
+                                    <li class="list-group-item list-group-item-success"><strong>Accrued</strong> <span class="pull-right">${{wallet.credited_amount}}</span></li>
+                                    <li class="list-group-item list-group-item-danger"><strong>Redeemed</strong> <span class="pull-right">${{wallet.debited_amount}}</span></li>
+                                    <li class="list-group-item list-group-item-success"><strong>Bonus</strong> <span class="pull-right">${{wallet.bonus_amount}}</span></li>
+                                    <li class="list-group-item list-group-item-danger"><strong>Expired</strong> <span class="pull-right">${{wallet.expired_amount}}</span></li>
+                                    <li class="list-group-item list-group-item-info"><strong>Total</strong> <span class="pull-right">${{wallet.balanced_amount}}</span></li>
+                                  </ul>
+                              </div>
+                        </div>                        
+                        
+                      </div>
+                      <div class="panel-footer">
+                        <div class="coupon-code">
+                            <div class="coupon-code">
+                              For any queries and complain contact us.
+                              <span class="print">
+                                <button type="button" class="btn btn-default" (click)="gotoContactUsPage()">Contact Us</button>
+                              </span>
+                            </div>
+                            <span class="exp">
+                              Tollfree - {{settingsdata.customer_support_no}}
+                            </span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- REFERRAL END -->
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6 referral_code" *ngIf="refferalBlock">
+                  <!-- REFERRAL START -->
+                  <div class="panel panel-info coupon">
+                    <div class="panel-heading head">
+                      <div class="panel-title title">
+                          <i class="fa fa-flag fa-2x"></i>
+                          <span class="hidden-xs">Refer A Friend</span>
+                          <span class="visible-xs">Refer A Friend</span>
+                      </div>
+                    </div>
+                    <div class="panel-body">
+                      <img src="assets/images/ReferAFriend.png" class="coupon-img img-rounded">
+                      <div class="row">
+                        <div class="col-md-12 text-right">
+                          <div class="offer text-info" *ngIf="referralPercentage != '0.00'">
+                              <span class="number">{{referralPercentage}}%</span>
+                              <!-- <span class="usd"><sup>%</sup></span> -->
+                          </div>
+                          <div class="offer text-info" *ngIf="referralFlatNumber != '0' || referralFlatCent != '00'">
+                              <!-- <span class="usd"><sup>$</sup></span> -->
+                              <span class="number">${{referralFlatNumber}}.{{referralFlatCent}}</span>
+                              <!-- <span class="cent">{{referralFlatCent}}</span> -->
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                            <ul class="items walletlist">
+                                <li>Copy your referral link.</li>
+                                <li>Send it to your friends.</li>
+                                <li>Ask your friend to create account and place a order through that link.</li>
+                                <li>On Successful Placing of order, earn your commision instantly on your wallet.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <p class="disclosure">Referral offers of the users the ability to send referrals in real time throughout the referral process. Referral user's on place of new orders referred user will receive {{referralPercentage}}% of total order amount </p>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    <div class="panel-footer">
+                      <div class="coupon-code">
+                          <div class="input-group">
+                            <input class="form-control" name="referral_link" value="" type="text" readonly="readonly" value="{{referralLink}}" >
+                            <span class="input-group-btn">
+                                <button class="btn btn-black btn-md" type="button" title="Copy referral link" ngxClipboard [cbContent]="referralLink" (click)="showToaster()"><i class="fa fa-lg fa-clone"></i></button>
+                            </span>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- REFERRAL END -->
+                </div>
+              </div>
+            </div>
+            <div class="clear"></div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

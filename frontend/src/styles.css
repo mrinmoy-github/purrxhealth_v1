@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+.modal{
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999999;
+}
+.home_modal .modal-body{max-height: 70vh;overflow: hidden; overflow-y: scroll;}
+@media(max-width:767px){
+    .home_modal .modal-body{height: 65vh;}
+}
+.black-overlay{
+    position: fixed !important;
+}

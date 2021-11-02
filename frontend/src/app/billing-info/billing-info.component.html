@@ -1,0 +1,157 @@
+<div id="mainContainer">
+  <div class="container">
+    <div class="row">
+      <!--START: LEFT BAR-->
+      <app-my-account-left-menu></app-my-account-left-menu>
+      <!--END: LEFT BAR-->
+      <div id="sidebar-toggle" class="hide">
+        <a href="javascript:void(0);">SHOW SIDEBAR
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
+      <!--END: LEFT BAR-->
+      <!--START: FRAME_MID-->
+      <!--START: BODY_HEADER-->
+      <div class="breadcrumbs">
+        <a id='catCrumbHomeLink' [routerLink]="['']">Home</a> > My Account > Billing Information
+      </div>
+      <!--END: BODY_HEADER-->
+
+      <div id="mainContent" class="col-sm-9">
+        <section id="registration0">
+          <form name="billinginfoForm" id="billinginfoForm" #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+
+            <h1 class="page_headers">Update Billing Information </h1>
+
+            <div class="group-message"></div>
+            <div class="accountRegForm pad10 boxShadow" style="margin-top: 15px;">
+              <div class="header">
+                <h3>Billing Information</h3>
+                <div class="alert alert-success" *ngIf="success_msg != ''">{{success_msg}}</div>
+                <div class="alert alert-danger" *ngIf="error_msg != ''">{{error_msg}}</div>
+              </div>
+              <div class="loginField">
+                <label for="billingFirstName">First Name
+                  <span class="required">*</span>
+                </label>
+                <input name="billingFirstName" type="text" id="billingFirstName" maxlength="100" size="15" tabindex="4"
+                  class="txtBoxStyle" [(ngModel)]="model.billingFirstName" #billingFirstName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingFirstName.invalid }"
+                  required>
+                <div *ngIf="billingFirstName.invalid && (billingFirstName.dirty || billingFirstName.touched)" class="alert alert-danger">
+                  <div *ngIf="billingFirstName.errors.required">
+                    First Name is required.
+                  </div>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <div class="loginField">
+                <label for="billingLastName">Last Name
+                  <span class="required">*</span>
+                </label>
+                <input name="billingLastName" type="text" id="billingLastName" maxlength="100" size="15" tabindex="5"
+                  class="txtBoxStyle" [(ngModel)]="model.billingLastName" #billingLastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingLastName.invalid }"
+                  required>
+                <div *ngIf="billingLastName.invalid && (billingLastName.dirty || billingLastName.touched)" class="alert alert-danger">
+                  <div *ngIf="billingLastName.errors.required">
+                    Last Name is required.
+                  </div>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <div class="loginField">
+                <label for="billingAddress1">Address
+                  <span class="required">*</span>
+                </label>
+                <input name="billingAddress1" type="text" id="billingAddress1" maxlength="255" size="25" tabindex="9"
+                  class="txtBoxStyle" [(ngModel)]="model.billingAddress1" #billingAddress1="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingAddress1.invalid }"
+                  required>
+                <div *ngIf="billingAddress1.invalid && (billingAddress1.dirty || billingAddress1.touched)" class="alert alert-danger">
+                  <div *ngIf="billingAddress1.errors.required">
+                    Address is required.
+                  </div>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <div class="loginField">
+                <label for="billingCity">City
+                  <span class="required">*</span>
+                </label>
+                <input name="billingCity" type="text" id="billingCity" size="25" maxlength="100" tabindex="10" class="txtBoxStyle"
+                  [(ngModel)]="model.billingCity" #billingCity="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingCity.invalid }"
+                  required>
+                <div *ngIf="billingCity.invalid && (billingCity.dirty || billingCity.touched)" class="alert alert-danger">
+                  <div *ngIf="billingCity.errors.required">
+                    City is required.
+                  </div>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <div class="loginField">
+                <label for="billingCountry">Country
+                  <span class="required">*</span>
+                </label>
+                <select name="billingCountry" [(ngModel)]="model.billingCountry" (change)="getStateList(model.billingCountry)"
+                  #billingCountry="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingCountry.invalid }"
+                  required tabindex="11" class="txtBoxStyle">
+                  <option value="">Select Country</option>
+                  <option *ngFor="let country of countryList" value="{{country.country_iso_code_2}}">{{country.country_name}}</option>
+                </select>
+                <div *ngIf="billingCountry.invalid && (billingCountry.dirty || billingCountry.touched)" class="alert alert-danger">
+                  <div *ngIf="billingCountry.errors.required">
+                    Country is required.
+                  </div>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <div class="loginField">
+                <label for="billingState">Province
+                  <span class="required">*</span>
+                </label>
+                <span name="spanState" id="spanState">
+                  <select name="billingState" maxlength="100" [(ngModel)]="model.billingState" #billingState="ngModel"
+                    [ngClass]="{ 'is-invalid': f.submitted && billingState.invalid }" required tabindex="12" class="txtBoxStyle">
+                    <option value="">Select Province</option>
+                    <option *ngFor="let state of stateList" value="{{state.state_code}}">{{state.state_name}}</option>
+                  </select>
+                </span>
+                <div *ngIf="billingState.invalid && (billingState.dirty || billingState.touched)" class="alert alert-danger">
+                  <div *ngIf="billingState.errors.required">
+                      Province is required.
+                  </div>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <div class="loginField">
+                <label for="billingZip">Postal Code
+                  <span class="required">*</span>
+                </label>
+                <input name="billingZip" type="text" size="10" maxlength="20" tabindex="13" class="txtBoxStyle"
+                  [(ngModel)]="model.billingZip" #billingZip="ngModel" [ngClass]="{ 'is-invalid': f.submitted && billingZip.invalid }"
+                  required>
+                <div *ngIf="billingZip.invalid && (billingZip.dirty || billingZip.touched)" class="alert alert-danger">
+                  <div *ngIf="billingZip.errors.required">
+                    Postal Code is required.
+                  </div>
+                </div>
+                <div class="clear"></div>
+              </div>
+            </div>
+            <div class="submit-button">
+              <br />
+              <button type="submit" id="submitted" name="submitted" class="btn" [disabled]="!f.form.valid">
+                <i class="icon-ok"></i> Update
+              </button>
+            </div>
+            <div class="clear"></div>
+            <div class="clear"></div>
+            <!--START: CATEGORY_FOOTER-->
+            <div class="category-footer" id="registrationFooter">
+              <br>
+            </div>
+            <!--END: CATEGORY_FOOTER-->
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div id="mainContainer">
+  <div class="container">
+    <div class="row">
+      <!--START: LEFT BAR-->
+      <app-my-account-left-menu></app-my-account-left-menu>
+      <!--END: LEFT BAR-->
+      <div id="sidebar-toggle" class="hide">
+        <a href="javascript:void(0);">SHOW SIDEBAR
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
+      <!--END: LEFT BAR-->
+      <!--START: FRAME_MID-->
+      <!--START: BODY_HEADER-->
+      <div class="breadcrumbs">
+        <a id='catCrumbHomeLink' [routerLink]="['']">Home</a> > My Account > {{ capitalizeFirstLetter(addressType) }} Information
+      </div>
+      <!--END: BODY_HEADER-->
+
+      <div id="mainContent" class="col-sm-9">
+        <section id="registration0">
+          <div class="row"><a class="btn btn-sm btn-warning pull-right" [routerLink]="['/address/'+addressType+'/add']">Add
+              New</a></div>
+          <!-- <div class="clear-fix"><br></div> -->
+          <div class="row">
+            <app-address-card [type]="addressType"></app-address-card>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

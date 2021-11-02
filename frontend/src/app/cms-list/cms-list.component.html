@@ -1,0 +1,37 @@
+<div id="mainContainer">
+  <div class="container">
+    <div class="row">
+        <div id="mainContent">
+            <section class="blog_page">
+                <div class="container">
+                    <tabset #staticTabs *ngIf="blogs">
+                        <tab *ngFor="let blogCategory of _get_object_keys(blogs)">
+                          <ng-template tabHeading>
+                            <h5 class="tab-title-blue"><strong>BLOGS FOR {{ blogCategory.toUpperCase() }}</strong></h5>
+                          </ng-template>
+                          <div class="row" *ngIf="blogCategory">
+                              <div class="col-md-4 col-sm-6" *ngFor="let eachBlog of blogs[blogCategory];">
+                                  <div class="each_blog">
+                                      <div class="blog_image">
+                                        <a routerLink="/blog/{{eachBlog.slug}}"><img src="{{ baseUrl + eachBlog.image_path }}" class="img-responsive" style="height:200px;"></a>
+                                      </div>
+                                      <div class="blog_header">
+                                        <a routerLink="/blog/{{eachBlog.slug}}">{{eachBlog.name}}</a>
+                                      </div>
+                                      <div class="blog_details">
+                                        <p [innerHtml]="getContent(eachBlog.content)"></p>
+                                      </div>
+                                      <div class="read_more">
+                                        <p><a routerLink="/blog/{{eachBlog.slug}}">Read More</a></p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </tab>
+                    </tabset>
+                </div>
+            </section>
+        </div>
+    </div>
+  </div>
+</div>
